@@ -1,15 +1,17 @@
-name: dart_package_template
+name: mdamount
 version: 1.0.0
-homepage: https://github.com/marchdev-tk/dart_package_template
-repository: https://github.com/marchdev-tk/dart_package_template
-issue_tracker: https://github.com/marchdev-tk/dart_package_template/issues
-description: dart_package_template description
+homepage: https://github.com/marchdev-tk/mdamount
+repository: https://github.com/marchdev-tk/mdamount
+issue_tracker: https://github.com/marchdev-tk/mdamount/issues
+description: march.dev amount library. Provides a new way to work with an amount. From highly flexible creation to rich data manipulation and stringification options.
 
 environment:
-  sdk: '>=2.12.0 <3.0.0'
+  sdk: '>=3.5.0 <4.0.0'
 
 dependencies:
+  meta: ^1.15.0
+  decimal: ^3.0.2
 
 dev_dependencies:
-  flutter_lints: ^1.0.0
-  test: ^1.16.5
+  flutter_lints: ^5.0.0
+  test: ^1.25.7

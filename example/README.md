@@ -1,6 +1,6 @@
-# dart_package_template_example
+# mdamount_example
 
-Demonstrates how to use the dart_package_template package.
+Demonstrates how to use the mdamount package.
 
 ## Usage
 
