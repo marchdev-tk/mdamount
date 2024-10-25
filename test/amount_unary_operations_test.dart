@@ -3,1184 +3,1108 @@
 import 'package:mdamount/mdamount.dart';
 import 'package:test/test.dart';
 
-import 'constants.dart';
-
 void main() {
   group('integer >', () {
-    test('1.5${defaultCurrency.icon}', () {
-      final actual = Money.fromDouble(1.5, defaultCurrency).integer;
+    test('1.5', () {
+      final actual = Amount.fromDouble(1.5).integer;
       final expected = BigInt.one;
       expect(actual, expected);
     });
-    test('1${defaultCurrency.icon}', () {
-      final actual = Money.fromDouble(1, defaultCurrency).integer;
+    test('1', () {
+      final actual = Amount.fromDouble(1).integer;
       final expected = BigInt.one;
       expect(actual, expected);
     });
-    test('99 cents', () {
-      final actual = Money.fromDouble(0.99, defaultCurrency).integer;
+    test('0.99', () {
+      final actual = Amount.fromDouble(0.99).integer;
       final expected = BigInt.zero;
       expect(actual, expected);
     });
-    test('1 cent', () {
-      final actual = Money.fromDouble(0.01, defaultCurrency).integer;
+    test('0.01', () {
+      final actual = Amount.fromDouble(0.01).integer;
       final expected = BigInt.zero;
       expect(actual, expected);
     });
-    test('0 cents', () {
-      final actual = Money.fromDouble(0, defaultCurrency).integer;
+    test('0', () {
+      final actual = Amount.fromDouble(0).integer;
       final expected = BigInt.zero;
       expect(actual, expected);
     });
-    test('-1 cent', () {
-      final actual = Money.fromDouble(-0.01, defaultCurrency).integer;
+    test('-0.01', () {
+      final actual = Amount.fromDouble(-0.01).integer;
       final expected = BigInt.zero;
       expect(actual, expected);
     });
-    test('-99 cents', () {
-      final actual = Money.fromDouble(-0.99, defaultCurrency).integer;
+    test('-0.99', () {
+      final actual = Amount.fromDouble(-0.99).integer;
       final expected = BigInt.zero;
       expect(actual, expected);
     });
-    test('-1${defaultCurrency.icon}', () {
-      final actual = Money.fromDouble(-1, defaultCurrency).integer;
+    test('-1', () {
+      final actual = Amount.fromDouble(-1).integer;
       final expected = -BigInt.one;
       expect(actual, expected);
     });
-    test('-1.5${defaultCurrency.icon}', () {
-      final actual = Money.fromDouble(-1.5, defaultCurrency).integer;
+    test('-1.5', () {
+      final actual = Amount.fromDouble(-1.5).integer;
       final expected = -BigInt.one;
       expect(actual, expected);
     });
     test('positive, precision 0', () {
-      final actual =
-          Money.fromDouble(123.456789, defaultCurrency, precision: 0).integer;
+      final actual = Amount.fromDouble(123.456789, precision: 0).integer;
       final expected = BigInt.from(123);
       expect(actual, expected);
     });
     test('positive, precision 4', () {
-      final actual =
-          Money.fromDouble(123.456789, defaultCurrency, precision: 4).integer;
+      final actual = Amount.fromDouble(123.456789, precision: 4).integer;
       final expected = BigInt.from(123);
       expect(actual, expected);
     });
     test('negative, precision 0', () {
-      final actual =
-          Money.fromDouble(-123.456789, defaultCurrency, precision: 0).integer;
+      final actual = Amount.fromDouble(-123.456789, precision: 0).integer;
       final expected = -BigInt.from(123);
       expect(actual, expected);
     });
     test('negative, precision 4', () {
-      final actual =
-          Money.fromDouble(-123.456789, defaultCurrency, precision: 4).integer;
+      final actual = Amount.fromDouble(-123.456789, precision: 4).integer;
       final expected = -BigInt.from(123);
       expect(actual, expected);
     });
   });
 
   group('fractional >', () {
-    test('1.5${defaultCurrency.icon}', () {
-      final actual = Money.fromDouble(1.5, defaultCurrency).fractional;
+    test('1.5', () {
+      final actual = Amount.fromDouble(1.5).fractional;
       final expected = BigInt.from(50);
       expect(actual, expected);
     });
-    test('1${defaultCurrency.icon}', () {
-      final actual = Money.fromDouble(1, defaultCurrency).fractional;
+    test('1', () {
+      final actual = Amount.fromDouble(1).fractional;
       final expected = BigInt.zero;
       expect(actual, expected);
     });
-    test('99 cents', () {
-      final actual = Money.fromDouble(0.99, defaultCurrency).fractional;
+    test('0.99', () {
+      final actual = Amount.fromDouble(0.99).fractional;
       final expected = BigInt.from(99);
       expect(actual, expected);
     });
-    test('1 cent', () {
-      final actual = Money.fromDouble(0.01, defaultCurrency).fractional;
+    test('0.01', () {
+      final actual = Amount.fromDouble(0.01).fractional;
       final expected = BigInt.one;
       expect(actual, expected);
     });
-    test('0 cents', () {
-      final actual = Money.fromDouble(0, defaultCurrency).fractional;
+    test('0', () {
+      final actual = Amount.fromDouble(0).fractional;
       final expected = BigInt.zero;
       expect(actual, expected);
     });
-    test('-1 cent', () {
-      final actual = Money.fromDouble(-0.01, defaultCurrency).fractional;
+    test('-0.01', () {
+      final actual = Amount.fromDouble(-0.01).fractional;
       final expected = -BigInt.one;
       expect(actual, expected);
     });
-    test('-99 cents', () {
-      final actual = Money.fromDouble(-0.99, defaultCurrency).fractional;
+    test('-0.99', () {
+      final actual = Amount.fromDouble(-0.99).fractional;
       final expected = -BigInt.from(99);
       expect(actual, expected);
     });
-    test('-1${defaultCurrency.icon}', () {
-      final actual = Money.fromDouble(-1, defaultCurrency).fractional;
+    test('-1', () {
+      final actual = Amount.fromDouble(-1).fractional;
       final expected = BigInt.zero;
       expect(actual, expected);
     });
-    test('-1.5${defaultCurrency.icon}', () {
-      final actual = Money.fromDouble(-1.5, defaultCurrency).fractional;
+    test('-1.5', () {
+      final actual = Amount.fromDouble(-1.5).fractional;
       final expected = -BigInt.from(50);
       expect(actual, expected);
     });
     test('positive, precision 0', () {
-      final actual = Money.fromDouble(123.456789, defaultCurrency, precision: 0)
-          .fractional;
+      final actual = Amount.fromDouble(123.456789, precision: 0).fractional;
       final expected = BigInt.zero;
       expect(actual, expected);
     });
     test('positive, precision 4', () {
-      final actual = Money.fromDouble(123.456789, defaultCurrency, precision: 4)
-          .fractional;
+      final actual = Amount.fromDouble(123.456789, precision: 4).fractional;
       final expected = BigInt.from(4568);
       expect(actual, expected);
     });
     test('negative, precision 0', () {
-      final actual =
-          Money.fromDouble(-123.456789, defaultCurrency, precision: 0)
-              .fractional;
+      final actual = Amount.fromDouble(-123.456789, precision: 0).fractional;
       final expected = BigInt.zero;
       expect(actual, expected);
     });
     test('negative, precision 4', () {
-      final actual =
-          Money.fromDouble(-123.456789, defaultCurrency, precision: 4)
-              .fractional;
+      final actual = Amount.fromDouble(-123.456789, precision: 4).fractional;
       final expected = -BigInt.from(4568);
       expect(actual, expected);
     });
   });
 
   group('fractionalDecimal >', () {
-    test('1.5${defaultCurrency.icon}', () {
-      final actual = Money.fromDouble(1.5, defaultCurrency).fractionalDecimal;
+    test('1.5', () {
+      final actual = Amount.fromDouble(1.5).fractionalDecimal;
       final expected = Decimal.parse('0.5');
       expect(actual, expected);
     });
-    test('1${defaultCurrency.icon}', () {
-      final actual = Money.fromDouble(1, defaultCurrency).fractionalDecimal;
+    test('1', () {
+      final actual = Amount.fromDouble(1).fractionalDecimal;
       final expected = Decimal.zero;
       expect(actual, expected);
     });
-    test('99 cents', () {
-      final actual = Money.fromDouble(0.99, defaultCurrency).fractionalDecimal;
+    test('0.99', () {
+      final actual = Amount.fromDouble(0.99).fractionalDecimal;
       final expected = Decimal.parse('0.99');
       expect(actual, expected);
     });
-    test('1 cent', () {
-      final actual = Money.fromDouble(0.01, defaultCurrency).fractionalDecimal;
+    test('0.01', () {
+      final actual = Amount.fromDouble(0.01).fractionalDecimal;
       final expected = Decimal.parse('0.01');
       expect(actual, expected);
     });
-    test('0 cents', () {
-      final actual = Money.fromDouble(0, defaultCurrency).fractionalDecimal;
+    test('0', () {
+      final actual = Amount.fromDouble(0).fractionalDecimal;
       final expected = Decimal.zero;
       expect(actual, expected);
     });
-    test('-1 cent', () {
-      final actual = Money.fromDouble(-0.01, defaultCurrency).fractionalDecimal;
+    test('-0.01', () {
+      final actual = Amount.fromDouble(-0.01).fractionalDecimal;
       final expected = Decimal.parse('-0.01');
       expect(actual, expected);
     });
-    test('-99 cents', () {
-      final actual = Money.fromDouble(-0.99, defaultCurrency).fractionalDecimal;
+    test('-0.99', () {
+      final actual = Amount.fromDouble(-0.99).fractionalDecimal;
       final expected = Decimal.parse('-0.99');
       expect(actual, expected);
     });
-    test('-1${defaultCurrency.icon}', () {
-      final actual = Money.fromDouble(-1, defaultCurrency).fractionalDecimal;
+    test('-1', () {
+      final actual = Amount.fromDouble(-1).fractionalDecimal;
       final expected = Decimal.zero;
       expect(actual, expected);
     });
-    test('-1.5${defaultCurrency.icon}', () {
-      final actual = Money.fromDouble(-1.5, defaultCurrency).fractionalDecimal;
+    test('-1.5', () {
+      final actual = Amount.fromDouble(-1.5).fractionalDecimal;
       final expected = Decimal.parse('-0.5');
       expect(actual, expected);
     });
     test('positive, precision 0', () {
-      final actual = Money.fromDouble(123.456789, defaultCurrency, precision: 0)
-          .fractionalDecimal;
+      final actual =
+          Amount.fromDouble(123.456789, precision: 0).fractionalDecimal;
       final expected = Decimal.zero;
       expect(actual, expected);
     });
     test('positive, precision 4', () {
-      final actual = Money.fromDouble(123.456789, defaultCurrency, precision: 4)
-          .fractionalDecimal;
+      final actual =
+          Amount.fromDouble(123.456789, precision: 4).fractionalDecimal;
       final expected = Decimal.parse('0.4568');
       expect(actual, expected);
     });
     test('negative, precision 0', () {
       final actual =
-          Money.fromDouble(-123.456789, defaultCurrency, precision: 0)
-              .fractionalDecimal;
+          Amount.fromDouble(-123.456789, precision: 0).fractionalDecimal;
       final expected = Decimal.zero;
       expect(actual, expected);
     });
     test('negative, precision 4', () {
       final actual =
-          Money.fromDouble(-123.456789, defaultCurrency, precision: 4)
-              .fractionalDecimal;
+          Amount.fromDouble(-123.456789, precision: 4).fractionalDecimal;
       final expected = -Decimal.parse('0.4568');
       expect(actual, expected);
     });
   });
 
   group('fractionalDouble >', () {
-    test('1.5${defaultCurrency.icon}', () {
-      final actual = Money.fromDouble(1.5, defaultCurrency).fractionalDouble;
+    test('1.5', () {
+      final actual = Amount.fromDouble(1.5).fractionalDouble;
       const expected = 0.5;
       expect(actual, expected);
     });
-    test('1${defaultCurrency.icon}', () {
-      final actual = Money.fromDouble(1, defaultCurrency).fractionalDouble;
+    test('1', () {
+      final actual = Amount.fromDouble(1).fractionalDouble;
       const expected = 0.0;
       expect(actual, expected);
     });
-    test('99 cents', () {
-      final actual = Money.fromDouble(0.99, defaultCurrency).fractionalDouble;
+    test('0.99', () {
+      final actual = Amount.fromDouble(0.99).fractionalDouble;
       const expected = 0.99;
       expect(actual, expected);
     });
-    test('1 cent', () {
-      final actual = Money.fromDouble(0.01, defaultCurrency).fractionalDouble;
+    test('0.01', () {
+      final actual = Amount.fromDouble(0.01).fractionalDouble;
       const expected = 0.01;
       expect(actual, expected);
     });
-    test('0 cents', () {
-      final actual = Money.fromDouble(0, defaultCurrency).fractionalDouble;
+    test('0', () {
+      final actual = Amount.fromDouble(0).fractionalDouble;
       const expected = 0;
       expect(actual, expected);
     });
-    test('-1 cent', () {
-      final actual = Money.fromDouble(-0.01, defaultCurrency).fractionalDouble;
+    test('-0.01', () {
+      final actual = Amount.fromDouble(-0.01).fractionalDouble;
       const expected = -0.01;
       expect(actual, expected);
     });
-    test('-99 cents', () {
-      final actual = Money.fromDouble(-0.99, defaultCurrency).fractionalDouble;
+    test('-0.99', () {
+      final actual = Amount.fromDouble(-0.99).fractionalDouble;
       const expected = -0.99;
       expect(actual, expected);
     });
-    test('-1${defaultCurrency.icon}', () {
-      final actual = Money.fromDouble(-1, defaultCurrency).fractionalDouble;
+    test('-1', () {
+      final actual = Amount.fromDouble(-1).fractionalDouble;
       const expected = 0.0;
       expect(actual, expected);
     });
-    test('-1.5${defaultCurrency.icon}', () {
-      final actual = Money.fromDouble(-1.5, defaultCurrency).fractionalDouble;
+    test('-1.5', () {
+      final actual = Amount.fromDouble(-1.5).fractionalDouble;
       const expected = -0.5;
       expect(actual, expected);
     });
     test('positive, precision 0', () {
-      final actual = Money.fromDouble(123.456789, defaultCurrency, precision: 0)
-          .fractionalDouble;
+      final actual =
+          Amount.fromDouble(123.456789, precision: 0).fractionalDouble;
       const expected = 0.0;
       expect(actual, expected);
     });
     test('positive, precision 4', () {
-      final actual = Money.fromDouble(123.456789, defaultCurrency, precision: 4)
-          .fractionalDouble;
+      final actual =
+          Amount.fromDouble(123.456789, precision: 4).fractionalDouble;
       const expected = 0.4568;
       expect(actual, expected);
     });
     test('negative, precision 0', () {
       final actual =
-          Money.fromDouble(-123.456789, defaultCurrency, precision: 0)
-              .fractionalDouble;
+          Amount.fromDouble(-123.456789, precision: 0).fractionalDouble;
       const expected = 0.0;
       expect(actual, expected);
     });
     test('negative, precision 4', () {
       final actual =
-          Money.fromDouble(-123.456789, defaultCurrency, precision: 4)
-              .fractionalDouble;
+          Amount.fromDouble(-123.456789, precision: 4).fractionalDouble;
       const expected = -0.4568;
       expect(actual, expected);
     });
   });
 
   group('sign >', () {
-    test('1.5${defaultCurrency.icon}', () {
-      final actual = Money.fromDouble(1.5, defaultCurrency).sign;
+    test('1.5', () {
+      final actual = Amount.fromDouble(1.5).sign;
       const expected = 1;
       expect(actual, expected);
     });
-    test('1${defaultCurrency.icon}', () {
-      final actual = Money.fromDouble(1, defaultCurrency).sign;
+    test('1', () {
+      final actual = Amount.fromDouble(1).sign;
       const expected = 1;
       expect(actual, expected);
     });
-    test('99 cents', () {
-      final actual = Money.fromDouble(0.99, defaultCurrency).sign;
+    test('0.99', () {
+      final actual = Amount.fromDouble(0.99).sign;
       const expected = 1;
       expect(actual, expected);
     });
-    test('1 cent', () {
-      final actual = Money.fromDouble(0.01, defaultCurrency).sign;
+    test('0.01', () {
+      final actual = Amount.fromDouble(0.01).sign;
       const expected = 1;
       expect(actual, expected);
     });
-    test('0 cents', () {
-      final actual = Money.fromDouble(0, defaultCurrency).sign;
+    test('0', () {
+      final actual = Amount.fromDouble(0).sign;
       const expected = 0;
       expect(actual, expected);
     });
-    test('-1 cent', () {
-      final actual = Money.fromDouble(-0.01, defaultCurrency).sign;
+    test('-0.01', () {
+      final actual = Amount.fromDouble(-0.01).sign;
       const expected = -1;
       expect(actual, expected);
     });
-    test('-99 cents', () {
-      final actual = Money.fromDouble(-0.99, defaultCurrency).sign;
+    test('-0.99', () {
+      final actual = Amount.fromDouble(-0.99).sign;
       const expected = -1;
       expect(actual, expected);
     });
-    test('-1${defaultCurrency.icon}', () {
-      final actual = Money.fromDouble(-1, defaultCurrency).sign;
+    test('-1', () {
+      final actual = Amount.fromDouble(-1).sign;
       const expected = -1;
       expect(actual, expected);
     });
-    test('-1.5${defaultCurrency.icon}', () {
-      final actual = Money.fromDouble(-1.5, defaultCurrency).sign;
+    test('-1.5', () {
+      final actual = Amount.fromDouble(-1.5).sign;
       const expected = -1;
       expect(actual, expected);
     });
     test('positive, precision 0', () {
-      final actual =
-          Money.fromDouble(123.456789, defaultCurrency, precision: 0).sign;
+      final actual = Amount.fromDouble(123.456789, precision: 0).sign;
       const expected = 1;
       expect(actual, expected);
     });
     test('positive, precision 4', () {
-      final actual =
-          Money.fromDouble(123.456789, defaultCurrency, precision: 4).sign;
+      final actual = Amount.fromDouble(123.456789, precision: 4).sign;
       const expected = 1;
       expect(actual, expected);
     });
     test('negative, precision 0', () {
-      final actual =
-          Money.fromDouble(-123.456789, defaultCurrency, precision: 0).sign;
+      final actual = Amount.fromDouble(-123.456789, precision: 0).sign;
       const expected = -1;
       expect(actual, expected);
     });
     test('negative, precision 4', () {
-      final actual =
-          Money.fromDouble(-123.456789, defaultCurrency, precision: 4).sign;
+      final actual = Amount.fromDouble(-123.456789, precision: 4).sign;
       const expected = -1;
       expect(actual, expected);
     });
   });
 
   group('isEven >', () {
-    test('1.51${defaultCurrency.icon}', () {
-      final actual = Money.fromDouble(1.51, defaultCurrency).isEven;
+    test('1.51', () {
+      final actual = Amount.fromDouble(1.51).isEven;
       const expected = false;
       expect(actual, expected);
     });
-    test('1${defaultCurrency.icon}', () {
-      final actual = Money.fromDouble(1, defaultCurrency).isEven;
+    test('1', () {
+      final actual = Amount.fromDouble(1).isEven;
       const expected = true;
       expect(actual, expected);
     });
     test('51 cents', () {
-      final actual = Money.fromDouble(0.51, defaultCurrency).isEven;
+      final actual = Amount.fromDouble(0.51).isEven;
       const expected = false;
       expect(actual, expected);
     });
     test('2 cents', () {
-      final actual = Money.fromDouble(0.02, defaultCurrency).isEven;
+      final actual = Amount.fromDouble(0.02).isEven;
       const expected = true;
       expect(actual, expected);
     });
-    test('0 cents', () {
-      final actual = Money.fromDouble(0, defaultCurrency).isEven;
+    test('0', () {
+      final actual = Amount.fromDouble(0).isEven;
       const expected = true;
       expect(actual, expected);
     });
     test('-2 cents', () {
-      final actual = Money.fromDouble(-0.02, defaultCurrency).isEven;
+      final actual = Amount.fromDouble(-0.02).isEven;
       const expected = true;
       expect(actual, expected);
     });
     test('-51 cents', () {
-      final actual = Money.fromDouble(-0.51, defaultCurrency).isEven;
+      final actual = Amount.fromDouble(-0.51).isEven;
       const expected = false;
       expect(actual, expected);
     });
-    test('-1${defaultCurrency.icon}', () {
-      final actual = Money.fromDouble(-1, defaultCurrency).isEven;
+    test('-1', () {
+      final actual = Amount.fromDouble(-1).isEven;
       const expected = true;
       expect(actual, expected);
     });
-    test('-1.51${defaultCurrency.icon}', () {
-      final actual = Money.fromDouble(-1.51, defaultCurrency).isEven;
+    test('-1.51', () {
+      final actual = Amount.fromDouble(-1.51).isEven;
       const expected = false;
       expect(actual, expected);
     });
     test('positive, precision 0', () {
-      final actual =
-          Money.fromDouble(123.456789, defaultCurrency, precision: 0).isEven;
+      final actual = Amount.fromDouble(123.456789, precision: 0).isEven;
       const expected = false;
       expect(actual, expected);
     });
     test('positive, precision 4', () {
-      final actual =
-          Money.fromDouble(123.456789, defaultCurrency, precision: 4).isEven;
+      final actual = Amount.fromDouble(123.456789, precision: 4).isEven;
       const expected = true;
       expect(actual, expected);
     });
     test('negative, precision 0', () {
-      final actual =
-          Money.fromDouble(-123.456789, defaultCurrency, precision: 0).isEven;
+      final actual = Amount.fromDouble(-123.456789, precision: 0).isEven;
       const expected = false;
       expect(actual, expected);
     });
     test('negative, precision 4', () {
-      final actual =
-          Money.fromDouble(-123.456789, defaultCurrency, precision: 4).isEven;
+      final actual = Amount.fromDouble(-123.456789, precision: 4).isEven;
       const expected = true;
       expect(actual, expected);
     });
   });
 
   group('isOdd >', () {
-    test('1.51${defaultCurrency.icon}', () {
-      final actual = Money.fromDouble(1.51, defaultCurrency).isOdd;
+    test('1.51', () {
+      final actual = Amount.fromDouble(1.51).isOdd;
       const expected = true;
       expect(actual, expected);
     });
-    test('1${defaultCurrency.icon}', () {
-      final actual = Money.fromDouble(1, defaultCurrency).isOdd;
+    test('1', () {
+      final actual = Amount.fromDouble(1).isOdd;
       const expected = false;
       expect(actual, expected);
     });
     test('51 cents', () {
-      final actual = Money.fromDouble(0.51, defaultCurrency).isOdd;
+      final actual = Amount.fromDouble(0.51).isOdd;
       const expected = true;
       expect(actual, expected);
     });
     test('2 cents', () {
-      final actual = Money.fromDouble(0.02, defaultCurrency).isOdd;
+      final actual = Amount.fromDouble(0.02).isOdd;
       const expected = false;
       expect(actual, expected);
     });
-    test('0 cents', () {
-      final actual = Money.fromDouble(0, defaultCurrency).isOdd;
+    test('0', () {
+      final actual = Amount.fromDouble(0).isOdd;
       const expected = false;
       expect(actual, expected);
     });
     test('-2 cents', () {
-      final actual = Money.fromDouble(-0.02, defaultCurrency).isOdd;
+      final actual = Amount.fromDouble(-0.02).isOdd;
       const expected = false;
       expect(actual, expected);
     });
     test('-51 cents', () {
-      final actual = Money.fromDouble(-0.51, defaultCurrency).isOdd;
+      final actual = Amount.fromDouble(-0.51).isOdd;
       const expected = true;
       expect(actual, expected);
     });
-    test('-1${defaultCurrency.icon}', () {
-      final actual = Money.fromDouble(-1, defaultCurrency).isOdd;
+    test('-1', () {
+      final actual = Amount.fromDouble(-1).isOdd;
       const expected = false;
       expect(actual, expected);
     });
-    test('-1.51${defaultCurrency.icon}', () {
-      final actual = Money.fromDouble(-1.51, defaultCurrency).isOdd;
+    test('-1.51', () {
+      final actual = Amount.fromDouble(-1.51).isOdd;
       const expected = true;
       expect(actual, expected);
     });
     test('positive, precision 0', () {
-      final actual =
-          Money.fromDouble(123.456789, defaultCurrency, precision: 0).isOdd;
+      final actual = Amount.fromDouble(123.456789, precision: 0).isOdd;
       const expected = true;
       expect(actual, expected);
     });
     test('positive, precision 4', () {
-      final actual =
-          Money.fromDouble(123.456789, defaultCurrency, precision: 4).isOdd;
+      final actual = Amount.fromDouble(123.456789, precision: 4).isOdd;
       const expected = false;
       expect(actual, expected);
     });
     test('negative, precision 0', () {
-      final actual =
-          Money.fromDouble(-123.456789, defaultCurrency, precision: 0).isOdd;
+      final actual = Amount.fromDouble(-123.456789, precision: 0).isOdd;
       const expected = true;
       expect(actual, expected);
     });
     test('negative, precision 4', () {
-      final actual =
-          Money.fromDouble(-123.456789, defaultCurrency, precision: 4).isOdd;
+      final actual = Amount.fromDouble(-123.456789, precision: 4).isOdd;
       const expected = false;
       expect(actual, expected);
     });
   });
 
   group('isNegative >', () {
-    test('1.5${defaultCurrency.icon}', () {
-      final actual = Money.fromDouble(1.5, defaultCurrency).isNegative;
+    test('1.5', () {
+      final actual = Amount.fromDouble(1.5).isNegative;
       const expected = false;
       expect(actual, expected);
     });
-    test('1${defaultCurrency.icon}', () {
-      final actual = Money.fromDouble(1, defaultCurrency).isNegative;
+    test('1', () {
+      final actual = Amount.fromDouble(1).isNegative;
       const expected = false;
       expect(actual, expected);
     });
-    test('1 cent', () {
-      final actual = Money.fromDouble(0.01, defaultCurrency).isNegative;
+    test('0.01', () {
+      final actual = Amount.fromDouble(0.01).isNegative;
       const expected = false;
       expect(actual, expected);
     });
-    test('0 cents', () {
-      final actual = Money.fromDouble(0, defaultCurrency).isNegative;
+    test('0', () {
+      final actual = Amount.fromDouble(0).isNegative;
       const expected = false;
       expect(actual, expected);
     });
-    test('-1 cent', () {
-      final actual = Money.fromDouble(-0.01, defaultCurrency).isNegative;
+    test('-0.01', () {
+      final actual = Amount.fromDouble(-0.01).isNegative;
       const expected = true;
       expect(actual, expected);
     });
-    test('-1${defaultCurrency.icon}', () {
-      final actual = Money.fromDouble(-1, defaultCurrency).isNegative;
+    test('-1', () {
+      final actual = Amount.fromDouble(-1).isNegative;
       const expected = true;
       expect(actual, expected);
     });
-    test('-1.5${defaultCurrency.icon}', () {
-      final actual = Money.fromDouble(-1.5, defaultCurrency).isNegative;
+    test('-1.5', () {
+      final actual = Amount.fromDouble(-1.5).isNegative;
       const expected = true;
       expect(actual, expected);
     });
     test('positive, precision 0', () {
-      final actual = Money.fromDouble(123.456789, defaultCurrency, precision: 0)
-          .isNegative;
+      final actual = Amount.fromDouble(123.456789, precision: 0).isNegative;
       const expected = false;
       expect(actual, expected);
     });
     test('positive, precision 4', () {
-      final actual = Money.fromDouble(123.456789, defaultCurrency, precision: 4)
-          .isNegative;
+      final actual = Amount.fromDouble(123.456789, precision: 4).isNegative;
       const expected = false;
       expect(actual, expected);
     });
     test('negative, precision 0', () {
-      final actual =
-          Money.fromDouble(-123.456789, defaultCurrency, precision: 0)
-              .isNegative;
+      final actual = Amount.fromDouble(-123.456789, precision: 0).isNegative;
       const expected = true;
       expect(actual, expected);
     });
     test('negative, precision 4', () {
-      final actual =
-          Money.fromDouble(-123.456789, defaultCurrency, precision: 4)
-              .isNegative;
+      final actual = Amount.fromDouble(-123.456789, precision: 4).isNegative;
       const expected = true;
       expect(actual, expected);
     });
   });
 
   group('isPositive >', () {
-    test('1.5${defaultCurrency.icon}', () {
-      final actual = Money.fromDouble(1.5, defaultCurrency).isPositive;
+    test('1.5', () {
+      final actual = Amount.fromDouble(1.5).isPositive;
       const expected = true;
       expect(actual, expected);
     });
-    test('1${defaultCurrency.icon}', () {
-      final actual = Money.fromDouble(1, defaultCurrency).isPositive;
+    test('1', () {
+      final actual = Amount.fromDouble(1).isPositive;
       const expected = true;
       expect(actual, expected);
     });
-    test('1 cent', () {
-      final actual = Money.fromDouble(0.01, defaultCurrency).isPositive;
+    test('0.01', () {
+      final actual = Amount.fromDouble(0.01).isPositive;
       const expected = true;
       expect(actual, expected);
     });
-    test('0 cents', () {
-      final actual = Money.fromDouble(0, defaultCurrency).isPositive;
+    test('0', () {
+      final actual = Amount.fromDouble(0).isPositive;
       const expected = true;
       expect(actual, expected);
     });
-    test('-1 cent', () {
-      final actual = Money.fromDouble(-0.01, defaultCurrency).isPositive;
+    test('-0.01', () {
+      final actual = Amount.fromDouble(-0.01).isPositive;
       const expected = false;
       expect(actual, expected);
     });
-    test('-1${defaultCurrency.icon}', () {
-      final actual = Money.fromDouble(-1, defaultCurrency).isPositive;
+    test('-1', () {
+      final actual = Amount.fromDouble(-1).isPositive;
       const expected = false;
       expect(actual, expected);
     });
-    test('-1.5${defaultCurrency.icon}', () {
-      final actual = Money.fromDouble(-1.5, defaultCurrency).isPositive;
+    test('-1.5', () {
+      final actual = Amount.fromDouble(-1.5).isPositive;
       const expected = false;
       expect(actual, expected);
     });
     test('positive, precision 0', () {
-      final actual = Money.fromDouble(123.456789, defaultCurrency, precision: 0)
-          .isPositive;
+      final actual = Amount.fromDouble(123.456789, precision: 0).isPositive;
       const expected = true;
       expect(actual, expected);
     });
     test('positive, precision 4', () {
-      final actual = Money.fromDouble(123.456789, defaultCurrency, precision: 4)
-          .isPositive;
+      final actual = Amount.fromDouble(123.456789, precision: 4).isPositive;
       const expected = true;
       expect(actual, expected);
     });
     test('negative, precision 0', () {
-      final actual =
-          Money.fromDouble(-123.456789, defaultCurrency, precision: 0)
-              .isPositive;
+      final actual = Amount.fromDouble(-123.456789, precision: 0).isPositive;
       const expected = false;
       expect(actual, expected);
     });
     test('negative, precision 4', () {
-      final actual =
-          Money.fromDouble(-123.456789, defaultCurrency, precision: 4)
-              .isPositive;
+      final actual = Amount.fromDouble(-123.456789, precision: 4).isPositive;
       const expected = false;
       expect(actual, expected);
     });
   });
 
   group('abs >', () {
-    test('1.5${defaultCurrency.icon}', () {
-      final actual = Money.fromDouble(1.5, defaultCurrency).abs();
-      final expected = Money.fromDouble(1.5, defaultCurrency);
+    test('1.5', () {
+      final actual = Amount.fromDouble(1.5).abs();
+      final expected = Amount.fromDouble(1.5);
       expect(actual, expected);
     });
-    test('1${defaultCurrency.icon}', () {
-      final actual = Money.fromDouble(1, defaultCurrency).abs();
-      final expected = Money.fromDouble(1, defaultCurrency);
+    test('1', () {
+      final actual = Amount.fromDouble(1).abs();
+      final expected = Amount.fromDouble(1);
       expect(actual, expected);
     });
-    test('99 cents', () {
-      final actual = Money.fromDouble(0.99, defaultCurrency).abs();
-      final expected = Money.fromDouble(0.99, defaultCurrency);
+    test('0.99', () {
+      final actual = Amount.fromDouble(0.99).abs();
+      final expected = Amount.fromDouble(0.99);
       expect(actual, expected);
     });
-    test('1 cent', () {
-      final actual = Money.fromDouble(0.01, defaultCurrency).abs();
-      final expected = Money.fromDouble(0.01, defaultCurrency);
+    test('0.01', () {
+      final actual = Amount.fromDouble(0.01).abs();
+      final expected = Amount.fromDouble(0.01);
       expect(actual, expected);
     });
-    test('0 cents', () {
-      final actual = Money.fromDouble(0, defaultCurrency).abs();
-      final expected = Money.fromDouble(0, defaultCurrency);
+    test('0', () {
+      final actual = Amount.fromDouble(0).abs();
+      final expected = Amount.fromDouble(0);
       expect(actual, expected);
     });
-    test('-1 cent', () {
-      final actual = Money.fromDouble(-0.01, defaultCurrency).abs();
-      final expected = Money.fromDouble(0.01, defaultCurrency);
+    test('-0.01', () {
+      final actual = Amount.fromDouble(-0.01).abs();
+      final expected = Amount.fromDouble(0.01);
       expect(actual, expected);
     });
-    test('-99 cents', () {
-      final actual = Money.fromDouble(-0.99, defaultCurrency).abs();
-      final expected = Money.fromDouble(0.99, defaultCurrency);
+    test('-0.99', () {
+      final actual = Amount.fromDouble(-0.99).abs();
+      final expected = Amount.fromDouble(0.99);
       expect(actual, expected);
     });
-    test('-1${defaultCurrency.icon}', () {
-      final actual = Money.fromDouble(-1, defaultCurrency).abs();
-      final expected = Money.fromDouble(1, defaultCurrency);
+    test('-1', () {
+      final actual = Amount.fromDouble(-1).abs();
+      final expected = Amount.fromDouble(1);
       expect(actual, expected);
     });
-    test('-1.5${defaultCurrency.icon}', () {
-      final actual = Money.fromDouble(-1.5, defaultCurrency).abs();
-      final expected = Money.fromDouble(1.5, defaultCurrency);
+    test('-1.5', () {
+      final actual = Amount.fromDouble(-1.5).abs();
+      final expected = Amount.fromDouble(1.5);
       expect(actual, expected);
     });
     test('positive, precision 0', () {
-      final actual =
-          Money.fromDouble(123.456789, defaultCurrency, precision: 0).abs();
-      final expected =
-          Money.fromDouble(123.456789, defaultCurrency, precision: 0);
+      final actual = Amount.fromDouble(123.456789, precision: 0).abs();
+      final expected = Amount.fromDouble(123.456789, precision: 0);
       expect(actual, expected);
     });
     test('positive, precision 4', () {
-      final actual =
-          Money.fromDouble(123.456789, defaultCurrency, precision: 4).abs();
-      final expected =
-          Money.fromDouble(123.456789, defaultCurrency, precision: 4);
+      final actual = Amount.fromDouble(123.456789, precision: 4).abs();
+      final expected = Amount.fromDouble(123.456789, precision: 4);
       expect(actual, expected);
     });
     test('negative, precision 0', () {
-      final actual =
-          Money.fromDouble(-123.456789, defaultCurrency, precision: 0).abs();
-      final expected =
-          Money.fromDouble(123.456789, defaultCurrency, precision: 0);
+      final actual = Amount.fromDouble(-123.456789, precision: 0).abs();
+      final expected = Amount.fromDouble(123.456789, precision: 0);
       expect(actual, expected);
     });
     test('negative, precision 4', () {
-      final actual =
-          Money.fromDouble(-123.456789, defaultCurrency, precision: 4).abs();
-      final expected =
-          Money.fromDouble(123.456789, defaultCurrency, precision: 4);
+      final actual = Amount.fromDouble(-123.456789, precision: 4).abs();
+      final expected = Amount.fromDouble(123.456789, precision: 4);
       expect(actual, expected);
     });
   });
 
   group('round >', () {
-    test('1.5${defaultCurrency.icon}', () {
-      final actual = Money.fromDouble(1.5, defaultCurrency).round();
-      final expected = Money.fromDouble(2, defaultCurrency);
+    test('1.5', () {
+      final actual = Amount.fromDouble(1.5).round();
+      final expected = Amount.fromDouble(2);
       expect(actual, expected);
     });
-    test('1.49${defaultCurrency.icon}', () {
-      final actual = Money.fromDouble(1.49, defaultCurrency).round();
-      final expected = Money.fromDouble(1, defaultCurrency);
+    test('1.49', () {
+      final actual = Amount.fromDouble(1.49).round();
+      final expected = Amount.fromDouble(1);
       expect(actual, expected);
     });
-    test('1${defaultCurrency.icon}', () {
-      final actual = Money.fromDouble(1, defaultCurrency).round();
-      final expected = Money.fromDouble(1, defaultCurrency);
+    test('1', () {
+      final actual = Amount.fromDouble(1).round();
+      final expected = Amount.fromDouble(1);
       expect(actual, expected);
     });
     test('50 cents', () {
-      final actual = Money.fromDouble(0.50, defaultCurrency).round();
-      final expected = Money.fromDouble(1, defaultCurrency);
+      final actual = Amount.fromDouble(0.50).round();
+      final expected = Amount.fromDouble(1);
       expect(actual, expected);
     });
     test('49 cent', () {
-      final actual = Money.fromDouble(0.49, defaultCurrency).round();
-      final expected = Money.fromDouble(0, defaultCurrency);
+      final actual = Amount.fromDouble(0.49).round();
+      final expected = Amount.fromDouble(0);
       expect(actual, expected);
     });
-    test('0 cents', () {
-      final actual = Money.fromDouble(0, defaultCurrency).round();
-      final expected = Money.fromDouble(0, defaultCurrency);
+    test('0', () {
+      final actual = Amount.fromDouble(0).round();
+      final expected = Amount.fromDouble(0);
       expect(actual, expected);
     });
     test('-49 cent', () {
-      final actual = Money.fromDouble(-0.49, defaultCurrency).round();
-      final expected = Money.fromDouble(0, defaultCurrency);
+      final actual = Amount.fromDouble(-0.49).round();
+      final expected = Amount.fromDouble(0);
       expect(actual, expected);
     });
     test('-50 cents', () {
-      final actual = Money.fromDouble(-0.5, defaultCurrency).round();
-      final expected = Money.fromDouble(-1, defaultCurrency);
+      final actual = Amount.fromDouble(-0.5).round();
+      final expected = Amount.fromDouble(-1);
       expect(actual, expected);
     });
-    test('-1${defaultCurrency.icon}', () {
-      final actual = Money.fromDouble(-1, defaultCurrency).round();
-      final expected = Money.fromDouble(-1, defaultCurrency);
+    test('-1', () {
+      final actual = Amount.fromDouble(-1).round();
+      final expected = Amount.fromDouble(-1);
       expect(actual, expected);
     });
-    test('-1.49${defaultCurrency.icon}', () {
-      final actual = Money.fromDouble(-1.49, defaultCurrency).round();
-      final expected = Money.fromDouble(-1, defaultCurrency);
+    test('-1.49', () {
+      final actual = Amount.fromDouble(-1.49).round();
+      final expected = Amount.fromDouble(-1);
       expect(actual, expected);
     });
-    test('-1.5${defaultCurrency.icon}', () {
-      final actual = Money.fromDouble(-1.5, defaultCurrency).round();
-      final expected = Money.fromDouble(-2, defaultCurrency);
+    test('-1.5', () {
+      final actual = Amount.fromDouble(-1.5).round();
+      final expected = Amount.fromDouble(-2);
       expect(actual, expected);
     });
     test('positive, precision 0', () {
-      final actual =
-          Money.fromDouble(123.56789, defaultCurrency, precision: 0).round();
-      final expected = Money.fromDouble(124, defaultCurrency, precision: 0);
+      final actual = Amount.fromDouble(123.56789, precision: 0).round();
+      final expected = Amount.fromDouble(124, precision: 0);
       expect(actual, expected);
     });
     test('positive, precision 4', () {
-      final actual =
-          Money.fromDouble(123.56789, defaultCurrency, precision: 4).round();
-      final expected = Money.fromDouble(124, defaultCurrency, precision: 4);
+      final actual = Amount.fromDouble(123.56789, precision: 4).round();
+      final expected = Amount.fromDouble(124, precision: 4);
       expect(actual, expected);
     });
     test('negative, precision 0', () {
-      final actual =
-          Money.fromDouble(-123.56789, defaultCurrency, precision: 0).round();
-      final expected = Money.fromDouble(-124, defaultCurrency, precision: 0);
+      final actual = Amount.fromDouble(-123.56789, precision: 0).round();
+      final expected = Amount.fromDouble(-124, precision: 0);
       expect(actual, expected);
     });
     test('negative, precision 4', () {
-      final actual =
-          Money.fromDouble(-123.56789, defaultCurrency, precision: 4).round();
-      final expected = Money.fromDouble(-124, defaultCurrency, precision: 4);
+      final actual = Amount.fromDouble(-123.56789, precision: 4).round();
+      final expected = Amount.fromDouble(-124, precision: 4);
       expect(actual, expected);
     });
   });
 
   group('ceil >', () {
-    test('1.5${defaultCurrency.icon}', () {
-      final actual = Money.fromDouble(1.5, defaultCurrency).ceil();
-      final expected = Money.fromDouble(2, defaultCurrency);
+    test('1.5', () {
+      final actual = Amount.fromDouble(1.5).ceil();
+      final expected = Amount.fromDouble(2);
       expect(actual, expected);
     });
-    test('1.49${defaultCurrency.icon}', () {
-      final actual = Money.fromDouble(1.49, defaultCurrency).ceil();
-      final expected = Money.fromDouble(2, defaultCurrency);
+    test('1.49', () {
+      final actual = Amount.fromDouble(1.49).ceil();
+      final expected = Amount.fromDouble(2);
       expect(actual, expected);
     });
-    test('1${defaultCurrency.icon}', () {
-      final actual = Money.fromDouble(1, defaultCurrency).ceil();
-      final expected = Money.fromDouble(1, defaultCurrency);
+    test('1', () {
+      final actual = Amount.fromDouble(1).ceil();
+      final expected = Amount.fromDouble(1);
       expect(actual, expected);
     });
     test('50 cents', () {
-      final actual = Money.fromDouble(0.50, defaultCurrency).ceil();
-      final expected = Money.fromDouble(1, defaultCurrency);
+      final actual = Amount.fromDouble(0.50).ceil();
+      final expected = Amount.fromDouble(1);
       expect(actual, expected);
     });
     test('49 cent', () {
-      final actual = Money.fromDouble(0.49, defaultCurrency).ceil();
-      final expected = Money.fromDouble(1, defaultCurrency);
+      final actual = Amount.fromDouble(0.49).ceil();
+      final expected = Amount.fromDouble(1);
       expect(actual, expected);
     });
-    test('0 cents', () {
-      final actual = Money.fromDouble(0, defaultCurrency).ceil();
-      final expected = Money.fromDouble(0, defaultCurrency);
+    test('0', () {
+      final actual = Amount.fromDouble(0).ceil();
+      final expected = Amount.fromDouble(0);
       expect(actual, expected);
     });
     test('-49 cent', () {
-      final actual = Money.fromDouble(-0.49, defaultCurrency).ceil();
-      final expected = Money.fromDouble(0, defaultCurrency);
+      final actual = Amount.fromDouble(-0.49).ceil();
+      final expected = Amount.fromDouble(0);
       expect(actual, expected);
     });
     test('-50 cents', () {
-      final actual = Money.fromDouble(-0.5, defaultCurrency).ceil();
-      final expected = Money.fromDouble(0, defaultCurrency);
+      final actual = Amount.fromDouble(-0.5).ceil();
+      final expected = Amount.fromDouble(0);
       expect(actual, expected);
     });
-    test('-1${defaultCurrency.icon}', () {
-      final actual = Money.fromDouble(-1, defaultCurrency).ceil();
-      final expected = Money.fromDouble(-1, defaultCurrency);
+    test('-1', () {
+      final actual = Amount.fromDouble(-1).ceil();
+      final expected = Amount.fromDouble(-1);
       expect(actual, expected);
     });
-    test('-1.49${defaultCurrency.icon}', () {
-      final actual = Money.fromDouble(-1.49, defaultCurrency).ceil();
-      final expected = Money.fromDouble(-1, defaultCurrency);
+    test('-1.49', () {
+      final actual = Amount.fromDouble(-1.49).ceil();
+      final expected = Amount.fromDouble(-1);
       expect(actual, expected);
     });
-    test('-1.5${defaultCurrency.icon}', () {
-      final actual = Money.fromDouble(-1.5, defaultCurrency).ceil();
-      final expected = Money.fromDouble(-1, defaultCurrency);
+    test('-1.5', () {
+      final actual = Amount.fromDouble(-1.5).ceil();
+      final expected = Amount.fromDouble(-1);
       expect(actual, expected);
     });
     test('positive, precision 0', () {
-      final actual =
-          Money.fromDouble(123.56789, defaultCurrency, precision: 0).ceil();
-      final expected = Money.fromDouble(124, defaultCurrency, precision: 0);
+      final actual = Amount.fromDouble(123.56789, precision: 0).ceil();
+      final expected = Amount.fromDouble(124, precision: 0);
       expect(actual, expected);
     });
     test('positive, precision 4', () {
-      final actual =
-          Money.fromDouble(123.56789, defaultCurrency, precision: 4).ceil();
-      final expected = Money.fromDouble(124, defaultCurrency, precision: 4);
+      final actual = Amount.fromDouble(123.56789, precision: 4).ceil();
+      final expected = Amount.fromDouble(124, precision: 4);
       expect(actual, expected);
     });
     test('negative, precision 0', () {
-      final actual =
-          Money.fromDouble(-123.56789, defaultCurrency, precision: 0).ceil();
-      final expected = Money.fromDouble(-124, defaultCurrency, precision: 0);
+      final actual = Amount.fromDouble(-123.56789, precision: 0).ceil();
+      final expected = Amount.fromDouble(-124, precision: 0);
       expect(actual, expected);
     });
     test('negative, precision 4', () {
-      final actual =
-          Money.fromDouble(-123.56789, defaultCurrency, precision: 4).ceil();
-      final expected = Money.fromDouble(-123, defaultCurrency, precision: 4);
+      final actual = Amount.fromDouble(-123.56789, precision: 4).ceil();
+      final expected = Amount.fromDouble(-123, precision: 4);
       expect(actual, expected);
     });
   });
 
   group('floor >', () {
-    test('1.5${defaultCurrency.icon}', () {
-      final actual = Money.fromDouble(1.5, defaultCurrency).floor();
-      final expected = Money.fromDouble(1, defaultCurrency);
+    test('1.5', () {
+      final actual = Amount.fromDouble(1.5).floor();
+      final expected = Amount.fromDouble(1);
       expect(actual, expected);
     });
-    test('1.49${defaultCurrency.icon}', () {
-      final actual = Money.fromDouble(1.49, defaultCurrency).floor();
-      final expected = Money.fromDouble(1, defaultCurrency);
+    test('1.49', () {
+      final actual = Amount.fromDouble(1.49).floor();
+      final expected = Amount.fromDouble(1);
       expect(actual, expected);
     });
-    test('1${defaultCurrency.icon}', () {
-      final actual = Money.fromDouble(1, defaultCurrency).floor();
-      final expected = Money.fromDouble(1, defaultCurrency);
+    test('1', () {
+      final actual = Amount.fromDouble(1).floor();
+      final expected = Amount.fromDouble(1);
       expect(actual, expected);
     });
     test('50 cents', () {
-      final actual = Money.fromDouble(0.50, defaultCurrency).floor();
-      final expected = Money.fromDouble(0, defaultCurrency);
+      final actual = Amount.fromDouble(0.50).floor();
+      final expected = Amount.fromDouble(0);
       expect(actual, expected);
     });
     test('49 cent', () {
-      final actual = Money.fromDouble(0.49, defaultCurrency).floor();
-      final expected = Money.fromDouble(0, defaultCurrency);
+      final actual = Amount.fromDouble(0.49).floor();
+      final expected = Amount.fromDouble(0);
       expect(actual, expected);
     });
-    test('0 cents', () {
-      final actual = Money.fromDouble(0, defaultCurrency).floor();
-      final expected = Money.fromDouble(0, defaultCurrency);
+    test('0', () {
+      final actual = Amount.fromDouble(0).floor();
+      final expected = Amount.fromDouble(0);
       expect(actual, expected);
     });
     test('-49 cent', () {
-      final actual = Money.fromDouble(-0.49, defaultCurrency).floor();
-      final expected = Money.fromDouble(-1, defaultCurrency);
+      final actual = Amount.fromDouble(-0.49).floor();
+      final expected = Amount.fromDouble(-1);
       expect(actual, expected);
     });
     test('-50 cents', () {
-      final actual = Money.fromDouble(-0.5, defaultCurrency).floor();
-      final expected = Money.fromDouble(-1, defaultCurrency);
+      final actual = Amount.fromDouble(-0.5).floor();
+      final expected = Amount.fromDouble(-1);
       expect(actual, expected);
     });
-    test('-1${defaultCurrency.icon}', () {
-      final actual = Money.fromDouble(-1, defaultCurrency).floor();
-      final expected = Money.fromDouble(-1, defaultCurrency);
+    test('-1', () {
+      final actual = Amount.fromDouble(-1).floor();
+      final expected = Amount.fromDouble(-1);
       expect(actual, expected);
     });
-    test('-1.49${defaultCurrency.icon}', () {
-      final actual = Money.fromDouble(-1.49, defaultCurrency).floor();
-      final expected = Money.fromDouble(-2, defaultCurrency);
+    test('-1.49', () {
+      final actual = Amount.fromDouble(-1.49).floor();
+      final expected = Amount.fromDouble(-2);
       expect(actual, expected);
     });
-    test('-1.5${defaultCurrency.icon}', () {
-      final actual = Money.fromDouble(-1.5, defaultCurrency).floor();
-      final expected = Money.fromDouble(-2, defaultCurrency);
+    test('-1.5', () {
+      final actual = Amount.fromDouble(-1.5).floor();
+      final expected = Amount.fromDouble(-2);
       expect(actual, expected);
     });
     test('positive, precision 0', () {
-      final actual =
-          Money.fromDouble(123.56789, defaultCurrency, precision: 0).floor();
-      final expected = Money.fromDouble(124, defaultCurrency, precision: 0);
+      final actual = Amount.fromDouble(123.56789, precision: 0).floor();
+      final expected = Amount.fromDouble(124, precision: 0);
       expect(actual, expected);
     });
     test('positive, precision 4', () {
-      final actual =
-          Money.fromDouble(123.56789, defaultCurrency, precision: 4).floor();
-      final expected = Money.fromDouble(123, defaultCurrency, precision: 4);
+      final actual = Amount.fromDouble(123.56789, precision: 4).floor();
+      final expected = Amount.fromDouble(123, precision: 4);
       expect(actual, expected);
     });
     test('negative, precision 0', () {
-      final actual =
-          Money.fromDouble(-123.56789, defaultCurrency, precision: 0).floor();
-      final expected = Money.fromDouble(-124, defaultCurrency, precision: 0);
+      final actual = Amount.fromDouble(-123.56789, precision: 0).floor();
+      final expected = Amount.fromDouble(-124, precision: 0);
       expect(actual, expected);
     });
     test('negative, precision 4', () {
-      final actual =
-          Money.fromDouble(-123.56789, defaultCurrency, precision: 4).floor();
-      final expected = Money.fromDouble(-124, defaultCurrency, precision: 4);
+      final actual = Amount.fromDouble(-123.56789, precision: 4).floor();
+      final expected = Amount.fromDouble(-124, precision: 4);
       expect(actual, expected);
     });
   });
 
   group('subtraction >', () {
-    test('1.5${defaultCurrency.icon}', () {
-      final actual = -Money.fromDouble(1.5, defaultCurrency);
-      final expected = Money.fromDouble(-1.5, defaultCurrency);
+    test('1.5', () {
+      final actual = -Amount.fromDouble(1.5);
+      final expected = Amount.fromDouble(-1.5);
       expect(actual, expected);
     });
-    test('1${defaultCurrency.icon}', () {
-      final actual = -Money.fromDouble(1, defaultCurrency);
-      final expected = Money.fromDouble(-1, defaultCurrency);
+    test('1', () {
+      final actual = -Amount.fromDouble(1);
+      final expected = Amount.fromDouble(-1);
       expect(actual, expected);
     });
-    test('99 cents', () {
-      final actual = -Money.fromDouble(0.99, defaultCurrency);
-      final expected = Money.fromDouble(-0.99, defaultCurrency);
+    test('0.99', () {
+      final actual = -Amount.fromDouble(0.99);
+      final expected = Amount.fromDouble(-0.99);
       expect(actual, expected);
     });
-    test('1 cent', () {
-      final actual = -Money.fromDouble(0.01, defaultCurrency);
-      final expected = Money.fromDouble(-0.01, defaultCurrency);
+    test('0.01', () {
+      final actual = -Amount.fromDouble(0.01);
+      final expected = Amount.fromDouble(-0.01);
       expect(actual, expected);
     });
-    test('0 cents', () {
-      final actual = -Money.fromDouble(0, defaultCurrency);
-      final expected = Money.fromDouble(0, defaultCurrency);
+    test('0', () {
+      final actual = -Amount.fromDouble(0);
+      final expected = Amount.fromDouble(0);
       expect(actual, expected);
     });
-    test('-1 cent', () {
-      final actual = -Money.fromDouble(-0.01, defaultCurrency);
-      final expected = Money.fromDouble(0.01, defaultCurrency);
+    test('-0.01', () {
+      final actual = -Amount.fromDouble(-0.01);
+      final expected = Amount.fromDouble(0.01);
       expect(actual, expected);
     });
-    test('-99 cents', () {
-      final actual = -Money.fromDouble(-0.99, defaultCurrency);
-      final expected = Money.fromDouble(0.99, defaultCurrency);
+    test('-0.99', () {
+      final actual = -Amount.fromDouble(-0.99);
+      final expected = Amount.fromDouble(0.99);
       expect(actual, expected);
     });
-    test('-1${defaultCurrency.icon}', () {
-      final actual = -Money.fromDouble(-1, defaultCurrency);
-      final expected = Money.fromDouble(1, defaultCurrency);
+    test('-1', () {
+      final actual = -Amount.fromDouble(-1);
+      final expected = Amount.fromDouble(1);
       expect(actual, expected);
     });
-    test('-1.5${defaultCurrency.icon}', () {
-      final actual = -Money.fromDouble(-1.5, defaultCurrency);
-      final expected = Money.fromDouble(1.5, defaultCurrency);
+    test('-1.5', () {
+      final actual = -Amount.fromDouble(-1.5);
+      final expected = Amount.fromDouble(1.5);
       expect(actual, expected);
     });
     test('positive, precision 0', () {
-      final actual =
-          -Money.fromDouble(123.56789, defaultCurrency, precision: 0);
-      final expected =
-          Money.fromDouble(-123.56789, defaultCurrency, precision: 0);
+      final actual = -Amount.fromDouble(123.56789, precision: 0);
+      final expected = Amount.fromDouble(-123.56789, precision: 0);
       expect(actual, expected);
     });
     test('positive, precision 4', () {
-      final actual =
-          -Money.fromDouble(123.56789, defaultCurrency, precision: 4);
-      final expected =
-          Money.fromDouble(-123.56789, defaultCurrency, precision: 4);
+      final actual = -Amount.fromDouble(123.56789, precision: 4);
+      final expected = Amount.fromDouble(-123.56789, precision: 4);
       expect(actual, expected);
     });
     test('negative, precision 0', () {
-      final actual =
-          -Money.fromDouble(-123.56789, defaultCurrency, precision: 0);
-      final expected =
-          Money.fromDouble(123.56789, defaultCurrency, precision: 0);
+      final actual = -Amount.fromDouble(-123.56789, precision: 0);
+      final expected = Amount.fromDouble(123.56789, precision: 0);
       expect(actual, expected);
     });
     test('negative, precision 4', () {
-      final actual =
-          -Money.fromDouble(-123.56789, defaultCurrency, precision: 4);
-      final expected =
-          Money.fromDouble(123.56789, defaultCurrency, precision: 4);
+      final actual = -Amount.fromDouble(-123.56789, precision: 4);
+      final expected = Amount.fromDouble(123.56789, precision: 4);
       expect(actual, expected);
     });
   });
 
   group('toDecimal >', () {
-    test('1.5${defaultCurrency.icon}', () {
-      final actual = Money.fromDouble(1.5, defaultCurrency).toDecimal();
+    test('1.5', () {
+      final actual = Amount.fromDouble(1.5).toDecimal();
       final expected = Decimal.parse('1.5');
       expect(actual, expected);
     });
-    test('1${defaultCurrency.icon}', () {
-      final actual = Money.fromDouble(1, defaultCurrency).toDecimal();
+    test('1', () {
+      final actual = Amount.fromDouble(1).toDecimal();
       final expected = Decimal.parse('1');
       expect(actual, expected);
     });
-    test('99 cents', () {
-      final actual = Money.fromDouble(0.99, defaultCurrency).toDecimal();
+    test('0.99', () {
+      final actual = Amount.fromDouble(0.99).toDecimal();
       final expected = Decimal.parse('0.99');
       expect(actual, expected);
     });
-    test('1 cent', () {
-      final actual = Money.fromDouble(0.01, defaultCurrency).toDecimal();
+    test('0.01', () {
+      final actual = Amount.fromDouble(0.01).toDecimal();
       final expected = Decimal.parse('0.01');
       expect(actual, expected);
     });
-    test('0 cents', () {
-      final actual = Money.fromDouble(0, defaultCurrency).toDecimal();
+    test('0', () {
+      final actual = Amount.fromDouble(0).toDecimal();
       final expected = Decimal.parse('0.0');
       expect(actual, expected);
     });
-    test('-1 cent', () {
-      final actual = Money.fromDouble(-0.01, defaultCurrency).toDecimal();
+    test('-0.01', () {
+      final actual = Amount.fromDouble(-0.01).toDecimal();
       final expected = Decimal.parse('-0.01');
       expect(actual, expected);
     });
-    test('-99 cents', () {
-      final actual = Money.fromDouble(-0.99, defaultCurrency).toDecimal();
+    test('-0.99', () {
+      final actual = Amount.fromDouble(-0.99).toDecimal();
       final expected = Decimal.parse('-0.99');
       expect(actual, expected);
     });
-    test('-1${defaultCurrency.icon}', () {
-      final actual = Money.fromDouble(-1, defaultCurrency).toDecimal();
+    test('-1', () {
+      final actual = Amount.fromDouble(-1).toDecimal();
       final expected = Decimal.parse('-1');
       expect(actual, expected);
     });
-    test('-1.5${defaultCurrency.icon}', () {
-      final actual = Money.fromDouble(-1.5, defaultCurrency).toDecimal();
+    test('-1.5', () {
+      final actual = Amount.fromDouble(-1.5).toDecimal();
       final expected = Decimal.parse('-1.5');
       expect(actual, expected);
     });
     test('positive, precision 0', () {
-      final actual = Money.fromDouble(123.56789, defaultCurrency, precision: 0)
-          .toDecimal();
+      final actual = Amount.fromDouble(123.56789, precision: 0).toDecimal();
       final expected = Decimal.fromInt(124);
       expect(actual, expected);
     });
     test('positive, precision 4', () {
-      final actual = Money.fromDouble(123.56789, defaultCurrency, precision: 4)
-          .toDecimal();
+      final actual = Amount.fromDouble(123.56789, precision: 4).toDecimal();
       final expected = Decimal.parse('123.5679');
       expect(actual, expected);
     });
     test('negative, precision 0', () {
-      final actual = Money.fromDouble(-123.56789, defaultCurrency, precision: 0)
-          .toDecimal();
+      final actual = Amount.fromDouble(-123.56789, precision: 0).toDecimal();
       final expected = Decimal.fromInt(-124);
       expect(actual, expected);
     });
     test('negative, precision 4', () {
-      final actual = Money.fromDouble(-123.56789, defaultCurrency, precision: 4)
-          .toDecimal();
+      final actual = Amount.fromDouble(-123.56789, precision: 4).toDecimal();
       final expected = Decimal.parse('-123.5679');
       expect(actual, expected);
     });
   });
 
   group('toDouble >', () {
-    test('1.5${defaultCurrency.icon}', () {
-      final actual = Money.fromDouble(1.5, defaultCurrency).toDouble();
+    test('1.5', () {
+      final actual = Amount.fromDouble(1.5).toDouble();
       const expected = 1.5;
       expect(actual, expected);
     });
-    test('1${defaultCurrency.icon}', () {
-      final actual = Money.fromDouble(1, defaultCurrency).toDouble();
+    test('1', () {
+      final actual = Amount.fromDouble(1).toDouble();
       const expected = 1;
       expect(actual, expected);
     });
-    test('99 cents', () {
-      final actual = Money.fromDouble(0.99, defaultCurrency).toDouble();
+    test('0.99', () {
+      final actual = Amount.fromDouble(0.99).toDouble();
       const expected = 0.99;
       expect(actual, expected);
     });
-    test('1 cent', () {
-      final actual = Money.fromDouble(0.01, defaultCurrency).toDouble();
+    test('0.01', () {
+      final actual = Amount.fromDouble(0.01).toDouble();
       const expected = 0.01;
       expect(actual, expected);
     });
-    test('0 cents', () {
-      final actual = Money.fromDouble(0, defaultCurrency).toDouble();
+    test('0', () {
+      final actual = Amount.fromDouble(0).toDouble();
       const expected = 0.0;
       expect(actual, expected);
     });
-    test('-1 cent', () {
-      final actual = Money.fromDouble(-0.01, defaultCurrency).toDouble();
+    test('-0.01', () {
+      final actual = Amount.fromDouble(-0.01).toDouble();
       const expected = -0.01;
       expect(actual, expected);
     });
-    test('-99 cents', () {
-      final actual = Money.fromDouble(-0.99, defaultCurrency).toDouble();
+    test('-0.99', () {
+      final actual = Amount.fromDouble(-0.99).toDouble();
       const expected = -0.99;
       expect(actual, expected);
     });
-    test('-1${defaultCurrency.icon}', () {
-      final actual = Money.fromDouble(-1, defaultCurrency).toDouble();
+    test('-1', () {
+      final actual = Amount.fromDouble(-1).toDouble();
       const expected = -1;
       expect(actual, expected);
     });
-    test('-1.5${defaultCurrency.icon}', () {
-      final actual = Money.fromDouble(-1.5, defaultCurrency).toDouble();
+    test('-1.5', () {
+      final actual = Amount.fromDouble(-1.5).toDouble();
       const expected = -1.5;
       expect(actual, expected);
     });
     test('positive, precision 0', () {
-      final actual =
-          Money.fromDouble(123.56789, defaultCurrency, precision: 0).toDouble();
+      final actual = Amount.fromDouble(123.56789, precision: 0).toDouble();
       const expected = 124.0;
       expect(actual, expected);
     });
     test('positive, precision 4', () {
-      final actual =
-          Money.fromDouble(123.56789, defaultCurrency, precision: 4).toDouble();
+      final actual = Amount.fromDouble(123.56789, precision: 4).toDouble();
       const expected = 123.5679;
       expect(actual, expected);
     });
     test('negative, precision 0', () {
-      final actual = Money.fromDouble(-123.56789, defaultCurrency, precision: 0)
-          .toDouble();
+      final actual = Amount.fromDouble(-123.56789, precision: 0).toDouble();
       const expected = -124.0;
       expect(actual, expected);
     });
     test('negative, precision 4', () {
-      final actual = Money.fromDouble(-123.56789, defaultCurrency, precision: 4)
-          .toDouble();
+      final actual = Amount.fromDouble(-123.56789, precision: 4).toDouble();
       const expected = -123.5679;
       expect(actual, expected);
     });
@@ -1189,591 +1113,168 @@ void main() {
   group('toString >', () {
     group('MF-RF-DSF >', () {
       test('fixedDouble/none/point', () {
-        final actual = Money.fromDouble(1000.1, defaultCurrency).toString(
-          currencyPosition: CurrencyPosition.end,
-          currencyFormat: FiatCurrencyFormat.icon,
-          moneyFormat: MoneyFormat.fixedDouble,
+        final actual = Amount.fromDouble(1000.1).toString(
+          amountFormat: AmountFormat.fixedDouble,
           rankFormat: RankFormat.none,
           decimalSeparatorFormat: DecimalSeparatorFormat.point,
         );
-        final expected = '1000.10${defaultCurrency.icon}';
+        const expected = '1000.10';
         expect(actual, expected);
       });
       test('fixedDouble/space/point', () {
-        final actual = Money.fromDouble(1000.1, defaultCurrency).toString(
-          currencyPosition: CurrencyPosition.end,
-          currencyFormat: FiatCurrencyFormat.icon,
-          moneyFormat: MoneyFormat.fixedDouble,
+        final actual = Amount.fromDouble(1000.1).toString(
+          amountFormat: AmountFormat.fixedDouble,
           rankFormat: RankFormat.space,
           decimalSeparatorFormat: DecimalSeparatorFormat.point,
         );
-        final expected = '1 000.10${defaultCurrency.icon}';
+        const expected = '1 000.10';
         expect(actual, expected);
       });
       test('fixedDouble/none/comma', () {
-        final actual = Money.fromDouble(1000.1, defaultCurrency).toString(
-          currencyPosition: CurrencyPosition.end,
-          currencyFormat: FiatCurrencyFormat.icon,
-          moneyFormat: MoneyFormat.fixedDouble,
+        final actual = Amount.fromDouble(1000.1).toString(
+          amountFormat: AmountFormat.fixedDouble,
           rankFormat: RankFormat.none,
           decimalSeparatorFormat: DecimalSeparatorFormat.comma,
         );
-        final expected = '1000,10${defaultCurrency.icon}';
+        const expected = '1000,10';
         expect(actual, expected);
       });
       test('fixedDouble/space/comma', () {
-        final actual = Money.fromDouble(1000.1, defaultCurrency).toString(
-          currencyPosition: CurrencyPosition.end,
-          currencyFormat: FiatCurrencyFormat.icon,
-          moneyFormat: MoneyFormat.fixedDouble,
+        final actual = Amount.fromDouble(1000.1).toString(
+          amountFormat: AmountFormat.fixedDouble,
           rankFormat: RankFormat.space,
           decimalSeparatorFormat: DecimalSeparatorFormat.comma,
         );
-        final expected = '1 000,10${defaultCurrency.icon}';
+        const expected = '1 000,10';
         expect(actual, expected);
       });
       test('fixedDouble precision 0', () {
-        final actual = Money.fromDouble(
-          100.123456,
-          defaultCurrency,
-          precision: 0,
-        ).toString(
-          currencyPosition: CurrencyPosition.end,
-          currencyFormat: FiatCurrencyFormat.icon,
-          moneyFormat: MoneyFormat.fixedDouble,
+        final actual = Amount.fromDouble(100.123456, precision: 0).toString(
+          amountFormat: AmountFormat.fixedDouble,
         );
-        final expected = '100${defaultCurrency.icon}';
+        const expected = '100';
         expect(actual, expected);
       });
       test('fixedDouble precision 4', () {
-        final actual = Money.fromDouble(
-          100.123456,
-          defaultCurrency,
-          precision: 4,
-        ).toString(
-          currencyPosition: CurrencyPosition.end,
-          currencyFormat: FiatCurrencyFormat.icon,
-          moneyFormat: MoneyFormat.fixedDouble,
-        );
-        final expected = '100.1235${defaultCurrency.icon}';
+        final actual = Amount.fromDouble(100.123456, precision: 4)
+            .toString(amountFormat: AmountFormat.fixedDouble);
+        const expected = '100.1235';
         expect(actual, expected);
       });
       test('fixedDouble precision 8', () {
-        final actual = Money.fromDouble(
-          100.123456,
-          defaultCurrency,
-          precision: 8,
-        ).toString(
-          currencyPosition: CurrencyPosition.end,
-          currencyFormat: FiatCurrencyFormat.icon,
-          moneyFormat: MoneyFormat.fixedDouble,
-        );
-        final expected = '100.12345600${defaultCurrency.icon}';
+        final actual = Amount.fromDouble(100.123456, precision: 8)
+            .toString(amountFormat: AmountFormat.fixedDouble);
+        const expected = '100.12345600';
         expect(actual, expected);
       });
 
       test('integer/none/point', () {
-        final actual = Money.fromDouble(1000.1, defaultCurrency).toString(
-          currencyPosition: CurrencyPosition.end,
-          currencyFormat: FiatCurrencyFormat.icon,
-          moneyFormat: MoneyFormat.integer,
+        final actual = Amount.fromDouble(1000.1).toString(
+          amountFormat: AmountFormat.integer,
           rankFormat: RankFormat.none,
           decimalSeparatorFormat: DecimalSeparatorFormat.point,
         );
-        final expected = '1000${defaultCurrency.icon}';
+        const expected = '1000';
         expect(actual, expected);
       });
       test('integer/space/point', () {
-        final actual = Money.fromDouble(1000.1, defaultCurrency).toString(
-          currencyPosition: CurrencyPosition.end,
-          currencyFormat: FiatCurrencyFormat.icon,
-          moneyFormat: MoneyFormat.integer,
+        final actual = Amount.fromDouble(1000.1).toString(
+          amountFormat: AmountFormat.integer,
           rankFormat: RankFormat.space,
           decimalSeparatorFormat: DecimalSeparatorFormat.point,
         );
-        final expected = '1 000${defaultCurrency.icon}';
+        const expected = '1 000';
         expect(actual, expected);
       });
       test('integer/none/comma', () {
-        final actual = Money.fromDouble(1000.1, defaultCurrency).toString(
-          currencyPosition: CurrencyPosition.end,
-          currencyFormat: FiatCurrencyFormat.icon,
-          moneyFormat: MoneyFormat.integer,
+        final actual = Amount.fromDouble(1000.1).toString(
+          amountFormat: AmountFormat.integer,
           rankFormat: RankFormat.none,
           decimalSeparatorFormat: DecimalSeparatorFormat.comma,
         );
-        final expected = '1000${defaultCurrency.icon}';
+        const expected = '1000';
         expect(actual, expected);
       });
       test('integer/space/comma', () {
-        final actual = Money.fromDouble(1000.1, defaultCurrency).toString(
-          currencyPosition: CurrencyPosition.end,
-          currencyFormat: FiatCurrencyFormat.icon,
-          moneyFormat: MoneyFormat.integer,
+        final actual = Amount.fromDouble(1000.1).toString(
+          amountFormat: AmountFormat.integer,
           rankFormat: RankFormat.space,
           decimalSeparatorFormat: DecimalSeparatorFormat.comma,
         );
-        final expected = '1 000${defaultCurrency.icon}';
+        const expected = '1 000';
         expect(actual, expected);
       });
       test('integer precision 0', () {
-        final actual = Money.fromDouble(
-          100.123456,
-          defaultCurrency,
-          precision: 0,
-        ).toString(
-          currencyPosition: CurrencyPosition.end,
-          currencyFormat: FiatCurrencyFormat.icon,
-          moneyFormat: MoneyFormat.integer,
-        );
-        final expected = '100${defaultCurrency.icon}';
+        final actual = Amount.fromDouble(100.123456, precision: 0)
+            .toString(amountFormat: AmountFormat.integer);
+        const expected = '100';
         expect(actual, expected);
       });
       test('integer precision 4', () {
-        final actual = Money.fromDouble(
-          100.123456,
-          defaultCurrency,
-          precision: 4,
-        ).toString(
-          currencyPosition: CurrencyPosition.end,
-          currencyFormat: FiatCurrencyFormat.icon,
-          moneyFormat: MoneyFormat.integer,
-        );
-        final expected = '100${defaultCurrency.icon}';
+        final actual = Amount.fromDouble(100.123456, precision: 4)
+            .toString(amountFormat: AmountFormat.integer);
+        const expected = '100';
         expect(actual, expected);
       });
       test('integer precision 8', () {
-        final actual = Money.fromDouble(
-          100.123456,
-          defaultCurrency,
-          precision: 8,
-        ).toString(
-          currencyPosition: CurrencyPosition.end,
-          currencyFormat: FiatCurrencyFormat.icon,
-          moneyFormat: MoneyFormat.integer,
-        );
-        final expected = '100${defaultCurrency.icon}';
+        final actual = Amount.fromDouble(100.123456, precision: 8)
+            .toString(amountFormat: AmountFormat.integer);
+        const expected = '100';
         expect(actual, expected);
       });
 
       test('flexibleDouble/none/point', () {
-        final actual = Money.fromDouble(1000.1, defaultCurrency).toString(
-          currencyPosition: CurrencyPosition.end,
-          currencyFormat: FiatCurrencyFormat.icon,
-          moneyFormat: MoneyFormat.flexibleDouble,
+        final actual = Amount.fromDouble(1000.1).toString(
+          amountFormat: AmountFormat.flexibleDouble,
           rankFormat: RankFormat.none,
           decimalSeparatorFormat: DecimalSeparatorFormat.point,
         );
-        final expected = '1000.1${defaultCurrency.icon}';
+        const expected = '1000.1';
         expect(actual, expected);
       });
       test('flexibleDouble/space/point', () {
-        final actual = Money.fromDouble(1000.1, defaultCurrency).toString(
-          currencyPosition: CurrencyPosition.end,
-          currencyFormat: FiatCurrencyFormat.icon,
-          moneyFormat: MoneyFormat.flexibleDouble,
+        final actual = Amount.fromDouble(1000.1).toString(
+          amountFormat: AmountFormat.flexibleDouble,
           rankFormat: RankFormat.space,
           decimalSeparatorFormat: DecimalSeparatorFormat.point,
         );
-        final expected = '1 000.1${defaultCurrency.icon}';
+        const expected = '1 000.1';
         expect(actual, expected);
       });
       test('flexibleDouble/none/comma', () {
-        final actual = Money.fromDouble(1000.1, defaultCurrency).toString(
-          currencyPosition: CurrencyPosition.end,
-          currencyFormat: FiatCurrencyFormat.icon,
-          moneyFormat: MoneyFormat.flexibleDouble,
+        final actual = Amount.fromDouble(1000.1).toString(
+          amountFormat: AmountFormat.flexibleDouble,
           rankFormat: RankFormat.none,
           decimalSeparatorFormat: DecimalSeparatorFormat.comma,
         );
-        final expected = '1000,1${defaultCurrency.icon}';
+        const expected = '1000,1';
         expect(actual, expected);
       });
       test('flexibleDouble/space/comma', () {
-        final actual = Money.fromDouble(1000.1, defaultCurrency).toString(
-          currencyPosition: CurrencyPosition.end,
-          currencyFormat: FiatCurrencyFormat.icon,
-          moneyFormat: MoneyFormat.flexibleDouble,
+        final actual = Amount.fromDouble(1000.1).toString(
+          amountFormat: AmountFormat.flexibleDouble,
           rankFormat: RankFormat.space,
           decimalSeparatorFormat: DecimalSeparatorFormat.comma,
         );
-        final expected = '1 000,1${defaultCurrency.icon}';
+        const expected = '1 000,1';
         expect(actual, expected);
       });
       test('flexibleDouble precision 0', () {
-        final actual = Money.fromDouble(
-          100.123456,
-          defaultCurrency,
-          precision: 0,
-        ).toString(
-          currencyPosition: CurrencyPosition.end,
-          currencyFormat: FiatCurrencyFormat.icon,
-          moneyFormat: MoneyFormat.flexibleDouble,
-        );
-        final expected = '100${defaultCurrency.icon}';
+        final actual = Amount.fromDouble(100.123456, precision: 0)
+            .toString(amountFormat: AmountFormat.flexibleDouble);
+        const expected = '100';
         expect(actual, expected);
       });
       test('flexibleDouble precision 4', () {
-        final actual = Money.fromDouble(
-          100.123456,
-          defaultCurrency,
-          precision: 4,
-        ).toString(
-          currencyPosition: CurrencyPosition.end,
-          currencyFormat: FiatCurrencyFormat.icon,
-          moneyFormat: MoneyFormat.flexibleDouble,
-        );
-        final expected = '100.1235${defaultCurrency.icon}';
+        final actual = Amount.fromDouble(100.123456, precision: 4)
+            .toString(amountFormat: AmountFormat.flexibleDouble);
+        const expected = '100.1235';
         expect(actual, expected);
       });
       test('flexibleDouble precision 8', () {
-        final actual = Money.fromDouble(
-          100.123456,
-          defaultCurrency,
-          precision: 8,
-        ).toString(
-          currencyPosition: CurrencyPosition.end,
-          currencyFormat: FiatCurrencyFormat.icon,
-          moneyFormat: MoneyFormat.flexibleDouble,
-        );
-        final expected = '100.123456${defaultCurrency.icon}';
-        expect(actual, expected);
-      });
-    });
-
-    group('CP-CF-DSF >', () {
-      test('start/icon/point', () {
-        final actual = Money.fromDouble(1000.1, defaultCurrency).toString(
-          currencyPosition: CurrencyPosition.start,
-          currencyFormat: FiatCurrencyFormat.icon,
-          moneyFormat: MoneyFormat.fixedDouble,
-          rankFormat: RankFormat.none,
-          decimalSeparatorFormat: DecimalSeparatorFormat.point,
-        );
-        final expected = '${defaultCurrency.icon}1000.10';
-        expect(actual, expected);
-      });
-      test('start/code/point', () {
-        final actual = Money.fromDouble(1000.1, defaultCurrency).toString(
-          currencyPosition: CurrencyPosition.start,
-          currencyFormat: FiatCurrencyFormat.code,
-          moneyFormat: MoneyFormat.fixedDouble,
-          rankFormat: RankFormat.none,
-          decimalSeparatorFormat: DecimalSeparatorFormat.point,
-        );
-        final expected = '${defaultCurrency.code}1000.10';
-        expect(actual, expected);
-      });
-      test('start/none/point', () {
-        final actual = Money.fromDouble(1000.1, defaultCurrency).toString(
-          currencyPosition: CurrencyPosition.start,
-          currencyFormat: FiatCurrencyFormat.none,
-          moneyFormat: MoneyFormat.fixedDouble,
-          rankFormat: RankFormat.none,
-          decimalSeparatorFormat: DecimalSeparatorFormat.point,
-        );
-        const expected = '1000.10';
-        expect(actual, expected);
-      });
-      test('start/icon/comma', () {
-        final actual = Money.fromDouble(1000.1, defaultCurrency).toString(
-          currencyPosition: CurrencyPosition.start,
-          currencyFormat: FiatCurrencyFormat.icon,
-          moneyFormat: MoneyFormat.fixedDouble,
-          rankFormat: RankFormat.none,
-          decimalSeparatorFormat: DecimalSeparatorFormat.comma,
-        );
-        final expected = '${defaultCurrency.icon}1000,10';
-        expect(actual, expected);
-      });
-      test('start/code/comma', () {
-        final actual = Money.fromDouble(1000.1, defaultCurrency).toString(
-          currencyPosition: CurrencyPosition.start,
-          currencyFormat: FiatCurrencyFormat.code,
-          moneyFormat: MoneyFormat.fixedDouble,
-          rankFormat: RankFormat.none,
-          decimalSeparatorFormat: DecimalSeparatorFormat.comma,
-        );
-        final expected = '${defaultCurrency.code}1000,10';
-        expect(actual, expected);
-      });
-      test('start/none/comma', () {
-        final actual = Money.fromDouble(1000.1, defaultCurrency).toString(
-          currencyPosition: CurrencyPosition.start,
-          currencyFormat: FiatCurrencyFormat.none,
-          moneyFormat: MoneyFormat.fixedDouble,
-          rankFormat: RankFormat.none,
-          decimalSeparatorFormat: DecimalSeparatorFormat.comma,
-        );
-        const expected = '1000,10';
-        expect(actual, expected);
-      });
-
-      test('startSpaced/icon/point', () {
-        final actual = Money.fromDouble(1000.1, defaultCurrency).toString(
-          currencyPosition: CurrencyPosition.startSpaced,
-          currencyFormat: FiatCurrencyFormat.icon,
-          moneyFormat: MoneyFormat.fixedDouble,
-          rankFormat: RankFormat.none,
-          decimalSeparatorFormat: DecimalSeparatorFormat.point,
-        );
-        final expected = '${defaultCurrency.icon} 1000.10';
-        expect(actual, expected);
-      });
-      test('startSpaced/code/point', () {
-        final actual = Money.fromDouble(1000.1, defaultCurrency).toString(
-          currencyPosition: CurrencyPosition.startSpaced,
-          currencyFormat: FiatCurrencyFormat.code,
-          moneyFormat: MoneyFormat.fixedDouble,
-          rankFormat: RankFormat.none,
-          decimalSeparatorFormat: DecimalSeparatorFormat.point,
-        );
-        final expected = '${defaultCurrency.code} 1000.10';
-        expect(actual, expected);
-      });
-      test('startSpaced/none/point', () {
-        final actual = Money.fromDouble(1000.1, defaultCurrency).toString(
-          currencyPosition: CurrencyPosition.startSpaced,
-          currencyFormat: FiatCurrencyFormat.none,
-          moneyFormat: MoneyFormat.fixedDouble,
-          rankFormat: RankFormat.none,
-          decimalSeparatorFormat: DecimalSeparatorFormat.point,
-        );
-        const expected = '1000.10';
-        expect(actual, expected);
-      });
-      test('startSpaced/icon/comma', () {
-        final actual = Money.fromDouble(1000.1, defaultCurrency).toString(
-          currencyPosition: CurrencyPosition.startSpaced,
-          currencyFormat: FiatCurrencyFormat.icon,
-          moneyFormat: MoneyFormat.fixedDouble,
-          rankFormat: RankFormat.none,
-          decimalSeparatorFormat: DecimalSeparatorFormat.comma,
-        );
-        final expected = '${defaultCurrency.icon} 1000,10';
-        expect(actual, expected);
-      });
-      test('startSpaced/code/comma', () {
-        final actual = Money.fromDouble(1000.1, defaultCurrency).toString(
-          currencyPosition: CurrencyPosition.startSpaced,
-          currencyFormat: FiatCurrencyFormat.code,
-          moneyFormat: MoneyFormat.fixedDouble,
-          rankFormat: RankFormat.none,
-          decimalSeparatorFormat: DecimalSeparatorFormat.comma,
-        );
-        final expected = '${defaultCurrency.code} 1000,10';
-        expect(actual, expected);
-      });
-      test('startSpaced/none/comma', () {
-        final actual = Money.fromDouble(1000.1, defaultCurrency).toString(
-          currencyPosition: CurrencyPosition.startSpaced,
-          currencyFormat: FiatCurrencyFormat.none,
-          moneyFormat: MoneyFormat.fixedDouble,
-          rankFormat: RankFormat.none,
-          decimalSeparatorFormat: DecimalSeparatorFormat.comma,
-        );
-        const expected = '1000,10';
-        expect(actual, expected);
-      });
-
-      test('end/icon/point', () {
-        final actual = Money.fromDouble(1000.1, defaultCurrency).toString(
-          currencyPosition: CurrencyPosition.end,
-          currencyFormat: FiatCurrencyFormat.icon,
-          moneyFormat: MoneyFormat.fixedDouble,
-          rankFormat: RankFormat.none,
-          decimalSeparatorFormat: DecimalSeparatorFormat.point,
-        );
-        final expected = '1000.10${defaultCurrency.icon}';
-        expect(actual, expected);
-      });
-      test('end/code/point', () {
-        final actual = Money.fromDouble(1000.1, defaultCurrency).toString(
-          currencyPosition: CurrencyPosition.end,
-          currencyFormat: FiatCurrencyFormat.code,
-          moneyFormat: MoneyFormat.fixedDouble,
-          rankFormat: RankFormat.none,
-          decimalSeparatorFormat: DecimalSeparatorFormat.point,
-        );
-        final expected = '1000.10${defaultCurrency.code}';
-        expect(actual, expected);
-      });
-      test('end/none/point', () {
-        final actual = Money.fromDouble(1000.1, defaultCurrency).toString(
-          currencyPosition: CurrencyPosition.end,
-          currencyFormat: FiatCurrencyFormat.none,
-          moneyFormat: MoneyFormat.fixedDouble,
-          rankFormat: RankFormat.none,
-          decimalSeparatorFormat: DecimalSeparatorFormat.point,
-        );
-        const expected = '1000.10';
-        expect(actual, expected);
-      });
-      test('end/icon/comma', () {
-        final actual = Money.fromDouble(1000.1, defaultCurrency).toString(
-          currencyPosition: CurrencyPosition.end,
-          currencyFormat: FiatCurrencyFormat.icon,
-          moneyFormat: MoneyFormat.fixedDouble,
-          rankFormat: RankFormat.none,
-          decimalSeparatorFormat: DecimalSeparatorFormat.comma,
-        );
-        final expected = '1000,10${defaultCurrency.icon}';
-        expect(actual, expected);
-      });
-      test('end/code/comma', () {
-        final actual = Money.fromDouble(1000.1, defaultCurrency).toString(
-          currencyPosition: CurrencyPosition.end,
-          currencyFormat: FiatCurrencyFormat.code,
-          moneyFormat: MoneyFormat.fixedDouble,
-          rankFormat: RankFormat.none,
-          decimalSeparatorFormat: DecimalSeparatorFormat.comma,
-        );
-        final expected = '1000,10${defaultCurrency.code}';
-        expect(actual, expected);
-      });
-      test('end/none/comma', () {
-        final actual = Money.fromDouble(1000.1, defaultCurrency).toString(
-          currencyPosition: CurrencyPosition.end,
-          currencyFormat: FiatCurrencyFormat.none,
-          moneyFormat: MoneyFormat.fixedDouble,
-          rankFormat: RankFormat.none,
-          decimalSeparatorFormat: DecimalSeparatorFormat.comma,
-        );
-        const expected = '1000,10';
-        expect(actual, expected);
-      });
-
-      test('endSpaced/icon/point', () {
-        final actual = Money.fromDouble(1000.1, defaultCurrency).toString(
-          currencyPosition: CurrencyPosition.endSpaced,
-          currencyFormat: FiatCurrencyFormat.icon,
-          moneyFormat: MoneyFormat.fixedDouble,
-          rankFormat: RankFormat.none,
-          decimalSeparatorFormat: DecimalSeparatorFormat.point,
-        );
-        final expected = '1000.10 ${defaultCurrency.icon}';
-        expect(actual, expected);
-      });
-      test('endSpaced/code/point', () {
-        final actual = Money.fromDouble(1000.1, defaultCurrency).toString(
-          currencyPosition: CurrencyPosition.endSpaced,
-          currencyFormat: FiatCurrencyFormat.code,
-          moneyFormat: MoneyFormat.fixedDouble,
-          rankFormat: RankFormat.none,
-          decimalSeparatorFormat: DecimalSeparatorFormat.point,
-        );
-        final expected = '1000.10 ${defaultCurrency.code}';
-        expect(actual, expected);
-      });
-      test('endSpaced/none/point', () {
-        final actual = Money.fromDouble(1000.1, defaultCurrency).toString(
-          currencyPosition: CurrencyPosition.endSpaced,
-          currencyFormat: FiatCurrencyFormat.none,
-          moneyFormat: MoneyFormat.fixedDouble,
-          rankFormat: RankFormat.none,
-          decimalSeparatorFormat: DecimalSeparatorFormat.point,
-        );
-        const expected = '1000.10';
-        expect(actual, expected);
-      });
-      test('endSpaced/icon/comma', () {
-        final actual = Money.fromDouble(1000.1, defaultCurrency).toString(
-          currencyPosition: CurrencyPosition.endSpaced,
-          currencyFormat: FiatCurrencyFormat.icon,
-          moneyFormat: MoneyFormat.fixedDouble,
-          rankFormat: RankFormat.none,
-          decimalSeparatorFormat: DecimalSeparatorFormat.comma,
-        );
-        final expected = '1000,10 ${defaultCurrency.icon}';
-        expect(actual, expected);
-      });
-      test('endSpaced/code/comma', () {
-        final actual = Money.fromDouble(1000.1, defaultCurrency).toString(
-          currencyPosition: CurrencyPosition.endSpaced,
-          currencyFormat: FiatCurrencyFormat.code,
-          moneyFormat: MoneyFormat.fixedDouble,
-          rankFormat: RankFormat.none,
-          decimalSeparatorFormat: DecimalSeparatorFormat.comma,
-        );
-        final expected = '1000,10 ${defaultCurrency.code}';
-        expect(actual, expected);
-      });
-      test('endSpaced/none/comma', () {
-        final actual = Money.fromDouble(1000.1, defaultCurrency).toString(
-          currencyPosition: CurrencyPosition.endSpaced,
-          currencyFormat: FiatCurrencyFormat.none,
-          moneyFormat: MoneyFormat.fixedDouble,
-          rankFormat: RankFormat.none,
-          decimalSeparatorFormat: DecimalSeparatorFormat.comma,
-        );
-        const expected = '1000,10';
-        expect(actual, expected);
-      });
-
-      test('decimalSeparator/icon/point', () {
-        final actual = Money.fromDouble(1000.1, defaultCurrency).toString(
-          currencyPosition: CurrencyPosition.decimalSeparator,
-          currencyFormat: FiatCurrencyFormat.icon,
-          moneyFormat: MoneyFormat.fixedDouble,
-          rankFormat: RankFormat.none,
-          decimalSeparatorFormat: DecimalSeparatorFormat.point,
-        );
-        final expected = '1000${defaultCurrency.icon}10';
-        expect(actual, expected);
-      });
-      test('decimalSeparator/code/point', () {
-        final actual = Money.fromDouble(1000.1, defaultCurrency).toString(
-          currencyPosition: CurrencyPosition.decimalSeparator,
-          currencyFormat: FiatCurrencyFormat.code,
-          moneyFormat: MoneyFormat.fixedDouble,
-          rankFormat: RankFormat.none,
-          decimalSeparatorFormat: DecimalSeparatorFormat.point,
-        );
-        final expected = '1000${defaultCurrency.code}10';
-        expect(actual, expected);
-      });
-      test('decimalSeparator/none/point', () {
-        final actual = Money.fromDouble(1000.1, defaultCurrency).toString(
-          currencyPosition: CurrencyPosition.decimalSeparator,
-          currencyFormat: FiatCurrencyFormat.none,
-          moneyFormat: MoneyFormat.fixedDouble,
-          rankFormat: RankFormat.none,
-          decimalSeparatorFormat: DecimalSeparatorFormat.point,
-        );
-        const expected = '1000.10';
-        expect(actual, expected);
-      });
-      test('decimalSeparator/icon/comma', () {
-        final actual = Money.fromDouble(1000.1, defaultCurrency).toString(
-          currencyPosition: CurrencyPosition.decimalSeparator,
-          currencyFormat: FiatCurrencyFormat.icon,
-          moneyFormat: MoneyFormat.fixedDouble,
-          rankFormat: RankFormat.none,
-          decimalSeparatorFormat: DecimalSeparatorFormat.comma,
-        );
-        final expected = '1000${defaultCurrency.icon}10';
-        expect(actual, expected);
-      });
-      test('decimalSeparator/code/comma', () {
-        final actual = Money.fromDouble(1000.1, defaultCurrency).toString(
-          currencyPosition: CurrencyPosition.decimalSeparator,
-          currencyFormat: FiatCurrencyFormat.code,
-          moneyFormat: MoneyFormat.fixedDouble,
-          rankFormat: RankFormat.none,
-          decimalSeparatorFormat: DecimalSeparatorFormat.comma,
-        );
-        final expected = '1000${defaultCurrency.code}10';
-        expect(actual, expected);
-      });
-      test('decimalSeparator/none/comma', () {
-        final actual = Money.fromDouble(1000.1, defaultCurrency).toString(
-          currencyPosition: CurrencyPosition.decimalSeparator,
-          currencyFormat: FiatCurrencyFormat.none,
-          moneyFormat: MoneyFormat.fixedDouble,
-          rankFormat: RankFormat.none,
-          decimalSeparatorFormat: DecimalSeparatorFormat.comma,
-        );
-        const expected = '1000,10';
+        final actual = Amount.fromDouble(100.123456, precision: 8)
+            .toString(amountFormat: AmountFormat.flexibleDouble);
+        const expected = '100.123456';
         expect(actual, expected);
       });
     });

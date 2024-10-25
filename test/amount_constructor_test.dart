@@ -1,860 +1,402 @@
-// ignore_for_file: avoid_redundant_argument_values
-
 import 'package:mdamount/mdamount.dart';
 import 'package:test/test.dart';
 
 import 'constants.dart';
 
 void main() {
-  group('fromCents >', () {
-    test('1${defaultCurrency.icon}', () {
-      final actual = Money.fromCents(100, defaultCurrency).cents;
+  group('fromNumerator >', () {
+    test('100', () {
+      final actual = Amount.fromNumerator(100).value;
       final expected = BigInt.from(100);
       expect(actual, expected);
     });
-    test('1 cent', () {
-      final actual = Money.fromCents(1, defaultCurrency).cents;
+    test('1', () {
+      final actual = Amount.fromNumerator(1).value;
       final expected = BigInt.one;
       expect(actual, expected);
     });
-    test('0 cents', () {
-      final actual = Money.fromCents(0, defaultCurrency).cents;
+    test('0', () {
+      final actual = Amount.fromNumerator(0).value;
       final expected = BigInt.zero;
       expect(actual, expected);
     });
-    test('-1 cent', () {
-      final actual = Money.fromCents(-1, defaultCurrency).cents;
+    test('-1', () {
+      final actual = Amount.fromNumerator(-1).value;
       final expected = -BigInt.one;
       expect(actual, expected);
     });
-    test('-1${defaultCurrency.icon}', () {
-      final actual = Money.fromCents(-100, defaultCurrency).cents;
+    test('-100', () {
+      final actual = Amount.fromNumerator(-100).value;
       final expected = -BigInt.from(100);
       expect(actual, expected);
     });
+    test('max finite', () {
+      final actual = Amount.fromNumerator(maxFiniteInt).value;
+      final expected = BigInt.from(maxFiniteInt);
+      expect(actual, expected);
+    });
     test('precision -1', () {
-      Money actual() => Money.fromCents(0, defaultCurrency, precision: -1);
+      Amount actual() => Amount.fromNumerator(0, precision: -1);
       final expected = throwsA(const TypeMatcher<NegativePrecisionException>());
       expect(actual, expected);
     });
     test('precision 0', () {
-      final actual = Money.fromCents(
-        123456789,
-        defaultCurrency,
-        precision: 0,
-      ).fractional.toInt();
-      const expected = 0;
+      final actual = Amount.fromNumerator(123456789, precision: 0).fractional;
+      final expected = BigInt.zero;
       expect(actual, expected);
     });
     test('precision 4', () {
-      final actual = Money.fromCents(
-        123456789,
-        defaultCurrency,
-        precision: 4,
-      ).fractional.toInt();
-      const expected = 6789;
+      final actual = Amount.fromNumerator(123456789, precision: 4).fractional;
+      final expected = BigInt.from(6789);
       expect(actual, expected);
     });
     test('precision 12', () {
-      final actual = Money.fromCents(
-        123456789,
-        defaultCurrency,
-        precision: 12,
-      ).fractional.toInt();
-      const expected = 123456789;
+      final actual = Amount.fromNumerator(123456789, precision: 12).fractional;
+      final expected = BigInt.from(123456789);
+      expect(actual, expected);
+    });
+  });
+
+  group('fromBigInt >', () {
+    test('1', () {
+      final actual = Amount.fromBigInt(BigInt.one).value;
+      final expected = BigInt.from(100);
+      expect(actual, expected);
+    });
+    test('0', () {
+      final actual = Amount.fromBigInt(BigInt.zero).value;
+      final expected = BigInt.zero;
+      expect(actual, expected);
+    });
+    test('-1', () {
+      final actual = Amount.fromBigInt(-BigInt.one).value;
+      final expected = -BigInt.from(100);
+      expect(actual, expected);
+    });
+    test('precision -1', () {
+      Amount actual() => Amount.fromBigInt(BigInt.one, precision: -1);
+      final expected = throwsA(const TypeMatcher<NegativePrecisionException>());
+      expect(actual, expected);
+    });
+    test('precision 0', () {
+      final actual = Amount.fromBigInt(BigInt.one, precision: 0).value;
+      final expected = BigInt.one;
+      expect(actual, expected);
+    });
+    test('precision 4', () {
+      final actual = Amount.fromBigInt(BigInt.one, precision: 4).value;
+      final expected = BigInt.from(10000);
+      expect(actual, expected);
+    });
+    test('precision 12', () {
+      final actual = Amount.fromBigInt(BigInt.one, precision: 12).value;
+      final expected = BigInt.from(1000000000000);
+      expect(actual, expected);
+    });
+  });
+
+  group('fromInt >', () {
+    test('1', () {
+      final actual = Amount.fromInt(1).value;
+      final expected = BigInt.from(100);
+      expect(actual, expected);
+    });
+    test('0', () {
+      final actual = Amount.fromInt(0).value;
+      final expected = BigInt.zero;
+      expect(actual, expected);
+    });
+    test('-1', () {
+      final actual = Amount.fromInt(-1).value;
+      final expected = -BigInt.from(100);
+      expect(actual, expected);
+    });
+    test('max finite', () {
+      final actual = Amount.fromInt(maxFiniteInt).value;
+      final expected = BigInt.from(maxFiniteInt) * precisionModifier;
+      expect(actual, expected);
+    });
+    test('precision -1', () {
+      Amount actual() => Amount.fromInt(1, precision: -1);
+      final expected = throwsA(const TypeMatcher<NegativePrecisionException>());
+      expect(actual, expected);
+    });
+    test('precision 0', () {
+      final actual = Amount.fromInt(1, precision: 0).value;
+      final expected = BigInt.one;
+      expect(actual, expected);
+    });
+    test('precision 4', () {
+      final actual = Amount.fromInt(1, precision: 4).value;
+      final expected = BigInt.from(10000);
+      expect(actual, expected);
+    });
+    test('precision 12', () {
+      final actual = Amount.fromInt(1, precision: 12).value;
+      final expected = BigInt.from(1000000000000);
       expect(actual, expected);
     });
   });
 
   group('fromDecimal >', () {
-    test('1${defaultCurrency.icon}', () {
-      final actual = Money.fromDecimal(Decimal.one, defaultCurrency).cents;
+    test('1', () {
+      final actual = Amount.fromDecimal(Decimal.one).value;
       final expected = BigInt.from(100);
       expect(actual, expected);
     });
-    test('1 cent', () {
-      final actual =
-          Money.fromDecimal(Decimal.parse('0.01'), defaultCurrency).cents;
+    test('1', () {
+      final actual = Amount.fromDecimal(Decimal.parse('0.01')).value;
       final expected = BigInt.one;
       expect(actual, expected);
     });
-    test('65.4 cents flooring', () {
-      final actual =
-          Money.fromDecimal(Decimal.parse('0.654'), defaultCurrency).cents;
+    test('65.4 flooring', () {
+      final actual = Amount.fromDecimal(Decimal.parse('0.654')).value;
       final expected = BigInt.from(65);
       expect(actual, expected);
     });
-    test('34.5 cents ceiling', () {
-      final actual =
-          Money.fromDecimal(Decimal.parse('0.345'), defaultCurrency).cents;
+    test('34.5 ceiling', () {
+      final actual = Amount.fromDecimal(Decimal.parse('0.345')).value;
       final expected = BigInt.from(35);
       expect(actual, expected);
     });
-    test('0 cents', () {
-      final actual = Money.fromDecimal(Decimal.zero, defaultCurrency).cents;
+    test('0 value', () {
+      final actual = Amount.fromDecimal(Decimal.zero).value;
       final expected = BigInt.zero;
       expect(actual, expected);
     });
-    test('-1 cent', () {
-      final actual =
-          Money.fromDecimal(Decimal.parse('-0.01'), defaultCurrency).cents;
+    test('-1', () {
+      final actual = Amount.fromDecimal(Decimal.parse('-0.01')).value;
       final expected = -BigInt.one;
       expect(actual, expected);
     });
-    test('-34.5 cents ceiling', () {
-      final actual =
-          Money.fromDecimal(Decimal.parse('-0.345'), defaultCurrency).cents;
+    test('-34.5 ceiling', () {
+      final actual = Amount.fromDecimal(Decimal.parse('-0.345')).value;
       final expected = -BigInt.from(35);
       expect(actual, expected);
     });
-    test('-65.4 cents flooring', () {
-      final actual =
-          Money.fromDecimal(Decimal.parse('-0.654'), defaultCurrency).cents;
+    test('-65.4 flooring', () {
+      final actual = Amount.fromDecimal(Decimal.parse('-0.654')).value;
       final expected = -BigInt.from(65);
       expect(actual, expected);
     });
-    test('-1${defaultCurrency.icon}', () {
-      final actual = Money.fromDecimal(-Decimal.one, defaultCurrency).cents;
+    test('-1', () {
+      final actual = Amount.fromDecimal(-Decimal.one).value;
       final expected = -BigInt.from(100);
       expect(actual, expected);
     });
-    test('Max finite', () {
+    test('max finite', () {
       final amount = Decimal.parse('$maxFinite');
-      final actual = Money.fromDecimal(amount, defaultCurrency).cents;
-      final expected = (amount * Decimal.fromInt(100)).round().toBigInt();
+      final actual = Amount.fromDecimal(amount).value;
+      final expected =
+          (amount * Decimal.fromBigInt(precisionModifier)).round().toBigInt();
       expect(actual, expected);
     });
     test('precision -1', () {
-      Money actual() =>
-          Money.fromDecimal(Decimal.zero, defaultCurrency, precision: -1);
+      Amount actual() => Amount.fromDecimal(Decimal.zero, precision: -1);
       final expected = throwsA(const TypeMatcher<NegativePrecisionException>());
       expect(actual, expected);
     });
     test('precision 0', () {
-      final actual = Money.fromDecimal(
-        Decimal.parse('0.123456789'),
-        defaultCurrency,
-        precision: 0,
-      ).cents.toInt();
-      const expected = 0;
+      final actual =
+          Amount.fromDecimal(Decimal.parse('0.123456789'), precision: 0).value;
+      final expected = BigInt.zero;
       expect(actual, expected);
     });
     test('precision 4', () {
-      final actual = Money.fromDecimal(
-        Decimal.parse('0.123456789'),
-        defaultCurrency,
-        precision: 4,
-      ).cents.toInt();
-      const expected = 1235;
+      final actual =
+          Amount.fromDecimal(Decimal.parse('0.123456789'), precision: 4).value;
+      final expected = BigInt.from(1235);
       expect(actual, expected);
     });
     test('precision 12', () {
-      final actual = Money.fromDecimal(
-        Decimal.parse('0.123456789'),
-        defaultCurrency,
-        precision: 12,
-      ).cents.toInt();
-      const expected = 123456789000;
+      final actual =
+          Amount.fromDecimal(Decimal.parse('0.123456789'), precision: 12).value;
+      final expected = BigInt.from(123456789000);
       expect(actual, expected);
     });
   });
 
   group('fromDouble >', () {
-    test('1${defaultCurrency.icon}', () {
-      final actual = Money.fromDouble(1, defaultCurrency).cents;
+    test('1', () {
+      final actual = Amount.fromDouble(1).value;
       final expected = BigInt.from(100);
       expect(actual, expected);
     });
-    test('1 cent', () {
-      final actual = Money.fromDouble(0.01, defaultCurrency).cents;
+    test('1', () {
+      final actual = Amount.fromDouble(0.01).value;
       final expected = BigInt.one;
       expect(actual, expected);
     });
-    test('65.4 cents flooring', () {
-      final actual = Money.fromDouble(0.654, defaultCurrency).cents;
+    test('65.4 flooring', () {
+      final actual = Amount.fromDouble(0.654).value;
       final expected = BigInt.from(65);
       expect(actual, expected);
     });
-    test('34.5 cents ceiling', () {
-      final actual = Money.fromDouble(0.345, defaultCurrency).cents;
+    test('34.5 ceiling', () {
+      final actual = Amount.fromDouble(0.345).value;
       final expected = BigInt.from(35);
       expect(actual, expected);
     });
-    test('0 cents', () {
-      final actual = Money.fromDouble(0, defaultCurrency).cents;
+    test('0 value', () {
+      final actual = Amount.fromDouble(0).value;
       final expected = BigInt.zero;
       expect(actual, expected);
     });
-    test('-1 cent', () {
-      final actual = Money.fromDouble(-0.01, defaultCurrency).cents;
+    test('-1', () {
+      final actual = Amount.fromDouble(-0.01).value;
       final expected = -BigInt.one;
       expect(actual, expected);
     });
-    test('-34.5 cents ceiling', () {
-      final actual = Money.fromDouble(-0.345, defaultCurrency).cents;
+    test('-34.5 ceiling', () {
+      final actual = Amount.fromDouble(-0.345).value;
       final expected = -BigInt.from(35);
       expect(actual, expected);
     });
-    test('-65.4 cents flooring', () {
-      final actual = Money.fromDouble(-0.654, defaultCurrency).cents;
+    test('-65.4 flooring', () {
+      final actual = Amount.fromDouble(-0.654).value;
       final expected = -BigInt.from(65);
       expect(actual, expected);
     });
-    test('-1${defaultCurrency.icon}', () {
-      final actual = Money.fromDouble(-1, defaultCurrency).cents;
+    test('-1', () {
+      final actual = Amount.fromDouble(-1).value;
       final expected = -BigInt.from(100);
       expect(actual, expected);
     });
-    test('Max finite', () {
-      final actual = Money.fromDouble(maxFinite, defaultCurrency).cents;
-      final expected = BigInt.from(maxFiniteCents);
+    test('max finite', () {
+      final actual = Amount.fromDouble(maxFinite).value;
+      final expected = maxFiniteNumerator;
       expect(actual, expected);
     });
-    test('Infinite', () {
-      Money actual() => Money.fromDouble(maxFinite * 10, defaultCurrency);
+    test('infinite', () {
+      Amount actual() => Amount.fromDouble(double.infinity);
       final expected = throwsA(const TypeMatcher<InfiniteNumberException>());
       expect(actual, expected);
     });
     test('precision -1', () {
-      Money actual() => Money.fromDouble(1, defaultCurrency, precision: -1);
+      Amount actual() => Amount.fromDouble(1, precision: -1);
       final expected = throwsA(const TypeMatcher<NegativePrecisionException>());
       expect(actual, expected);
     });
     test('precision 0', () {
-      final actual = Money.fromDouble(
-        0.123456789,
-        defaultCurrency,
-        precision: 0,
-      ).cents.toInt();
-      const expected = 0;
+      final actual = Amount.fromDouble(0.123456789, precision: 0).value;
+      final expected = BigInt.zero;
       expect(actual, expected);
     });
     test('precision 4', () {
-      final actual = Money.fromDouble(
-        0.123456789,
-        defaultCurrency,
-        precision: 4,
-      ).cents.toInt();
-      const expected = 1235;
+      final actual = Amount.fromDouble(0.123456789, precision: 4).value;
+      final expected = BigInt.from(1235);
       expect(actual, expected);
     });
     test('precision 12', () {
-      final actual = Money.fromDouble(
-        0.123456789,
-        defaultCurrency,
-        precision: 12,
-      ).cents.toInt();
-      const expected = 123456789000;
+      final actual = Amount.fromDouble(0.123456789, precision: 12).value;
+      final expected = BigInt.from(123456789000);
       expect(actual, expected);
     });
   });
 
   group('fromString >', () {
-    group('Currency General >', () {
-      group('In args >', () {
-        test('1${defaultCurrency.icon}', () {
-          final actual = Money.fromString('1', currency: defaultCurrency).cents;
-          final expected = BigInt.from(100);
-          expect(actual, expected);
-        });
-        test('1 cent', () {
-          final actual =
-              Money.fromString('0.01', currency: defaultCurrency).cents;
-          final expected = BigInt.one;
-          expect(actual, expected);
-        });
-        test('65.4 cents flooring', () {
-          final actual =
-              Money.fromString('0.654', currency: defaultCurrency).cents;
-          final expected = BigInt.from(65);
-          expect(actual, expected);
-        });
-        test('34.5 cents ceiling', () {
-          final actual =
-              Money.fromString('0.345', currency: defaultCurrency).cents;
-          final expected = BigInt.from(35);
-          expect(actual, expected);
-        });
-        test('0 cents', () {
-          final actual = Money.fromString('0', currency: defaultCurrency).cents;
-          final expected = BigInt.zero;
-          expect(actual, expected);
-        });
-        test('-1 cent', () {
-          final actual =
-              Money.fromString('-0.01', currency: defaultCurrency).cents;
-          final expected = -BigInt.one;
-          expect(actual, expected);
-        });
-        test('-34.5 cents ceiling', () {
-          final actual =
-              Money.fromString('-0.345', currency: defaultCurrency).cents;
-          final expected = -BigInt.from(35);
-          expect(actual, expected);
-        });
-        test('-65.4 cents flooring', () {
-          final actual =
-              Money.fromString('-0.654', currency: defaultCurrency).cents;
-          final expected = -BigInt.from(65);
-          expect(actual, expected);
-        });
-        test('-1${defaultCurrency.icon}', () {
-          final actual =
-              Money.fromString('-1', currency: defaultCurrency).cents;
-          final expected = -BigInt.from(100);
-          expect(actual, expected);
-        });
+    group('dot >', () {
+      test('1', () {
+        final actual = Amount.fromString('1').value;
+        final expected = BigInt.from(100);
+        expect(actual, expected);
+      });
+      test('1', () {
+        final actual = Amount.fromString('0.01').value;
+        final expected = BigInt.one;
+        expect(actual, expected);
+      });
+      test('65.4 value flooring', () {
+        final actual = Amount.fromString('0.654').value;
+        final expected = BigInt.from(65);
+        expect(actual, expected);
+      });
+      test('34.5 value ceiling', () {
+        final actual = Amount.fromString('0.345').value;
+        final expected = BigInt.from(35);
+        expect(actual, expected);
+      });
+      test('0 value', () {
+        final actual = Amount.fromString('0').value;
+        final expected = BigInt.zero;
+        expect(actual, expected);
+      });
+      test('-1', () {
+        final actual = Amount.fromString('-0.01').value;
+        final expected = -BigInt.one;
+        expect(actual, expected);
+      });
+      test('-34.5 value ceiling', () {
+        final actual = Amount.fromString('-0.345').value;
+        final expected = -BigInt.from(35);
+        expect(actual, expected);
+      });
+      test('-65.4 value flooring', () {
+        final actual = Amount.fromString('-0.654').value;
+        final expected = -BigInt.from(65);
+        expect(actual, expected);
+      });
+      test('-1', () {
+        final actual = Amount.fromString('-1').value;
+        final expected = -BigInt.from(100);
+        expect(actual, expected);
       });
 
-      group('In args (comma) >', () {
-        test('1 cent', () {
-          final actual =
-              Money.fromString('0,01', currency: defaultCurrency).cents;
+      group('comma >', () {
+        test('1', () {
+          final actual = Amount.fromString('0,01').value;
           final expected = BigInt.one;
           expect(actual, expected);
         });
-        test('65.4 cents flooring', () {
-          final actual =
-              Money.fromString('0,654', currency: defaultCurrency).cents;
+        test('65.4 value flooring', () {
+          final actual = Amount.fromString('0,654').value;
           final expected = BigInt.from(65);
           expect(actual, expected);
         });
-        test('34.5 cents ceiling', () {
-          final actual =
-              Money.fromString('0,345', currency: defaultCurrency).cents;
+        test('34.5 value ceiling', () {
+          final actual = Amount.fromString('0,345').value;
           final expected = BigInt.from(35);
           expect(actual, expected);
         });
-        test('-1 cent', () {
-          final actual =
-              Money.fromString('-0,01', currency: defaultCurrency).cents;
+        test('-1', () {
+          final actual = Amount.fromString('-0,01').value;
           final expected = -BigInt.one;
           expect(actual, expected);
         });
-        test('-34.5 cents ceiling', () {
-          final actual =
-              Money.fromString('-0,345', currency: defaultCurrency).cents;
+        test('-34.5 value ceiling', () {
+          final actual = Amount.fromString('-0,345').value;
           final expected = -BigInt.from(35);
           expect(actual, expected);
         });
-        test('-65.4 cents flooring', () {
-          final actual =
-              Money.fromString('-0,654', currency: defaultCurrency).cents;
+        test('-65.4 value flooring', () {
+          final actual = Amount.fromString('-0,654').value;
           final expected = -BigInt.from(65);
           expect(actual, expected);
         });
       });
 
       group('Cases with spaces >', () {
-        group('In args (comma) >', () {
+        group('comma >', () {
           test('positive amount', () {
-            final actual =
-                Money.fromString('1 000,01', currency: defaultCurrency).cents;
+            final actual = Amount.fromString('1 000,01').value;
             final expected = BigInt.from(100001);
             expect(actual, expected);
           });
           test('negative amount', () {
-            final actual =
-                Money.fromString('-1 000,01', currency: defaultCurrency).cents;
+            final actual = Amount.fromString('-1 000,01').value;
             final expected = -BigInt.from(100001);
             expect(actual, expected);
           });
         });
 
-        group('In args (dot) >', () {
+        group('dot >', () {
           test('positive amount', () {
-            final actual =
-                Money.fromString('1 000.01', currency: defaultCurrency).cents;
+            final actual = Amount.fromString('1 000.01').value;
             final expected = BigInt.from(100001);
             expect(actual, expected);
           });
           test('negative amount', () {
-            final actual =
-                Money.fromString('-1 000.01', currency: defaultCurrency).cents;
-            final expected = -BigInt.from(100001);
-            expect(actual, expected);
-          });
-        });
-      });
-    });
-
-    group('Currency Icon >', () {
-      group('In string (end) >', () {
-        test('1${defaultCurrency.icon}', () {
-          final actual = Money.fromString('1${defaultCurrency.icon}').cents;
-          final expected = BigInt.from(100);
-          expect(actual, expected);
-        });
-        test('1 cent', () {
-          final actual = Money.fromString('0.01${defaultCurrency.icon}').cents;
-          final expected = BigInt.one;
-          expect(actual, expected);
-        });
-        test('65.4 cents flooring', () {
-          final actual = Money.fromString('0.654${defaultCurrency.icon}').cents;
-          final expected = BigInt.from(65);
-          expect(actual, expected);
-        });
-        test('34.5 cents ceiling', () {
-          final actual = Money.fromString('0.345${defaultCurrency.icon}').cents;
-          final expected = BigInt.from(35);
-          expect(actual, expected);
-        });
-        test('0 cents', () {
-          final actual = Money.fromString('0${defaultCurrency.icon}').cents;
-          final expected = BigInt.zero;
-          expect(actual, expected);
-        });
-        test('-1 cent', () {
-          final actual = Money.fromString('-0.01${defaultCurrency.icon}').cents;
-          final expected = -BigInt.one;
-          expect(actual, expected);
-        });
-        test('-34.5 cents ceiling', () {
-          final actual =
-              Money.fromString('-0.345${defaultCurrency.icon}').cents;
-          final expected = -BigInt.from(35);
-          expect(actual, expected);
-        });
-        test('-65.4 cents flooring', () {
-          final actual =
-              Money.fromString('-0.654${defaultCurrency.icon}').cents;
-          final expected = -BigInt.from(65);
-          expect(actual, expected);
-        });
-        test('-1${defaultCurrency.icon}', () {
-          final actual = Money.fromString('-1${defaultCurrency.icon}').cents;
-          final expected = -BigInt.from(100);
-          expect(actual, expected);
-        });
-      });
-
-      group('In string (start) >', () {
-        test('1${defaultCurrency.icon}', () {
-          final actual = Money.fromString('${defaultCurrency.icon}1').cents;
-          final expected = BigInt.from(100);
-          expect(actual, expected);
-        });
-        test('1 cent', () {
-          final actual = Money.fromString('${defaultCurrency.icon}0.01').cents;
-          final expected = BigInt.one;
-          expect(actual, expected);
-        });
-        test('65.4 cents flooring', () {
-          final actual = Money.fromString('${defaultCurrency.icon}0.654').cents;
-          final expected = BigInt.from(65);
-          expect(actual, expected);
-        });
-        test('34.5 cents ceiling', () {
-          final actual = Money.fromString('${defaultCurrency.icon}0.345').cents;
-          final expected = BigInt.from(35);
-          expect(actual, expected);
-        });
-        test('0 cents', () {
-          final actual = Money.fromString('${defaultCurrency.icon}0').cents;
-          final expected = BigInt.zero;
-          expect(actual, expected);
-        });
-        test('-1 cent', () {
-          final actual = Money.fromString('${defaultCurrency.icon}-0.01').cents;
-          final expected = -BigInt.one;
-          expect(actual, expected);
-        });
-        test('-34.5 cents ceiling', () {
-          final actual =
-              Money.fromString('${defaultCurrency.icon}-0.345').cents;
-          final expected = -BigInt.from(35);
-          expect(actual, expected);
-        });
-        test('-65.4 cents flooring', () {
-          final actual =
-              Money.fromString('${defaultCurrency.icon}-0.654').cents;
-          final expected = -BigInt.from(65);
-          expect(actual, expected);
-        });
-        test('-1${defaultCurrency.icon}', () {
-          final actual = Money.fromString('${defaultCurrency.icon}-1').cents;
-          final expected = -BigInt.from(100);
-          expect(actual, expected);
-        });
-      });
-
-      group('In string (decimal separator) >', () {
-        test('1 cent', () {
-          final actual = Money.fromString('0${defaultCurrency.icon}01').cents;
-          final expected = BigInt.one;
-          expect(actual, expected);
-        });
-        test('65.4 cents flooring', () {
-          final actual = Money.fromString('0${defaultCurrency.icon}654').cents;
-          final expected = BigInt.from(65);
-          expect(actual, expected);
-        });
-        test('34.5 cents ceiling', () {
-          final actual = Money.fromString('0${defaultCurrency.icon}345').cents;
-          final expected = BigInt.from(35);
-          expect(actual, expected);
-        });
-        test('-1 cent', () {
-          final actual = Money.fromString('-0${defaultCurrency.icon}01').cents;
-          final expected = -BigInt.one;
-          expect(actual, expected);
-        });
-        test('-34.5 cents ceiling', () {
-          final actual = Money.fromString('-0${defaultCurrency.icon}345').cents;
-          final expected = -BigInt.from(35);
-          expect(actual, expected);
-        });
-        test('-65.4 cents flooring', () {
-          final actual = Money.fromString('-0${defaultCurrency.icon}654').cents;
-          final expected = -BigInt.from(65);
-          expect(actual, expected);
-        });
-      });
-
-      group('Cases with spaces >', () {
-        group('In string (end) >', () {
-          test('positive amount', () {
-            final actual =
-                Money.fromString('1 000.01 ${defaultCurrency.icon}').cents;
-            final expected = BigInt.from(100001);
-            expect(actual, expected);
-          });
-          test('negative amount', () {
-            final actual =
-                Money.fromString('-1 000.01 ${defaultCurrency.icon}').cents;
-            final expected = -BigInt.from(100001);
-            expect(actual, expected);
-          });
-        });
-
-        group('In string (start) >', () {
-          test('positive amount', () {
-            final actual =
-                Money.fromString('${defaultCurrency.icon} 1 000.01').cents;
-            final expected = BigInt.from(100001);
-            expect(actual, expected);
-          });
-          test('negative amount', () {
-            final actual =
-                Money.fromString('${defaultCurrency.icon} -1 000.01').cents;
-            final expected = -BigInt.from(100001);
-            expect(actual, expected);
-          });
-        });
-
-        group('In string (end/without ranks) >', () {
-          test('positive amount', () {
-            final actual =
-                Money.fromString('1000.01 ${defaultCurrency.icon}').cents;
-            final expected = BigInt.from(100001);
-            expect(actual, expected);
-          });
-          test('negative amount', () {
-            final actual =
-                Money.fromString('-1000.01 ${defaultCurrency.icon}').cents;
-            final expected = -BigInt.from(100001);
-            expect(actual, expected);
-          });
-        });
-
-        group('In string (start/without ranks) >', () {
-          test('positive amount', () {
-            final actual =
-                Money.fromString('${defaultCurrency.icon} 1000.01').cents;
-            final expected = BigInt.from(100001);
-            expect(actual, expected);
-          });
-          test('negative amount', () {
-            final actual =
-                Money.fromString('${defaultCurrency.icon} -1000.01').cents;
-            final expected = -BigInt.from(100001);
-            expect(actual, expected);
-          });
-        });
-
-        group('In string (end/without currency spacing) >', () {
-          test('positive amount', () {
-            final actual =
-                Money.fromString('1 000.01${defaultCurrency.icon}').cents;
-            final expected = BigInt.from(100001);
-            expect(actual, expected);
-          });
-          test('negative amount', () {
-            final actual =
-                Money.fromString('-1 000.01${defaultCurrency.icon}').cents;
-            final expected = -BigInt.from(100001);
-            expect(actual, expected);
-          });
-        });
-
-        group('In string (start/without currency spacing) >', () {
-          test('positive amount', () {
-            final actual =
-                Money.fromString('${defaultCurrency.icon}1 000.01').cents;
-            final expected = BigInt.from(100001);
-            expect(actual, expected);
-          });
-          test('negative amount', () {
-            final actual =
-                Money.fromString('${defaultCurrency.icon}-1 000.01').cents;
-            final expected = -BigInt.from(100001);
-            expect(actual, expected);
-          });
-        });
-
-        group('In string (decimal separator) >', () {
-          test('positive amount', () {
-            final actual =
-                Money.fromString('1 000${defaultCurrency.icon}01').cents;
-            final expected = BigInt.from(100001);
-            expect(actual, expected);
-          });
-          test('negative amount', () {
-            final actual =
-                Money.fromString('-1 000${defaultCurrency.icon}01').cents;
-            final expected = -BigInt.from(100001);
-            expect(actual, expected);
-          });
-        });
-      });
-    });
-
-    group('Currency Code >', () {
-      group('In string (end) >', () {
-        test('1${defaultCurrency.code}', () {
-          final actual = Money.fromString('1${defaultCurrency.code}').cents;
-          final expected = BigInt.from(100);
-          expect(actual, expected);
-        });
-        test('1 cent', () {
-          final actual = Money.fromString('0.01${defaultCurrency.code}').cents;
-          final expected = BigInt.one;
-          expect(actual, expected);
-        });
-        test('65.4 cents flooring', () {
-          final actual = Money.fromString('0.654${defaultCurrency.code}').cents;
-          final expected = BigInt.from(65);
-          expect(actual, expected);
-        });
-        test('34.5 cents ceiling', () {
-          final actual = Money.fromString('0.345${defaultCurrency.code}').cents;
-          final expected = BigInt.from(35);
-          expect(actual, expected);
-        });
-        test('0 cents', () {
-          final actual = Money.fromString('0${defaultCurrency.code}').cents;
-          final expected = BigInt.zero;
-          expect(actual, expected);
-        });
-        test('-1 cent', () {
-          final actual = Money.fromString('-0.01${defaultCurrency.code}').cents;
-          final expected = -BigInt.one;
-          expect(actual, expected);
-        });
-        test('-34.5 cents ceiling', () {
-          final actual =
-              Money.fromString('-0.345${defaultCurrency.code}').cents;
-          final expected = -BigInt.from(35);
-          expect(actual, expected);
-        });
-        test('-65.4 cents flooring', () {
-          final actual =
-              Money.fromString('-0.654${defaultCurrency.code}').cents;
-          final expected = -BigInt.from(65);
-          expect(actual, expected);
-        });
-        test('-1${defaultCurrency.code}', () {
-          final actual = Money.fromString('-1${defaultCurrency.code}').cents;
-          final expected = -BigInt.from(100);
-          expect(actual, expected);
-        });
-      });
-
-      group('In string (start) >', () {
-        test('1${defaultCurrency.code}', () {
-          final actual = Money.fromString('${defaultCurrency.code}1').cents;
-          final expected = BigInt.from(100);
-          expect(actual, expected);
-        });
-        test('1 cent', () {
-          final actual = Money.fromString('${defaultCurrency.code}0.01').cents;
-          final expected = BigInt.one;
-          expect(actual, expected);
-        });
-        test('65.4 cents flooring', () {
-          final actual = Money.fromString('${defaultCurrency.code}0.654').cents;
-          final expected = BigInt.from(65);
-          expect(actual, expected);
-        });
-        test('34.5 cents ceiling', () {
-          final actual = Money.fromString('${defaultCurrency.code}0.345').cents;
-          final expected = BigInt.from(35);
-          expect(actual, expected);
-        });
-        test('0 cents', () {
-          final actual = Money.fromString('${defaultCurrency.code}0').cents;
-          final expected = BigInt.zero;
-          expect(actual, expected);
-        });
-        test('-1 cent', () {
-          final actual = Money.fromString('${defaultCurrency.code}-0.01').cents;
-          final expected = -BigInt.one;
-          expect(actual, expected);
-        });
-        test('-34.5 cents ceiling', () {
-          final actual =
-              Money.fromString('${defaultCurrency.code}-0.345').cents;
-          final expected = -BigInt.from(35);
-          expect(actual, expected);
-        });
-        test('-65.4 cents flooring', () {
-          final actual =
-              Money.fromString('${defaultCurrency.code}-0.654').cents;
-          final expected = -BigInt.from(65);
-          expect(actual, expected);
-        });
-        test('-1${defaultCurrency.code}', () {
-          final actual = Money.fromString('${defaultCurrency.code}-1').cents;
-          final expected = -BigInt.from(100);
-          expect(actual, expected);
-        });
-      });
-
-      group('In string (decimal separator) >', () {
-        test('1 cent', () {
-          final actual = Money.fromString('0${defaultCurrency.code}01').cents;
-          final expected = BigInt.one;
-          expect(actual, expected);
-        });
-        test('65.4 cents flooring', () {
-          final actual = Money.fromString('0${defaultCurrency.code}654').cents;
-          final expected = BigInt.from(65);
-          expect(actual, expected);
-        });
-        test('34.5 cents ceiling', () {
-          final actual = Money.fromString('0${defaultCurrency.code}345').cents;
-          final expected = BigInt.from(35);
-          expect(actual, expected);
-        });
-        test('-1 cent', () {
-          final actual = Money.fromString('-0${defaultCurrency.code}01').cents;
-          final expected = -BigInt.one;
-          expect(actual, expected);
-        });
-        test('-34.5 cents ceiling', () {
-          final actual = Money.fromString('-0${defaultCurrency.code}345').cents;
-          final expected = -BigInt.from(35);
-          expect(actual, expected);
-        });
-        test('-65.4 cents flooring', () {
-          final actual = Money.fromString('-0${defaultCurrency.code}654').cents;
-          final expected = -BigInt.from(65);
-          expect(actual, expected);
-        });
-      });
-
-      group('Cases with spaces >', () {
-        group('In string (end) >', () {
-          test('positive amount', () {
-            final actual =
-                Money.fromString('1 000.01 ${defaultCurrency.code}').cents;
-            final expected = BigInt.from(100001);
-            expect(actual, expected);
-          });
-          test('negative amount', () {
-            final actual =
-                Money.fromString('-1 000.01 ${defaultCurrency.code}').cents;
-            final expected = -BigInt.from(100001);
-            expect(actual, expected);
-          });
-        });
-
-        group('In string (start) >', () {
-          test('positive amount', () {
-            final actual =
-                Money.fromString('${defaultCurrency.code} 1 000.01').cents;
-            final expected = BigInt.from(100001);
-            expect(actual, expected);
-          });
-          test('negative amount', () {
-            final actual =
-                Money.fromString('${defaultCurrency.code} -1 000.01').cents;
-            final expected = -BigInt.from(100001);
-            expect(actual, expected);
-          });
-        });
-
-        group('In string (end/without ranks) >', () {
-          test('positive amount', () {
-            final actual =
-                Money.fromString('1000.01 ${defaultCurrency.code}').cents;
-            final expected = BigInt.from(100001);
-            expect(actual, expected);
-          });
-          test('negative amount', () {
-            final actual =
-                Money.fromString('-1000.01 ${defaultCurrency.code}').cents;
-            final expected = -BigInt.from(100001);
-            expect(actual, expected);
-          });
-        });
-
-        group('In string (start/without ranks) >', () {
-          test('positive amount', () {
-            final actual =
-                Money.fromString('${defaultCurrency.code} 1000.01').cents;
-            final expected = BigInt.from(100001);
-            expect(actual, expected);
-          });
-          test('negative amount', () {
-            final actual =
-                Money.fromString('${defaultCurrency.code} -1000.01').cents;
-            final expected = -BigInt.from(100001);
-            expect(actual, expected);
-          });
-        });
-
-        group('In string (end/without currency spacing) >', () {
-          test('positive amount', () {
-            final actual =
-                Money.fromString('1 000.01${defaultCurrency.code}').cents;
-            final expected = BigInt.from(100001);
-            expect(actual, expected);
-          });
-          test('negative amount', () {
-            final actual =
-                Money.fromString('-1 000.01${defaultCurrency.code}').cents;
-            final expected = -BigInt.from(100001);
-            expect(actual, expected);
-          });
-        });
-
-        group('In string (start/without currency spacing) >', () {
-          test('positive amount', () {
-            final actual =
-                Money.fromString('${defaultCurrency.code}1 000.01').cents;
-            final expected = BigInt.from(100001);
-            expect(actual, expected);
-          });
-          test('negative amount', () {
-            final actual =
-                Money.fromString('${defaultCurrency.code}-1 000.01').cents;
-            final expected = -BigInt.from(100001);
-            expect(actual, expected);
-          });
-        });
-
-        group('In string (decimal separator) >', () {
-          test('positive amount', () {
-            final actual =
-                Money.fromString('1 000${defaultCurrency.code}01').cents;
-            final expected = BigInt.from(100001);
-            expect(actual, expected);
-          });
-          test('negative amount', () {
-            final actual =
-                Money.fromString('-1 000${defaultCurrency.code}01').cents;
+            final actual = Amount.fromString('-1 000.01').value;
             final expected = -BigInt.from(100001);
             expect(actual, expected);
           });
@@ -863,71 +405,42 @@ void main() {
     });
 
     group('Misc >', () {
-      test('Empty string with currency in args', () {
-        final actual = Money.fromString('', currency: defaultCurrency);
-        final expected = Money.zeroOf(defaultCurrency);
+      test('empty string', () {
+        final actual = Amount.fromString('');
+        final expected = Amount.zero;
         expect(actual, expected);
       });
-      test('Empty string with currency in string', () {
-        final actual = Money.fromString(defaultCurrency.icon);
-        final expected = Money.zeroOf(defaultCurrency);
+      test('string without fractions but with decimal separator', () {
+        final actual = Amount.fromString('123.');
+        final expected = Amount.fromString('123');
         expect(actual, expected);
       });
-      test('Empty string without currency', () {
-        Money actual() => Money.fromString('');
-        final expected = throwsA(const TypeMatcher<NoCurrencyException>());
-        expect(actual, expected);
-      });
-      test('No currency', () {
-        Money actual() => Money.fromString('1');
-        final expected = throwsA(const TypeMatcher<NoCurrencyException>());
-        expect(actual, expected);
-      });
-      test('String without fractions but with decimal separator', () {
-        final actual = Money.fromString('123.', currency: defaultCurrency);
-        final expected = Money.fromString('123', currency: defaultCurrency);
-        expect(actual, expected);
-      });
-      test('Max finite', () {
-        final actual =
-            Money.fromString('$maxFinite', currency: defaultCurrency).cents;
+      test('max finite', () {
+        final actual = Amount.fromString('$maxFinite').value;
         final expected = (Decimal.parse('$maxFinite') * Decimal.fromInt(100))
             .round()
             .toBigInt();
         expect(actual, expected);
       });
       test('precision -1', () {
-        Money actual() =>
-            Money.fromString('1', currency: defaultCurrency, precision: -1);
+        Amount actual() => Amount.fromString('1', precision: -1);
         final expected =
             throwsA(const TypeMatcher<NegativePrecisionException>());
         expect(actual, expected);
       });
       test('precision 0', () {
-        final actual = Money.fromString(
-          '0.123456789',
-          currency: defaultCurrency,
-          precision: 0,
-        ).cents.toInt();
-        const expected = 0;
+        final actual = Amount.fromString('0.123456789', precision: 0).value;
+        final expected = BigInt.zero;
         expect(actual, expected);
       });
       test('precision 4', () {
-        final actual = Money.fromString(
-          '0.123456789',
-          currency: defaultCurrency,
-          precision: 4,
-        ).cents.toInt();
-        const expected = 1235;
+        final actual = Amount.fromString('0.123456789', precision: 4).value;
+        final expected = BigInt.from(1235);
         expect(actual, expected);
       });
       test('precision 12', () {
-        final actual = Money.fromString(
-          '0.123456789',
-          currency: defaultCurrency,
-          precision: 12,
-        ).cents.toInt();
-        const expected = 123456789000;
+        final actual = Amount.fromString('0.123456789', precision: 12).value;
+        final expected = BigInt.from(123456789000);
         expect(actual, expected);
       });
     });

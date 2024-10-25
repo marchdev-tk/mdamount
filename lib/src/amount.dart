@@ -148,10 +148,10 @@ class Amount implements Comparable<Amount> {
   factory Amount.oneOf(int precision) => Amount._(BigInt.one, precision);
 
   /// Zero amount with [Amount.defaultPrecision].
-  static final zero = Amount.fromInt(0);
+  static final zero = Amount.fromNumerator(0);
 
   /// One amount with [Amount.defaultPrecision].
-  static final one = Amount.fromDouble(1);
+  static final one = Amount.fromInt(1);
 
   static int _precisionModifier(int precision) =>
       math.pow(10, precision).toInt();
@@ -215,7 +215,7 @@ class Amount implements Comparable<Amount> {
 
   /// Gets fractional part.
   ///
-  /// Possible values starts with `0` and ends with maximum available value 
+  /// Possible values starts with `0` and ends with maximum available value
   /// of `precision of fraction`.
   BigInt get fractional {
     if (precision == 0) {
@@ -231,7 +231,7 @@ class Amount implements Comparable<Amount> {
 
   /// Gets fractional part as decimal value.
   ///
-  /// Possible values starts with `0.0` and ends with maximum available value 
+  /// Possible values starts with `0.0` and ends with maximum available value
   /// of `0.<precision of fraction>`.
   Decimal get fractionalDecimal {
     if (precision == 0) {
@@ -245,7 +245,7 @@ class Amount implements Comparable<Amount> {
 
   /// Gets fractional part as double value.
   ///
-  /// Possible values starts with `0.0` and ends with maximum available value 
+  /// Possible values starts with `0.0` and ends with maximum available value
   /// of `0.<precision of fraction>`.
   double get fractionalDouble => fractionalDecimal.toDouble();
 
