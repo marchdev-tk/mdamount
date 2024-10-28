@@ -325,6 +325,9 @@ class Amount implements Comparable<Amount> {
     if (value == BigInt.zero && divider == Amount.zero) {
       throw const NotANumberException();
     }
+    if (value != BigInt.zero && divider == Amount.zero) {
+      throw const InfiniteNumberException();
+    }
 
     final amount =
         Decimal.fromBigInt(value) / Decimal.parse(divider.toString());

@@ -3,6 +3,8 @@
 import 'package:mdamount/mdamount.dart';
 import 'package:test/test.dart';
 
+import 'constants.dart';
+
 void main() {
   group('addition >', () {
     test('0 + 0', () {
@@ -643,14 +645,6 @@ void main() {
       expect(expected.toDouble(), 28.39);
       expect(actual, expected);
     });
-    // TODO: impl
-    // test('Infinite', () {
-    //   final amount = Amount.fromDouble(maxFinite);
-    //   final coef = Amount.fromInt(100);
-    //   Amount actual() => amount * coef;
-    //   final expected = throwsA(const TypeMatcher<InfiniteNumberException>());
-    //   expect(actual, expected);
-    // });
     test('a(0) * 11', () {
       final amount = Amount.fromDouble(1.123456, precision: 0);
       final coef = Amount.fromDouble(11.0);
@@ -873,14 +867,13 @@ void main() {
       expect(expected.toDouble(), 0.48);
       expect(actual, expected);
     });
-    // TODO: impl
-    // test('Infinite', () {
-    //   final amount = Amount.fromDouble(maxFinite);
-    //   final coef = Amount.fromDouble(double.infinity);
-    //   Amount actual() => amount / coef;
-    //   final expected = throwsA(const TypeMatcher<InfiniteNumberException>());
-    //   expect(actual, expected);
-    // });
+    test('infinite', () {
+      final amount = Amount.fromDouble(maxFinite);
+      final coef = Amount.fromDouble(double.minPositive);
+      Amount actual() => amount / coef;
+      final expected = throwsA(const TypeMatcher<InfiniteNumberException>());
+      expect(actual, expected);
+    });
     test('a(0) / 11', () {
       final amount = Amount.fromDouble(1.123456, precision: 0);
       final coef = Amount.fromDouble(11.0);
