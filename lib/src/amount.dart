@@ -169,8 +169,13 @@ class Amount implements Comparable<Amount> {
 
   /// Sets default precision that will be used for all newly created instances
   /// of [Amount].
-  static void setDefaultPrecision(int precision) =>
-      _defaultPrecision = precision;
+  static void setDefaultPrecision(int precision) {
+    if (precision < 0) {
+      throw const NegativePrecisionException();
+    }
+
+    _defaultPrecision = precision;
+  }
 
   /// Current amount as numerator.
   final BigInt value;

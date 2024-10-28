@@ -449,4 +449,29 @@ void main() {
       });
     });
   });
+
+  group('static >', () {
+    test('default (2) precision', () {
+      final actual = Amount.defaultPrecision;
+      const expected = 2;
+      expect(actual, expected);
+    });
+    test('set 0 precision', () {
+      Amount.setDefaultPrecision(0);
+      final actual = Amount.defaultPrecision;
+      const expected = 0;
+      expect(actual, expected);
+    });
+    test('set 4 precision', () {
+      Amount.setDefaultPrecision(4);
+      final actual = Amount.defaultPrecision;
+      const expected = 4;
+      expect(actual, expected);
+    });
+    test('set -1 precision', () {
+      void actual() => Amount.setDefaultPrecision(-1);
+      final expected = throwsA(const TypeMatcher<NegativePrecisionException>());
+      expect(actual, expected);
+    });
+  });
 }
