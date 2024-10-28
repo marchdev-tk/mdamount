@@ -1,7 +1,7 @@
 # mdamount
 
 ![Build](https://github.com/marchdev-tk/mdamount/workflows/build/badge.svg)
-<!-- [![codecov](https://codecov.io/gh/marchdev-tk/mdamount/branch/master/graph/badge.svg)](https://codecov.io/gh/marchdev-tk/mdamount) -->
+[![codecov](https://codecov.io/gh/marchdev-tk/mdamount/branch/master/graph/badge.svg)](https://codecov.io/gh/marchdev-tk/mdamount)
 [![Pub](https://img.shields.io/pub/v/mdamount.svg)](https://pub.dartlang.org/packages/mdamount)
 ![GitHub](https://img.shields.io/github/license/marchdev-tk/mdamount)
 ![GitHub stars](https://img.shields.io/github/stars/marchdev-tk/mdamount?style=social)
@@ -10,37 +10,39 @@ march.dev amount library. Provides a new way to work with an amount. From highly
 
 ## Getting Started
 
+### Construction
+
 To begin your work with a money object you need to create it, there are several ways to do it:
 
-  * `Money.fromCents` with following args:
-    * `cents`
-    * `currency`
-    * custom `precision`, if not provided - `currency.precision` will be used instead
-  * `Money.fromDecimal` with following args:
+  * `Amount.fromNumerator` with following args:
+    * `value` which is a numerator.
+    * custom `precision`, if not provided - `Amount.defaultPrecision` will be used instead
+  * `Amount.fromBigInt` with following args:
+    * `BigInt` amount
+    * custom `precision`, if not provided - `Amount.defaultPrecision` will be used instead
+  * `Amount.fromInt` with following args:
+    * `int` amount
+    * custom `precision`, if not provided - `Amount.defaultPrecision` will be used instead
+  * `Amount.fromDecimal` with following args:
     * `Decimal` amount (from `decimal` package)
-    * `currency`
-    * custom `precision`, if not provided - `currency.precision` will be used instead
-  * `Money.fromDouble` with following args:
+    * custom `precision`, if not provided - `Amount.defaultPrecision` will be used instead
+  * `Amount.fromDouble` with following args:
     * `double` amount
-    * `currency`
-    * custom `precision`, if not provided - `currency.precision` will be used instead
-  * `Money.fromString` with following args:
+    * custom `precision`, if not provided - `Amount.defaultPrecision` will be used instead
+  * `Amount.fromString` with following args:
     * `Stirng`
-    * `currency`, if not specified in a `String`
-    * custom `precision`, if not provided - `currency.precision` will be used instead
+    * custom `precision`, if not provided - `Amount.defaultPrecision` will be used instead
 
 Also there are some convenient ways to create an object:
 
-  * `Money.zeroOf` with following args:
-    * `currency`
-    * custom `precision`, if not provided - `currency.precision` will be used instead
-  * `Money.oneOf` to create one amount with following args:
-    * `currency`
-    * custom `precision`, if not provided - `currency.precision` will be used instead
-  * `Money.zero` to create zero amount in default currency (`FiatCurrency.$default`)
-  * `Money.one` to create one amount in default currency (`FiatCurrency.$default`)
+  * `Amount.zeroOf` with custom `precision`
+  * `Amount.oneOf` to create one amount with custom `precision`
+  * `Amount.zero` to create zero amount with default precision (`Amount.defaultPrecision`)
+  * `Amount.one` to create one amount with default precision (`Amount.defaultPrecision`)
 
-First of all, `Money` object is `comparable` and has all required operators:
+### Manipulation
+
+First of all, `Amount` object is `comparable` and has all required operators:
   * unary `operator -`
   * binary `operator -`
   * `operator +`
@@ -88,16 +90,16 @@ Regarding what you can do with this object, let's break down following methods/g
       * `integer` - only integer part (`XXXX`)
       * `flexibleDouble` - fractional parts will not display trailing zeros (`XXXX`/`XXXX.X`/`XXXX.XX`)
       * `fixedDouble` - fractional parts will display full precision, even zeros (`XXXX.XX`)
-    * `FiatCurrencyFormat` - specifies how currency should be displayed:
-      * `none`
-      * `code` (`USD`/`EUR`/`UAH`/etc.)
-      * `icon` (`$`/`€`/`₴`/etc.)
-    * `CurrencyPosition` - specifies where currency should be:
-      * `start`
-      * `startSpaced`
-      * `end`
-      * `endSpaced`
-      * `decimalSeparator`
+
+### Changing or accessing default precision
+
+To access default precision use following static getter:
+  * `Amount.defaultPrecision`
+
+And for changing default precision use following static method:
+  * `Amount.setDefaultPrecision(<new_precision>)`
+
+But be cautious, precision cannot be less than zero.
 
 ## Examples
 
