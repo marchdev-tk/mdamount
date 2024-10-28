@@ -10,13 +10,13 @@ abstract class AmountException implements Exception {}
 class NotANumberException implements AmountException {
   const NotANumberException();
 
-  String get message => 'Zero money amount can not be divided by zero!';
+  String get message => 'Zero amount can not be divided by zero!';
 }
 
 class InfiniteNumberException implements AmountException {
   const InfiniteNumberException();
 
-  String get message => 'Money amount must be finite!';
+  String get message => 'Amount must be finite!';
 }
 
 class NegativePrecisionException implements AmountException {

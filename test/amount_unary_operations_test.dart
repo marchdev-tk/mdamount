@@ -606,6 +606,96 @@ void main() {
     });
   });
 
+  group('isZero >', () {
+    test('-1', () {
+      final actual = Amount.fromInt(-1).isZero;
+      const expected = false;
+      expect(actual, expected);
+    });
+    test('0', () {
+      final actual = Amount.fromInt(0).isZero;
+      const expected = true;
+      expect(actual, expected);
+    });
+    test('1', () {
+      final actual = Amount.fromInt(1).isZero;
+      const expected = false;
+      expect(actual, expected);
+    });
+  });
+
+  group('isGreaterThanZero >', () {
+    test('-1', () {
+      final actual = Amount.fromInt(-1).isGreaterThanZero;
+      const expected = false;
+      expect(actual, expected);
+    });
+    test('0', () {
+      final actual = Amount.fromInt(0).isGreaterThanZero;
+      const expected = false;
+      expect(actual, expected);
+    });
+    test('1', () {
+      final actual = Amount.fromInt(1).isGreaterThanZero;
+      const expected = true;
+      expect(actual, expected);
+    });
+  });
+
+  group('isGreaterThanOrEqualZero >', () {
+    test('-1', () {
+      final actual = Amount.fromInt(-1).isGreaterThanOrEqualZero;
+      const expected = false;
+      expect(actual, expected);
+    });
+    test('0', () {
+      final actual = Amount.fromInt(0).isGreaterThanOrEqualZero;
+      const expected = true;
+      expect(actual, expected);
+    });
+    test('1', () {
+      final actual = Amount.fromInt(1).isGreaterThanOrEqualZero;
+      const expected = true;
+      expect(actual, expected);
+    });
+  });
+
+  group('isLessThanZero >', () {
+    test('-1', () {
+      final actual = Amount.fromInt(-1).isLessThanZero;
+      const expected = true;
+      expect(actual, expected);
+    });
+    test('0', () {
+      final actual = Amount.fromInt(0).isLessThanZero;
+      const expected = false;
+      expect(actual, expected);
+    });
+    test('1', () {
+      final actual = Amount.fromInt(1).isLessThanZero;
+      const expected = false;
+      expect(actual, expected);
+    });
+  });
+
+  group('isLessThanOrEqualZero >', () {
+    test('-1', () {
+      final actual = Amount.fromInt(-1).isLessThanOrEqualZero;
+      const expected = true;
+      expect(actual, expected);
+    });
+    test('0', () {
+      final actual = Amount.fromInt(0).isLessThanOrEqualZero;
+      const expected = true;
+      expect(actual, expected);
+    });
+    test('1', () {
+      final actual = Amount.fromInt(1).isLessThanOrEqualZero;
+      const expected = false;
+      expect(actual, expected);
+    });
+  });
+
   group('abs >', () {
     test('1.5', () {
       final actual = Amount.fromDouble(1.5).abs();
