@@ -30,17 +30,18 @@ jobs:
       run: dart pub global activate coverage
 
     - name: Collect coverage in json
-      run: dart --disable-service-auth-codes --enable-vm-service=8111 --pause-isolates-on-exit & nohup dart pub global run coverage:collect_coverage --port=8111 --out=coverage.json --wait-paused --resume-isolates
+      run: mkdir coverage
+      run: dart run test --coverage=./coverage
 
     - name: Convert coverage to lcov
-      run: dart pub global run coverage:format_coverage --lcov --in=coverage.json --out=lcov.info --packages=.packages --report-on=lib
+      run: dart pub global run coverage:format_coverage --report-on=lib --report-on=example --report-on=bin -l -o ./coverage/lcov.info -i ./coverage
 
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v1.0.5
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
         flags: unittests
-        file: ./lcov.info
+        file: ./coverage/lcov.info
         name: codecov-mdamount
 
     - name: 'Dry Run Publishing'
