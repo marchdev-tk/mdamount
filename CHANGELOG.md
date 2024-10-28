@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.2
+
+* Adjusted test coverage.
+
 ## 1.0.1
 
 * Added tests and negative precision check for setter of default precision.
