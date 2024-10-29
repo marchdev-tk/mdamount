@@ -40,7 +40,7 @@ Also there are some convenient ways to create an object:
 
   * `Amount.zeroOf` to create the amount with `0` as numerator with custom `precision`
   * `Amount.oneOf` to create the amount with `1` as numerator with custom `precision`
-  * `Amount.oneOf` to create the amount with `1` as integer with custom `precision`
+  * `Amount.oneIntOf` to create the amount with `1` as integer with custom `precision`
   * `Amount.zero` to create the amount with `0` as numerator with default precision (`Amount.defaultPrecision`)
   * `Amount.one` to create the amount with `1` as numerator with default precision (`Amount.defaultPrecision`)
   * `Amount.oneInt` to create the amount with `1` as integer with default precision (`Amount.defaultPrecision`)
