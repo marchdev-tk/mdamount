@@ -33,7 +33,7 @@ To begin your work with a money object you need to create it, there are several 
     * `double` amount
     * custom `precision`, if not provided - `Amount.defaultPrecision` will be used instead
   * `Amount.fromString` with following args:
-    * `Stirng`
+    * `String`
     * custom `precision`, if not provided - `Amount.defaultPrecision` will be used instead
 
 Also there are some convenient ways to create an object:
