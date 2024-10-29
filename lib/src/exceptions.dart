@@ -2,10 +2,7 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'package:meta/meta.dart';
-
-@sealed
-abstract class AmountException implements Exception {}
+abstract interface class AmountException implements Exception {}
 
 class NotANumberException implements AmountException {
   const NotANumberException();

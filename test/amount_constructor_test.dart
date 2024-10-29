@@ -8,6 +8,60 @@ import 'package:test/test.dart';
 import 'constants.dart';
 
 void main() {
+  group('generic >', () {
+    test('100', () {
+      final actual = Amount(BigInt.from(100)).value;
+      final expected = BigInt.from(100);
+      expect(actual, expected);
+    });
+    test('1', () {
+      final actual = Amount(BigInt.one).value;
+      final expected = BigInt.one;
+      expect(actual, expected);
+    });
+    test('0', () {
+      final actual = Amount(BigInt.zero).value;
+      final expected = BigInt.zero;
+      expect(actual, expected);
+    });
+    test('-1', () {
+      final actual = Amount(-BigInt.one).value;
+      final expected = -BigInt.one;
+      expect(actual, expected);
+    });
+    test('-100', () {
+      final actual = Amount(-BigInt.from(100)).value;
+      final expected = -BigInt.from(100);
+      expect(actual, expected);
+    });
+    test('max finite', () {
+      final actual = Amount(maxFiniteNumerator).value;
+      final expected = maxFiniteNumerator;
+      expect(actual, expected);
+    });
+    test('precision -1', () {
+      final actual = Amount(BigInt.from(123), precision: -1);
+      final expected =
+          Amount(BigInt.from(123), precision: Amount.defaultPrecision);
+      expect(actual, expected);
+    });
+    test('precision 0', () {
+      final actual = Amount(BigInt.from(123456789), precision: 0).fractional;
+      final expected = BigInt.zero;
+      expect(actual, expected);
+    });
+    test('precision 4', () {
+      final actual = Amount(BigInt.from(123456789), precision: 4).fractional;
+      final expected = BigInt.from(6789);
+      expect(actual, expected);
+    });
+    test('precision 12', () {
+      final actual = Amount(BigInt.from(123456789), precision: 12).fractional;
+      final expected = BigInt.from(123456789);
+      expect(actual, expected);
+    });
+  });
+
   group('fromNumerator >', () {
     test('100', () {
       final actual = Amount.fromNumerator(100).value;

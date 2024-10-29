@@ -13,11 +13,15 @@ import 'formats.dart';
 /// Object that stores amount and provides methods to operate with this amount.
 @immutable
 class Amount implements Comparable<Amount> {
-  /// Constructs an instance of the [Amount] from [BigInt] [value] and [int]
-  /// [precision].
+  /// Constructs an instance of the [Amount] from [BigInt] numerator [value]
+  /// and [int] [precision].
   ///
-  /// Internal contructor.
-  const Amount._(this.value, this.precision) : assert(precision >= 0);
+  /// If [precision] was not explicitly set or set to a negative
+  /// value - [Amount.defaultPrecision] will be used instead.
+  Amount(this.value, {int? precision})
+      : precision = precision == null || precision < 0
+            ? Amount.defaultPrecision
+            : precision;
 
   /// Constructs an instance of the [Amount] from [int] [numerator] and
   /// [precision].
@@ -33,7 +37,7 @@ class Amount implements Comparable<Amount> {
     }
 
     final adjustedPrecision = precision ?? Amount.defaultPrecision;
-    return Amount._(BigInt.from(numerator), adjustedPrecision);
+    return Amount(BigInt.from(numerator), precision: adjustedPrecision);
   }
 
   /// Constructs an instance of the [Amount] from [BigInt] [amount] and
@@ -52,7 +56,7 @@ class Amount implements Comparable<Amount> {
     final adjustedPrecision = precision ?? Amount.defaultPrecision;
     final precisionModifier = _precisionModifier(adjustedPrecision);
     final value = amount * BigInt.from(precisionModifier);
-    return Amount._(value, adjustedPrecision);
+    return Amount(value, precision: adjustedPrecision);
   }
 
   /// Constructs an instance of the [Amount] from [int] [amount] and
@@ -71,7 +75,7 @@ class Amount implements Comparable<Amount> {
     final adjustedPrecision = precision ?? Amount.defaultPrecision;
     final precisionModifier = _precisionModifier(adjustedPrecision);
     final value = BigInt.from(amount) * BigInt.from(precisionModifier);
-    return Amount._(value, adjustedPrecision);
+    return Amount(value, precision: adjustedPrecision);
   }
 
   /// Constructs an instance of the [Amount] from [Decimal] [amount] and
@@ -90,7 +94,7 @@ class Amount implements Comparable<Amount> {
     final adjustedPrecision = precision ?? Amount.defaultPrecision;
     final precisionModifier = _precisionModifier(adjustedPrecision);
     final value = (amount * Decimal.fromInt(precisionModifier)).round();
-    return Amount._(value.toBigInt(), adjustedPrecision);
+    return Amount(value.toBigInt(), precision: adjustedPrecision);
   }
 
   /// Constructs an instance of the [Amount] from [double] [amount] and
@@ -114,7 +118,7 @@ class Amount implements Comparable<Amount> {
       throw const InfiniteNumberException();
     }
 
-    return Amount._(BigInt.from(value), adjustedPrecision);
+    return Amount(BigInt.from(value), precision: adjustedPrecision);
   }
 
   /// Constructs an instance of the [Amount] from [String] amount and
@@ -146,10 +150,12 @@ class Amount implements Comparable<Amount> {
   }
 
   /// Zero amount with secific [precision].
-  factory Amount.zeroOf(int precision) => Amount._(BigInt.zero, precision);
+  factory Amount.zeroOf(int precision) =>
+      Amount(BigInt.zero, precision: precision);
 
   /// One amount with secific [precision].
-  factory Amount.oneOf(int precision) => Amount._(BigInt.one, precision);
+  factory Amount.oneOf(int precision) =>
+      Amount(BigInt.one, precision: precision);
 
   /// Zero amount with [Amount.defaultPrecision].
   static final zero = Amount.fromNumerator(0);
@@ -271,7 +277,7 @@ class Amount implements Comparable<Amount> {
   /// Returns the absolute value of this amount.
   Amount abs() {
     if (value.isNegative) {
-      return Amount._(value.abs(), precision);
+      return Amount(value.abs(), precision: precision);
     }
 
     return this;
@@ -295,9 +301,9 @@ class Amount implements Comparable<Amount> {
 
     final addition = isPositive ? BigInt.one : BigInt.zero;
 
-    return Amount._(
+    return Amount(
       (integer + addition) * BigInt.from(_precisionModifier(precision)),
-      precision,
+      precision: precision,
     );
   }
 
@@ -311,13 +317,13 @@ class Amount implements Comparable<Amount> {
 
     final substraction = isPositive ? BigInt.zero : BigInt.one;
 
-    return Amount._(
+    return Amount(
       (integer - substraction) * BigInt.from(_precisionModifier(precision)),
-      precision,
+      precision: precision,
     );
   }
 
-  Amount operator -() => Amount._(-value, precision);
+  Amount operator -() => Amount(-value, precision: precision);
   Amount operator +(Amount other) =>
       Amount.fromDecimal(toDecimal() + other.toDecimal(), precision: precision);
   Amount operator -(Amount other) =>
@@ -327,7 +333,7 @@ class Amount implements Comparable<Amount> {
     final amount =
         Decimal.fromBigInt(value) * Decimal.parse(multiplier.toString());
 
-    return Amount._(amount.round().toBigInt(), precision);
+    return Amount(amount.round().toBigInt(), precision: precision);
   }
 
   Amount operator /(Amount divider) {
@@ -341,7 +347,7 @@ class Amount implements Comparable<Amount> {
     final amount =
         Decimal.fromBigInt(value) / Decimal.parse(divider.toString());
 
-    return Amount._(amount.round(), precision);
+    return Amount(amount.round(), precision: precision);
   }
 
   bool operator <(Amount other) => toDecimal() < other.toDecimal();

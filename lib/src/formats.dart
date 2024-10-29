@@ -7,12 +7,12 @@ import 'package:mdamount/mdamount.dart';
 final _doubleRegex = RegExp(r'^(-?)(0|([1-9][0-9]*))(\.[0-9]{1,})?$');
 final _doubleRankedRegex = RegExp(r'^(-?)(0|([1-9][0-9 ]*))(\.[0-9]{1,})?$');
 
-abstract interface class MoneyFormatterInteface<T> {
+abstract interface class AmountFormatterInteface<T> {
   String format(T value);
 }
 
 /// Describes possible decimal separator formats.
-enum DecimalSeparatorFormat implements MoneyFormatterInteface<String> {
+enum DecimalSeparatorFormat implements AmountFormatterInteface<String> {
   /// Decimal point.
   point,
 
@@ -47,7 +47,7 @@ enum DecimalSeparatorFormat implements MoneyFormatterInteface<String> {
 }
 
 /// Describes possible rank formatting options.
-enum RankFormat implements MoneyFormatterInteface<String> {
+enum RankFormat implements AmountFormatterInteface<String> {
   /// Amount will not be formatted.
   none,
 
@@ -116,7 +116,7 @@ enum RankFormat implements MoneyFormatterInteface<String> {
 }
 
 /// Describes possible [Amount] formatting options.
-enum AmountFormat implements MoneyFormatterInteface<Amount> {
+enum AmountFormat implements AmountFormatterInteface<Amount> {
   /// [Amount] value will be formatted as an integer truncating any fractional
   /// parts.
   ///
