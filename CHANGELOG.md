@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.4
+
+* Updated documentations.
+* Updated tests.
+
 ## 1.0.3
 
 * Added generic constructor with `BigInt` numerator.
