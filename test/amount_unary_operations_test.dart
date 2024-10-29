@@ -365,12 +365,12 @@ void main() {
       const expected = true;
       expect(actual, expected);
     });
-    test('51 cents', () {
+    test('0.51', () {
       final actual = Amount.fromDouble(0.51).isEven;
       const expected = false;
       expect(actual, expected);
     });
-    test('2 cents', () {
+    test('0.02', () {
       final actual = Amount.fromDouble(0.02).isEven;
       const expected = true;
       expect(actual, expected);
@@ -380,12 +380,12 @@ void main() {
       const expected = true;
       expect(actual, expected);
     });
-    test('-2 cents', () {
+    test('-0.02', () {
       final actual = Amount.fromDouble(-0.02).isEven;
       const expected = true;
       expect(actual, expected);
     });
-    test('-51 cents', () {
+    test('-0.51', () {
       final actual = Amount.fromDouble(-0.51).isEven;
       const expected = false;
       expect(actual, expected);
@@ -433,12 +433,12 @@ void main() {
       const expected = false;
       expect(actual, expected);
     });
-    test('51 cents', () {
+    test('0.51', () {
       final actual = Amount.fromDouble(0.51).isOdd;
       const expected = true;
       expect(actual, expected);
     });
-    test('2 cents', () {
+    test('0.02', () {
       final actual = Amount.fromDouble(0.02).isOdd;
       const expected = false;
       expect(actual, expected);
@@ -448,12 +448,12 @@ void main() {
       const expected = false;
       expect(actual, expected);
     });
-    test('-2 cents', () {
+    test('-0.02', () {
       final actual = Amount.fromDouble(-0.02).isOdd;
       const expected = false;
       expect(actual, expected);
     });
-    test('-51 cents', () {
+    test('-0.51', () {
       final actual = Amount.fromDouble(-0.51).isOdd;
       const expected = true;
       expect(actual, expected);
@@ -780,12 +780,12 @@ void main() {
       final expected = Amount.fromDouble(1);
       expect(actual, expected);
     });
-    test('50 cents', () {
+    test('0.5', () {
       final actual = Amount.fromDouble(0.50).round();
       final expected = Amount.fromDouble(1);
       expect(actual, expected);
     });
-    test('49 cent', () {
+    test('0.49', () {
       final actual = Amount.fromDouble(0.49).round();
       final expected = Amount.fromDouble(0);
       expect(actual, expected);
@@ -795,12 +795,12 @@ void main() {
       final expected = Amount.fromDouble(0);
       expect(actual, expected);
     });
-    test('-49 cent', () {
+    test('-0.49', () {
       final actual = Amount.fromDouble(-0.49).round();
       final expected = Amount.fromDouble(0);
       expect(actual, expected);
     });
-    test('-50 cents', () {
+    test('-0.5', () {
       final actual = Amount.fromDouble(-0.5).round();
       final expected = Amount.fromDouble(-1);
       expect(actual, expected);
@@ -858,12 +858,12 @@ void main() {
       final expected = Amount.fromDouble(1);
       expect(actual, expected);
     });
-    test('50 cents', () {
+    test('0.5', () {
       final actual = Amount.fromDouble(0.50).ceil();
       final expected = Amount.fromDouble(1);
       expect(actual, expected);
     });
-    test('49 cent', () {
+    test('0.49', () {
       final actual = Amount.fromDouble(0.49).ceil();
       final expected = Amount.fromDouble(1);
       expect(actual, expected);
@@ -873,12 +873,12 @@ void main() {
       final expected = Amount.fromDouble(0);
       expect(actual, expected);
     });
-    test('-49 cent', () {
+    test('-0.49', () {
       final actual = Amount.fromDouble(-0.49).ceil();
       final expected = Amount.fromDouble(0);
       expect(actual, expected);
     });
-    test('-50 cents', () {
+    test('-0.5', () {
       final actual = Amount.fromDouble(-0.5).ceil();
       final expected = Amount.fromDouble(0);
       expect(actual, expected);
@@ -936,12 +936,12 @@ void main() {
       final expected = Amount.fromDouble(1);
       expect(actual, expected);
     });
-    test('50 cents', () {
+    test('0.5', () {
       final actual = Amount.fromDouble(0.50).floor();
       final expected = Amount.fromDouble(0);
       expect(actual, expected);
     });
-    test('49 cent', () {
+    test('0.49', () {
       final actual = Amount.fromDouble(0.49).floor();
       final expected = Amount.fromDouble(0);
       expect(actual, expected);
@@ -951,12 +951,12 @@ void main() {
       final expected = Amount.fromDouble(0);
       expect(actual, expected);
     });
-    test('-49 cent', () {
+    test('-0.49', () {
       final actual = Amount.fromDouble(-0.49).floor();
       final expected = Amount.fromDouble(-1);
       expect(actual, expected);
     });
-    test('-50 cents', () {
+    test('-0.5', () {
       final actual = Amount.fromDouble(-0.5).floor();
       final expected = Amount.fromDouble(-1);
       expect(actual, expected);
