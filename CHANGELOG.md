@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.3
+
+* Added generic constructor with `BigInt` numerator.
+* Added `oneInt` and `oneIntOf` 
+* Removed `sealed` class modifier from `AmountException`.
+* Fixed `MoneyFormatterInteface` naming to `AmountFormatterInteface`.
+* Updated tests.
+
 ## 1.0.2
 
 * Adjusted test coverage.
