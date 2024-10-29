@@ -14,7 +14,7 @@ import 'formats.dart';
 @immutable
 class Amount implements Comparable<Amount> {
   /// Constructs an instance of the [Amount] from [BigInt] numerator [value]
-  /// and [int] [precision].
+  /// and [precision].
   ///
   /// If [precision] was not explicitly set or set to a negative
   /// value - [Amount.defaultPrecision] will be used instead.
@@ -121,7 +121,7 @@ class Amount implements Comparable<Amount> {
     return Amount(BigInt.from(value), precision: adjustedPrecision);
   }
 
-  /// Constructs an instance of the [Amount] from [String] amount and
+  /// Constructs an instance of the [Amount] from [String] [amount] and
   /// [precision].
   ///
   /// If [precision] was not explicitly set - [Amount.defaultPrecision] will be
@@ -271,16 +271,6 @@ class Amount implements Comparable<Amount> {
   /// of `0.<precision of fraction>`.
   double get fractionalDouble => fractionalDecimal.toDouble();
 
-  /// Gets decimal representation of the current amount.
-  Decimal toDecimal() {
-    final precisionModifier = _precisionModifier(precision);
-    return (Decimal.fromBigInt(value) / Decimal.fromInt(precisionModifier))
-        .toDecimal();
-  }
-
-  /// Gets double representation of the current amount.
-  double toDouble() => toDecimal().toDouble();
-
   /// Returns the absolute value of this amount.
   Amount abs() {
     if (value.isNegative) {
@@ -363,12 +353,14 @@ class Amount implements Comparable<Amount> {
   bool operator >=(Amount other) => toDecimal() >= other.toDecimal();
 
   @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        other is Amount &&
-            runtimeType == other.runtimeType &&
-            value == other.value &&
-            precision == other.precision;
+  bool operator ==(covariant Amount other) {
+    if (identical(this, other)) {
+      return true;
+    }
+
+    return runtimeType == other.runtimeType &&
+        value == other.value &&
+        precision == other.precision;
   }
 
   @override
@@ -388,6 +380,16 @@ class Amount implements Comparable<Amount> {
     // ! Now it provides -110/110/0 results
     // return value.compareTo(other.value);
   }
+
+  /// Gets [Decimal] representation of the current amount.
+  Decimal toDecimal() {
+    final precisionModifier = _precisionModifier(precision);
+    return (Decimal.fromBigInt(value) / Decimal.fromInt(precisionModifier))
+        .toDecimal();
+  }
+
+  /// Gets [double] representation of the current amount.
+  double toDouble() => toDecimal().toDouble();
 
   /// Gets formatted string representation of the current amount, based on the:
   /// - [AmountFormat];
