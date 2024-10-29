@@ -14,8 +14,11 @@ march.dev amount library. Provides a new way to work with an amount. From highly
 
 To begin your work with a money object you need to create it, there are several ways to do it:
 
+  * `Amount` with following args:
+    * `BigInt` numerator
+    * custom `precision`, if not provided or if negative precision was set - `Amount.defaultPrecision` will be used instead
   * `Amount.fromNumerator` with following args:
-    * `value` which is a numerator.
+    * `int` numerator
     * custom `precision`, if not provided - `Amount.defaultPrecision` will be used instead
   * `Amount.fromBigInt` with following args:
     * `BigInt` amount
@@ -35,10 +38,12 @@ To begin your work with a money object you need to create it, there are several 
 
 Also there are some convenient ways to create an object:
 
-  * `Amount.zeroOf` with custom `precision`
-  * `Amount.oneOf` to create one amount with custom `precision`
-  * `Amount.zero` to create zero amount with default precision (`Amount.defaultPrecision`)
-  * `Amount.one` to create one amount with default precision (`Amount.defaultPrecision`)
+  * `Amount.zeroOf` to create the amount with `0` as numerator with custom `precision`
+  * `Amount.oneOf` to create the amount with `1` as numerator with custom `precision`
+  * `Amount.oneOf` to create the amount with `1` as integer with custom `precision`
+  * `Amount.zero` to create the amount with `0` as numerator with default precision (`Amount.defaultPrecision`)
+  * `Amount.one` to create the amount with `1` as numerator with default precision (`Amount.defaultPrecision`)
+  * `Amount.oneInt` to create the amount with `1` as integer with default precision (`Amount.defaultPrecision`)
 
 ### Manipulation
 
