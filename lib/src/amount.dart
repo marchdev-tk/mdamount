@@ -149,19 +149,26 @@ class Amount implements Comparable<Amount> {
     );
   }
 
-  /// Zero amount with secific [precision].
+  /// Amount with `0` as numerator with secific [precision].
   factory Amount.zeroOf(int precision) =>
       Amount(BigInt.zero, precision: precision);
 
-  /// One amount with secific [precision].
+  /// Amount with `1` as numerator with secific [precision].
   factory Amount.oneOf(int precision) =>
       Amount(BigInt.one, precision: precision);
 
-  /// Zero amount with [Amount.defaultPrecision].
+  /// Amount with `1` as integer with secific [precision].
+  factory Amount.oneIntOf(int precision) =>
+      Amount.fromInt(1, precision: precision);
+
+  /// Amount with `0` as numerator with [Amount.defaultPrecision].
   static final zero = Amount.fromNumerator(0);
 
-  /// One amount with [Amount.defaultPrecision].
-  static final one = Amount.fromInt(1);
+  /// Amount with `1` as numerator with [Amount.defaultPrecision].
+  static final one = Amount.fromNumerator(1);
+
+  /// Amount with `1` as integer with [Amount.defaultPrecision].
+  static final oneInt = Amount.fromInt(1);
 
   static int _precisionModifier(int precision) =>
       math.pow(10, precision).toInt();

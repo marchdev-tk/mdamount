@@ -505,6 +505,36 @@ void main() {
   });
 
   group('static >', () {
+    test('zero', () {
+      final actual = Amount.zero;
+      final expected = Amount.fromInt(0);
+      expect(actual, expected);
+    });
+    test('zeroOf', () {
+      final actual = Amount.zeroOf(4);
+      final expected = Amount.fromInt(0, precision: 4);
+      expect(actual, expected);
+    });
+    test('one', () {
+      final actual = Amount.one;
+      final expected = Amount.fromDouble(0.01);
+      expect(actual, expected);
+    });
+    test('oneOf', () {
+      final actual = Amount.oneOf(4);
+      final expected = Amount.fromDouble(0.0001, precision: 4);
+      expect(actual, expected);
+    });
+    test('oneInt', () {
+      final actual = Amount.oneInt;
+      final expected = Amount.fromInt(1);
+      expect(actual, expected);
+    });
+    test('oneIntOf', () {
+      final actual = Amount.oneIntOf(4);
+      final expected = Amount.fromInt(1, precision: 4);
+      expect(actual, expected);
+    });
     test('default (2) precision', () {
       final actual = Amount.defaultPrecision;
       const expected = 2;
