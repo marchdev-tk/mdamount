@@ -91,7 +91,7 @@ Regarding what you can do with this object, let's break down following methods/g
     * `RankFormat` - specifies rank formatting:
       * `none` (`XXXX`)
       * `space` (`X XXX`)
-    * `MoneyFormat` - specifies amount display formatting:
+    * `AmountFormat` - specifies amount display formatting:
       * `integer` - only integer part (`XXXX`)
       * `flexibleDouble` - fractional parts will not display trailing zeros (`XXXX`/`XXXX.X`/`XXXX.XX`)
       * `fixedDouble` - fractional parts will display full precision, even zeros (`XXXX.XX`)

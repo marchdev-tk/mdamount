@@ -1203,7 +1203,7 @@ void main() {
   });
 
   group('toString >', () {
-    group('MF-RF-DSF >', () {
+    group('AF-RF-DSF >', () {
       test('fixedDouble/none/point', () {
         final actual = Amount.fromDouble(1000.1).toString(
           amountFormat: AmountFormat.fixedDouble,
