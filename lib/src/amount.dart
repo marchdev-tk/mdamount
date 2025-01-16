@@ -404,7 +404,7 @@ class Amount implements Comparable<Amount> {
   /// [AmountFormat]:
   /// - [AmountFormat.integer] - [precision] is omitted;
   /// - [AmountFormat.fixedDouble] - [precision] will be used as an override to
-  /// [value.precision];
+  /// [Amount.precision];
   /// - [AmountFormat.flexibleDouble] - [precision] will be used only if length
   /// of fractionals will be less than [precision].
   @override
