@@ -2,6 +2,8 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'dart:math' as math;
+
 import 'package:mdamount/mdamount.dart';
 
 final _doubleRegex = RegExp(r'^(-?)(0|([1-9][0-9]*))(\.[0-9]{1,})?$');
@@ -138,13 +140,29 @@ enum AmountFormat implements AmountFormatterInteface<Amount> {
   fixedDouble;
 
   /// Formats [Amount].
+  ///
+  /// If [precision] is set, this method will behave differently based on
+  /// [AmountFormat]:
+  /// - [AmountFormat.integer] - [precision] is omitted;
+  /// - [AmountFormat.fixedDouble] - [precision] will be used as an override to
+  /// [value.precision];
+  /// - [AmountFormat.flexibleDouble] - [precision] will be used only if length
+  /// of fractionals will be less than [precision].
   @override
   String format(Amount value, [int? precision]) {
     switch (this) {
       case integer:
-        return value.integer.toString();
+        return value.round().integer.toString();
       case flexibleDouble:
-        if (value.fractional == BigInt.zero) {
+        if (precision != null && precision < 0) {
+          throw const NegativePrecisionException();
+        }
+
+        if (precision != null) {
+          final adjustedPrecision = math.max(precision,
+              value.fractionalDecimal.toString().replaceFirst('0.', '').length);
+          return value.toDecimal().toStringAsFixed(adjustedPrecision);
+        } else if (value.fractional == BigInt.zero) {
           return value.integer.toString();
         } else {
           return value.toDecimal().toString();

@@ -394,20 +394,30 @@ class Amount implements Comparable<Amount> {
   /// Gets formatted string representation of the current amount, based on the:
   /// - [AmountFormat];
   /// - [RankFormat];
-  /// - [DecimalSeparatorFormat].
+  /// - [DecimalSeparatorFormat];
+  /// - [precision].
   ///
   /// Defaults are [AmountFormat.fixedDouble], [RankFormat.space] and
   /// [DecimalSeparatorFormat.point].
+  ///
+  /// If [precision] is set, this method will behave differently based on
+  /// [AmountFormat]:
+  /// - [AmountFormat.integer] - [precision] is omitted;
+  /// - [AmountFormat.fixedDouble] - [precision] will be used as an override to
+  /// [value.precision];
+  /// - [AmountFormat.flexibleDouble] - [precision] will be used only if length
+  /// of fractionals will be less than [precision].
   @override
   String toString({
     AmountFormat amountFormat = AmountFormat.fixedDouble,
     RankFormat rankFormat = RankFormat.space,
     DecimalSeparatorFormat decimalSeparatorFormat =
         DecimalSeparatorFormat.point,
+    int? precision,
   }) {
     final amountFmt = decimalSeparatorFormat.format(
       rankFormat.format(
-        amountFormat.format(this),
+        amountFormat.format(this, precision),
       ),
     );
 

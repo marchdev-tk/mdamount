@@ -1066,6 +1066,15 @@ void main() {
     });
   });
 
+  group('hashCode >', () {
+    test('value 1.11, precision 2', () {
+      final amount = Amount.fromDouble(1.11, precision: 2);
+      final actual = amount.hashCode;
+      final expected = amount.value.hashCode ^ amount.precision.hashCode;
+      expect(actual, expected);
+    });
+  });
+
   group('toDecimal >', () {
     test('1.5', () {
       final actual = Amount.fromDouble(1.5).toDecimal();
@@ -1241,22 +1250,51 @@ void main() {
         expect(actual, expected);
       });
       test('fixedDouble precision 0', () {
-        final actual = Amount.fromDouble(100.123456, precision: 0).toString(
-          amountFormat: AmountFormat.fixedDouble,
-        );
+        final actual = Amount.fromDouble(100.123456)
+            .toString(amountFormat: AmountFormat.fixedDouble, precision: 0);
         const expected = '100';
         expect(actual, expected);
       });
       test('fixedDouble precision 4', () {
+        final actual = Amount.fromDouble(100.123456)
+            .toString(amountFormat: AmountFormat.fixedDouble, precision: 4);
+        const expected = '100.1200';
+        expect(actual, expected);
+      });
+      test('fixedDouble precision 8', () {
+        final actual = Amount.fromDouble(100.123456)
+            .toString(amountFormat: AmountFormat.fixedDouble, precision: 8);
+        const expected = '100.12000000';
+        expect(actual, expected);
+      });
+      test('fixedDouble Amount.precision 0', () {
+        final actual = Amount.fromDouble(100.123456, precision: 0)
+            .toString(amountFormat: AmountFormat.fixedDouble);
+        const expected = '100';
+        expect(actual, expected);
+      });
+      test('fixedDouble Amount.precision 4', () {
         final actual = Amount.fromDouble(100.123456, precision: 4)
             .toString(amountFormat: AmountFormat.fixedDouble);
         const expected = '100.1235';
         expect(actual, expected);
       });
-      test('fixedDouble precision 8', () {
+      test('fixedDouble Amount.precision 8', () {
         final actual = Amount.fromDouble(100.123456, precision: 8)
             .toString(amountFormat: AmountFormat.fixedDouble);
         const expected = '100.12345600';
+        expect(actual, expected);
+      });
+      test('fixedDouble Amount.precision 4, precision 2', () {
+        final actual = Amount.fromDouble(100.123456, precision: 4)
+            .toString(amountFormat: AmountFormat.fixedDouble, precision: 2);
+        const expected = '100.12';
+        expect(actual, expected);
+      });
+      test('fixedDouble Amount.precision 2, precision 4', () {
+        final actual = Amount.fromDouble(100.123456, precision: 2)
+            .toString(amountFormat: AmountFormat.fixedDouble, precision: 4);
+        const expected = '100.1200';
         expect(actual, expected);
       });
 
@@ -1297,20 +1335,50 @@ void main() {
         expect(actual, expected);
       });
       test('integer precision 0', () {
+        final actual = Amount.fromDouble(100.123456)
+            .toString(amountFormat: AmountFormat.integer, precision: 0);
+        const expected = '100';
+        expect(actual, expected);
+      });
+      test('integer precision 4', () {
+        final actual = Amount.fromDouble(100.123456)
+            .toString(amountFormat: AmountFormat.integer, precision: 4);
+        const expected = '100';
+        expect(actual, expected);
+      });
+      test('integer precision 8', () {
+        final actual = Amount.fromDouble(100.123456)
+            .toString(amountFormat: AmountFormat.integer, precision: 8);
+        const expected = '100';
+        expect(actual, expected);
+      });
+      test('integer Amount.precision 0', () {
         final actual = Amount.fromDouble(100.123456, precision: 0)
             .toString(amountFormat: AmountFormat.integer);
         const expected = '100';
         expect(actual, expected);
       });
-      test('integer precision 4', () {
+      test('integer Amount.precision 4', () {
         final actual = Amount.fromDouble(100.123456, precision: 4)
             .toString(amountFormat: AmountFormat.integer);
         const expected = '100';
         expect(actual, expected);
       });
-      test('integer precision 8', () {
+      test('integer Amount.precision 8', () {
         final actual = Amount.fromDouble(100.123456, precision: 8)
             .toString(amountFormat: AmountFormat.integer);
+        const expected = '100';
+        expect(actual, expected);
+      });
+      test('integer Amount.precision 4, precision 2', () {
+        final actual = Amount.fromDouble(100.123456, precision: 4)
+            .toString(amountFormat: AmountFormat.integer, precision: 2);
+        const expected = '100';
+        expect(actual, expected);
+      });
+      test('integer Amount.precision 2, precision 4', () {
+        final actual = Amount.fromDouble(100.123456, precision: 2)
+            .toString(amountFormat: AmountFormat.integer, precision: 4);
         const expected = '100';
         expect(actual, expected);
       });
@@ -1352,21 +1420,51 @@ void main() {
         expect(actual, expected);
       });
       test('flexibleDouble precision 0', () {
+        final actual = Amount.fromDouble(100.123456)
+            .toString(amountFormat: AmountFormat.flexibleDouble, precision: 0);
+        const expected = '100.12';
+        expect(actual, expected);
+      });
+      test('flexibleDouble precision 4', () {
+        final actual = Amount.fromDouble(100.123456)
+            .toString(amountFormat: AmountFormat.flexibleDouble, precision: 4);
+        const expected = '100.1200';
+        expect(actual, expected);
+      });
+      test('flexibleDouble precision 8', () {
+        final actual = Amount.fromDouble(100.123456)
+            .toString(amountFormat: AmountFormat.flexibleDouble, precision: 8);
+        const expected = '100.12000000';
+        expect(actual, expected);
+      });
+      test('flexibleDouble Amount.precision 0', () {
         final actual = Amount.fromDouble(100.123456, precision: 0)
             .toString(amountFormat: AmountFormat.flexibleDouble);
         const expected = '100';
         expect(actual, expected);
       });
-      test('flexibleDouble precision 4', () {
+      test('flexibleDouble Amount.precision 4', () {
         final actual = Amount.fromDouble(100.123456, precision: 4)
             .toString(amountFormat: AmountFormat.flexibleDouble);
         const expected = '100.1235';
         expect(actual, expected);
       });
-      test('flexibleDouble precision 8', () {
+      test('flexibleDouble Amount.precision 8', () {
         final actual = Amount.fromDouble(100.123456, precision: 8)
             .toString(amountFormat: AmountFormat.flexibleDouble);
         const expected = '100.123456';
+        expect(actual, expected);
+      });
+      test('flexibleDouble Amount.precision 4, precision 2', () {
+        final actual = Amount.fromDouble(100.123456, precision: 4)
+            .toString(amountFormat: AmountFormat.flexibleDouble, precision: 2);
+        const expected = '100.1235';
+        expect(actual, expected);
+      });
+      test('flexibleDouble Amount.precision 2, precision 4', () {
+        final actual = Amount.fromDouble(100.123456, precision: 2)
+            .toString(amountFormat: AmountFormat.flexibleDouble, precision: 4);
+        const expected = '100.1200';
         expect(actual, expected);
       });
     });
