@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.5
+
+* Added to `AmountFormat.format` and `Amount.toString` precision.
+
 ## 1.0.4
 
 * Updated documentations.
