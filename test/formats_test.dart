@@ -492,6 +492,18 @@ void main() {
         const expected = '1234.5700';
         expect(actual, expected);
       });
+      test('-1234.567, precision 0', () {
+        final actual =
+            AmountFormat.flexibleDouble.format(Amount.fromDouble(-1234.567), 0);
+        const expected = '-1234.57';
+        expect(actual, expected);
+      });
+      test('-1234.567, precision 4', () {
+        final actual =
+            AmountFormat.flexibleDouble.format(Amount.fromDouble(-1234.567), 4);
+        const expected = '-1234.5700';
+        expect(actual, expected);
+      });
       test('1234.567, Amount.precision 0', () {
         final actual = AmountFormat.flexibleDouble
             .format(Amount.fromDouble(1234.567, precision: 0));

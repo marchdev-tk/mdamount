@@ -1419,6 +1419,24 @@ void main() {
         const expected = '1 000,1';
         expect(actual, expected);
       });
+      test('flexibleDouble precision 0 negative', () {
+        final actual = Amount.fromDouble(-100.123456)
+            .toString(amountFormat: AmountFormat.flexibleDouble, precision: 0);
+        const expected = '-100.12';
+        expect(actual, expected);
+      });
+      test('flexibleDouble precision 4 negative', () {
+        final actual = Amount.fromDouble(-100.123456)
+            .toString(amountFormat: AmountFormat.flexibleDouble, precision: 4);
+        const expected = '-100.1200';
+        expect(actual, expected);
+      });
+      test('flexibleDouble precision 8 negative', () {
+        final actual = Amount.fromDouble(-100.123456)
+            .toString(amountFormat: AmountFormat.flexibleDouble, precision: 8);
+        const expected = '-100.12000000';
+        expect(actual, expected);
+      });
       test('flexibleDouble precision 0', () {
         final actual = Amount.fromDouble(100.123456)
             .toString(amountFormat: AmountFormat.flexibleDouble, precision: 0);

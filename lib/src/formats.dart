@@ -159,8 +159,12 @@ enum AmountFormat implements AmountFormatterInteface<Amount> {
         }
 
         if (precision != null) {
-          final adjustedPrecision = math.max(precision,
-              value.fractionalDecimal.toString().replaceFirst('0.', '').length);
+          final fractionLength = value.fractionalDecimal
+              .toString()
+              .replaceAll('-', '')
+              .replaceFirst('0.', '')
+              .length;
+          final adjustedPrecision = math.max(precision, fractionLength);
           return value.toDecimal().toStringAsFixed(adjustedPrecision);
         } else if (value.fractional == BigInt.zero) {
           return value.integer.toString();
