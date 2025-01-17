@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.7
+
+* Fixed `AmountFormat.format` for `AmountFormat.flexibleDouble` with negative values.
+
 ## 1.0.6
 
 * Fixed doc comments.
