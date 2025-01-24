@@ -1131,6 +1131,12 @@ void main() {
       final expected = Decimal.parse('123.5679');
       expect(actual, expected);
     });
+    test('positive, precision 20', () {
+      final actual =
+          Amount.fromDouble(1.37079328058825288511, precision: 20).toDecimal();
+      final expected = Decimal.parse('1.370793280588252');
+      expect(actual, expected);
+    });
     test('negative, precision 0', () {
       final actual = Amount.fromDouble(-123.56789, precision: 0).toDecimal();
       final expected = Decimal.fromInt(-124);
@@ -1139,6 +1145,12 @@ void main() {
     test('negative, precision 4', () {
       final actual = Amount.fromDouble(-123.56789, precision: 4).toDecimal();
       final expected = Decimal.parse('-123.5679');
+      expect(actual, expected);
+    });
+    test('negative, precision 20', () {
+      final actual =
+          Amount.fromDouble(-1.37079328058825288511, precision: 20).toDecimal();
+      final expected = Decimal.parse('-1.370793280588252');
       expect(actual, expected);
     });
   });
@@ -1199,6 +1211,12 @@ void main() {
       const expected = 123.5679;
       expect(actual, expected);
     });
+    test('positive, precision 20', () {
+      final actual =
+          Amount.fromDouble(1.37079328058825288511, precision: 20).toDouble();
+      const expected = 1.370793280588252;
+      expect(actual, expected);
+    });
     test('negative, precision 0', () {
       final actual = Amount.fromDouble(-123.56789, precision: 0).toDouble();
       const expected = -124.0;
@@ -1207,6 +1225,12 @@ void main() {
     test('negative, precision 4', () {
       final actual = Amount.fromDouble(-123.56789, precision: 4).toDouble();
       const expected = -123.5679;
+      expect(actual, expected);
+    });
+    test('positive, precision 20', () {
+      final actual =
+          Amount.fromDouble(-1.37079328058825288511, precision: 20).toDouble();
+      const expected = -1.370793280588252;
       expect(actual, expected);
     });
   });

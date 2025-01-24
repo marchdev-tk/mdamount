@@ -110,6 +110,10 @@ And for changing default precision use following static method:
 
 But be cautious, precision cannot be less than zero.
 
+### Known limitations
+
+  * Max precision is `15`, everything that is beyond this precision will be trimmed due to Decimal's internal inability to work with such precisions.
+
 ## Examples
 
 To see usage example navigate to the [Example](example/README.md) section.

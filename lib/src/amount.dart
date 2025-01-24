@@ -382,13 +382,21 @@ class Amount implements Comparable<Amount> {
   }
 
   /// Gets [Decimal] representation of the current amount.
+  ///
+  /// *Please note*, that max precision is `15`, everything that is beyond this
+  /// precision will be trimmed due to Decimal's internal inability to work with
+  /// such precisions.
   Decimal toDecimal() {
     final precisionModifier = _precisionModifier(precision);
     return (Decimal.fromBigInt(value) / Decimal.fromInt(precisionModifier))
-        .toDecimal();
+        .toDecimal(scaleOnInfinitePrecision: 15);
   }
 
   /// Gets [double] representation of the current amount.
+  ///
+  /// *Please note*, that max precision is `15`, everything that is beyond this
+  /// precision will be trimmed due to Decimal's internal inability to work with
+  /// such precisions.
   double toDouble() => toDecimal().toDouble();
 
   /// Gets formatted string representation of the current amount, based on the:
@@ -407,6 +415,10 @@ class Amount implements Comparable<Amount> {
   /// [Amount.precision];
   /// - [AmountFormat.flexibleDouble] - [precision] will be used only if length
   /// of fractionals will be less than [precision].
+  ///
+  /// *Please note*, that max precision is `15`, everything that is beyond this
+  /// precision will be trimmed due to Decimal's internal inability to work with
+  /// such precisions.
   @override
   String toString({
     AmountFormat amountFormat = AmountFormat.fixedDouble,
