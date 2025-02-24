@@ -255,6 +255,10 @@ class Amount implements Comparable<Amount> {
   ///
   /// Possible values starts with `0.0` and ends with maximum available value
   /// of `0.<precision of fraction>`.
+  ///
+  /// *Please note*, that max precision is `15`, everything that is beyond this
+  /// precision will be trimmed due to Decimal's internal inability to work with
+  /// such precisions.
   Decimal get fractionalDecimal {
     if (precision == 0) {
       return Decimal.zero;
@@ -262,7 +266,7 @@ class Amount implements Comparable<Amount> {
 
     final precisionModifier = _precisionModifier(precision);
     return (Decimal.fromBigInt(fractional) / Decimal.fromInt(precisionModifier))
-        .toDecimal();
+        .toDecimal(scaleOnInfinitePrecision: 15);
   }
 
   /// Gets fractional part as double value.
