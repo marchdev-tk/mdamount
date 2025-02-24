@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.9
+
+* Fixed `Decimal` related issue.
+
 ## 1.0.8
 
 * Fixed `Decimal` related issue.
