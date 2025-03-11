@@ -331,10 +331,9 @@ class Amount implements Comparable<Amount> {
       Amount.fromDecimal(toDecimal() - other.toDecimal(), precision: precision);
 
   Amount operator *(Amount multiplier) {
-    final amount =
-        Decimal.fromBigInt(value) * Decimal.parse(multiplier.toString());
+    final amount = toDecimal() * multiplier.toDecimal();
 
-    return Amount(amount.round().toBigInt(), precision: precision);
+    return Amount.fromDecimal(amount, precision: precision);
   }
 
   Amount operator /(Amount divider) {
@@ -345,10 +344,12 @@ class Amount implements Comparable<Amount> {
       throw const InfiniteNumberException();
     }
 
-    final amount =
-        Decimal.fromBigInt(value) / Decimal.parse(divider.toString());
+    final amount = toDecimal() / divider.toDecimal();
 
-    return Amount(amount.round(), precision: precision);
+    return Amount.fromDecimal(
+      amount.toDecimal(scaleOnInfinitePrecision: 15),
+      precision: precision,
+    );
   }
 
   bool operator <(Amount other) => toDecimal() < other.toDecimal();
