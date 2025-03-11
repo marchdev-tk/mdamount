@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.10
+
+* Fixed `Decimal` related issue with multiplication and division.
+
 ## 1.0.9
 
 * Fixed `Decimal` related issue.
