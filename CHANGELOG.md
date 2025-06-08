@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.12
+
+* Added `Amount.isInteger` getter.
+* Fixed decimal separator formatter regex for double values.
+* Updated tests.
+
 ## 1.0.11
 
 * Added to `RankFormat` `RankFormat.comma` and `RankFormat.point` rank options.
