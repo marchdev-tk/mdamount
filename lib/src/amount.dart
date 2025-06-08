@@ -232,6 +232,9 @@ class Amount implements Comparable<Amount> {
   /// Whether this amount is less than or equals to zero or not.
   bool get isLessThanOrEqualZero => this <= Amount.zeroOf(precision);
 
+  /// Whether this amount is integer or not.
+  bool get isInteger => fractional == BigInt.zero;
+
   /// Gets integer part of the current amount.
   BigInt get integer => value ~/ BigInt.from(_precisionModifier(precision));
 

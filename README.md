@@ -74,6 +74,7 @@ Regarding what you can do with this object, let's break down following methods/g
   * `isGreaterThanOrEqualZero` - whether the amount is greater than or equals to `zero` or not
   * `isLessThanZero` - whether the amount is less than `zero` or not
   * `isLessThanOrEqualZero` - whether the amount is less than or equals to `zero` or not
+  * `isInteger` - whether this amount is integer or not
   * `integer` - returns the `integer` part of the amount
   * `fractional` - returns the `fractional` part of the amount in `BigInt` cents
   * `fractionalDecimal` - returns the `fractional` part of the amount in `Decimal`

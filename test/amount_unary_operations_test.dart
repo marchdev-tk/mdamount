@@ -696,6 +696,64 @@ void main() {
     });
   });
 
+  group('isInteger >', () {
+    test('1.5', () {
+      final actual = Amount.fromDouble(1.5).isInteger;
+      const expected = false;
+      expect(actual, expected);
+    });
+    test('1', () {
+      final actual = Amount.fromDouble(1).isInteger;
+      const expected = true;
+      expect(actual, expected);
+    });
+    test('0.01', () {
+      final actual = Amount.fromDouble(0.01).isInteger;
+      const expected = false;
+      expect(actual, expected);
+    });
+    test('0', () {
+      final actual = Amount.fromDouble(0).isInteger;
+      const expected = true;
+      expect(actual, expected);
+    });
+    test('-0.01', () {
+      final actual = Amount.fromDouble(-0.01).isInteger;
+      const expected = false;
+      expect(actual, expected);
+    });
+    test('-1', () {
+      final actual = Amount.fromDouble(-1).isInteger;
+      const expected = true;
+      expect(actual, expected);
+    });
+    test('-1.5', () {
+      final actual = Amount.fromDouble(-1.5).isInteger;
+      const expected = false;
+      expect(actual, expected);
+    });
+    test('positive, precision 0', () {
+      final actual = Amount.fromDouble(123.456789, precision: 0).isInteger;
+      const expected = true;
+      expect(actual, expected);
+    });
+    test('positive, precision 4', () {
+      final actual = Amount.fromDouble(123.456789, precision: 4).isInteger;
+      const expected = false;
+      expect(actual, expected);
+    });
+    test('negative, precision 0', () {
+      final actual = Amount.fromDouble(-123.456789, precision: 0).isInteger;
+      const expected = true;
+      expect(actual, expected);
+    });
+    test('negative, precision 4', () {
+      final actual = Amount.fromDouble(-123.456789, precision: 4).isInteger;
+      const expected = false;
+      expect(actual, expected);
+    });
+  });
+
   group('abs >', () {
     test('1.5', () {
       final actual = Amount.fromDouble(1.5).abs();
