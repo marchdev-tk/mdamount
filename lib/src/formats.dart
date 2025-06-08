@@ -7,7 +7,8 @@ import 'dart:math' as math;
 import 'package:mdamount/mdamount.dart';
 
 final _doubleRegex = RegExp(r'^(-?)(0|([1-9][0-9]*))(\.[0-9]{1,})?$');
-final _doubleRankedRegex = RegExp(r'^(-?)(0|([1-9][0-9 ]*))(\.[0-9]{1,})?$');
+final _doubleRankedRegex = RegExp(
+    r'^-?((0|[1-9][0-9]{0,2}([ ,\.]?[0-9]{3})*)(\.[0-9]+)?|[1-9][0-9]+)$');
 
 abstract interface class AmountFormatterInteface<T> {
   String format(T value);
@@ -28,13 +29,17 @@ enum DecimalSeparatorFormat implements AmountFormatterInteface<String> {
   ///
   /// * contain only numbers and rank symbol
   /// * decimal separator must be `.`
+  ///
+  /// **Also note**: [isInteger] must be set explicitly 'cause this formatter
+  /// knows nothing about the value passed here and assumes that it is a double
+  /// value by default.
   @override
-  String format(String amount) {
+  String format(String amount, {bool isInteger = false}) {
     if (!_doubleRankedRegex.hasMatch(amount)) {
       throw ArgumentError.value(
         amount,
         'amount',
-        'Must contain only money amount style string, '
+        'Must contain only amount style string, '
             'for instanse: "123.45"/"321.4"/"456"',
       );
     }
@@ -43,7 +48,12 @@ enum DecimalSeparatorFormat implements AmountFormatterInteface<String> {
       case point:
         return amount;
       case comma:
-        return amount.replaceAll('.', ',');
+        if (isInteger) {
+          return amount;
+        }
+
+        final lastIndex = amount.lastIndexOf('.');
+        return amount.replaceFirst('.', ',', lastIndex == -1 ? 0 : lastIndex);
     }
   }
 }

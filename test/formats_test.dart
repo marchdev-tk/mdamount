@@ -18,11 +18,6 @@ void main() {
         final expected = throwsA(const TypeMatcher<ArgumentError>());
         expect(actual, expected);
       });
-      test('comma separated with too much fractionals', () {
-        String actual() => DecimalSeparatorFormat.point.format('1234,567');
-        final expected = throwsA(const TypeMatcher<ArgumentError>());
-        expect(actual, expected);
-      });
       test('integer with decimal point', () {
         String actual() => DecimalSeparatorFormat.point.format('123.');
         final expected = throwsA(const TypeMatcher<ArgumentError>());

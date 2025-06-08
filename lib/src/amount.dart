@@ -436,6 +436,7 @@ class Amount implements Comparable<Amount> {
       rankFormat.format(
         amountFormat.format(this, precision),
       ),
+      isInteger: amountFormat == AmountFormat.integer,
     );
 
     return amountFmt;

@@ -1255,6 +1255,24 @@ void main() {
         const expected = '1 000.10';
         expect(actual, expected);
       });
+      test('fixedDouble/comma/point', () {
+        final actual = Amount.fromDouble(1000.1).toString(
+          amountFormat: AmountFormat.fixedDouble,
+          rankFormat: RankFormat.comma,
+          decimalSeparatorFormat: DecimalSeparatorFormat.point,
+        );
+        const expected = '1,000.10';
+        expect(actual, expected);
+      });
+      test('fixedDouble/point/point', () {
+        final actual = Amount.fromDouble(1000.1).toString(
+          amountFormat: AmountFormat.fixedDouble,
+          rankFormat: RankFormat.point,
+          decimalSeparatorFormat: DecimalSeparatorFormat.point,
+        );
+        const expected = '1.000.10';
+        expect(actual, expected);
+      });
       test('fixedDouble/none/comma', () {
         final actual = Amount.fromDouble(1000.1).toString(
           amountFormat: AmountFormat.fixedDouble,
@@ -1271,6 +1289,24 @@ void main() {
           decimalSeparatorFormat: DecimalSeparatorFormat.comma,
         );
         const expected = '1 000,10';
+        expect(actual, expected);
+      });
+      test('fixedDouble/comma/comma', () {
+        final actual = Amount.fromDouble(1000.1).toString(
+          amountFormat: AmountFormat.fixedDouble,
+          rankFormat: RankFormat.comma,
+          decimalSeparatorFormat: DecimalSeparatorFormat.comma,
+        );
+        const expected = '1,000,10';
+        expect(actual, expected);
+      });
+      test('fixedDouble/point/comma', () {
+        final actual = Amount.fromDouble(1000.1).toString(
+          amountFormat: AmountFormat.fixedDouble,
+          rankFormat: RankFormat.point,
+          decimalSeparatorFormat: DecimalSeparatorFormat.comma,
+        );
+        const expected = '1.000,10';
         expect(actual, expected);
       });
       test('fixedDouble precision 0', () {
@@ -1340,6 +1376,24 @@ void main() {
         const expected = '1 000';
         expect(actual, expected);
       });
+      test('integer/comma/point', () {
+        final actual = Amount.fromDouble(1000.1).toString(
+          amountFormat: AmountFormat.integer,
+          rankFormat: RankFormat.comma,
+          decimalSeparatorFormat: DecimalSeparatorFormat.point,
+        );
+        const expected = '1,000';
+        expect(actual, expected);
+      });
+      test('integer/point/point', () {
+        final actual = Amount.fromDouble(1000.1).toString(
+          amountFormat: AmountFormat.integer,
+          rankFormat: RankFormat.point,
+          decimalSeparatorFormat: DecimalSeparatorFormat.point,
+        );
+        const expected = '1.000';
+        expect(actual, expected);
+      });
       test('integer/none/comma', () {
         final actual = Amount.fromDouble(1000.1).toString(
           amountFormat: AmountFormat.integer,
@@ -1356,6 +1410,24 @@ void main() {
           decimalSeparatorFormat: DecimalSeparatorFormat.comma,
         );
         const expected = '1 000';
+        expect(actual, expected);
+      });
+      test('integer/comma/comma', () {
+        final actual = Amount.fromDouble(1000.1).toString(
+          amountFormat: AmountFormat.integer,
+          rankFormat: RankFormat.comma,
+          decimalSeparatorFormat: DecimalSeparatorFormat.comma,
+        );
+        const expected = '1,000';
+        expect(actual, expected);
+      });
+      test('integer/point/comma', () {
+        final actual = Amount.fromDouble(1000.1).toString(
+          amountFormat: AmountFormat.integer,
+          rankFormat: RankFormat.point,
+          decimalSeparatorFormat: DecimalSeparatorFormat.comma,
+        );
+        const expected = '1.000';
         expect(actual, expected);
       });
       test('integer precision 0', () {
@@ -1425,6 +1497,24 @@ void main() {
         const expected = '1 000.1';
         expect(actual, expected);
       });
+      test('flexibleDouble/comma/point', () {
+        final actual = Amount.fromDouble(1000.1).toString(
+          amountFormat: AmountFormat.flexibleDouble,
+          rankFormat: RankFormat.comma,
+          decimalSeparatorFormat: DecimalSeparatorFormat.point,
+        );
+        const expected = '1,000.1';
+        expect(actual, expected);
+      });
+      test('flexibleDouble/point/point', () {
+        final actual = Amount.fromDouble(1000.1).toString(
+          amountFormat: AmountFormat.flexibleDouble,
+          rankFormat: RankFormat.point,
+          decimalSeparatorFormat: DecimalSeparatorFormat.point,
+        );
+        const expected = '1.000.1';
+        expect(actual, expected);
+      });
       test('flexibleDouble/none/comma', () {
         final actual = Amount.fromDouble(1000.1).toString(
           amountFormat: AmountFormat.flexibleDouble,
@@ -1441,6 +1531,24 @@ void main() {
           decimalSeparatorFormat: DecimalSeparatorFormat.comma,
         );
         const expected = '1 000,1';
+        expect(actual, expected);
+      });
+      test('flexibleDouble/comma/comma', () {
+        final actual = Amount.fromDouble(1000.1).toString(
+          amountFormat: AmountFormat.flexibleDouble,
+          rankFormat: RankFormat.comma,
+          decimalSeparatorFormat: DecimalSeparatorFormat.comma,
+        );
+        const expected = '1,000,1';
+        expect(actual, expected);
+      });
+      test('flexibleDouble/point/comma', () {
+        final actual = Amount.fromDouble(1000.1).toString(
+          amountFormat: AmountFormat.flexibleDouble,
+          rankFormat: RankFormat.point,
+          decimalSeparatorFormat: DecimalSeparatorFormat.comma,
+        );
+        const expected = '1.000,1';
         expect(actual, expected);
       });
       test('flexibleDouble precision 0 negative', () {
