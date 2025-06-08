@@ -55,7 +55,52 @@ enum RankFormat implements AmountFormatterInteface<String> {
 
   /// Amount will be divided into chunks, within each chunk will be 3 digits
   /// max. Each chunk will be separated by space char.
-  space;
+  space,
+
+  /// Amount will be divided into chunks, within each chunk will be 3 digits
+  /// max. Each chunk will be separated by comma char.
+  comma,
+
+  /// Amount will be divided into chunks, within each chunk will be 3 digits
+  /// max. Each chunk will be separated by decimal point char.
+  point;
+
+  String _formatWithSeparator(String amount, String separator) {
+    final indexOfPoint = amount.indexOf('.');
+    final hasMinusSign = amount.startsWith('-');
+    final integer = amount
+        .substring(
+          hasMinusSign ? 1 : 0,
+          indexOfPoint == -1 ? null : indexOfPoint,
+        )
+        .runes
+        .toList();
+
+    if (integer.length <= 3) {
+      return amount;
+    }
+
+    final integerLength = integer.length;
+    for (var i = 3, counter = 0; i < integerLength; i++) {
+      if (i % 3 == 0) {
+        integer.insert(
+          integer.length - i - counter,
+          separator.codeUnits.single,
+        );
+        counter++;
+      }
+    }
+    var fractional = '';
+    if (amount.contains('.')) {
+      fractional = amount.substring(indexOfPoint);
+    }
+    var sign = '';
+    if (hasMinusSign) {
+      sign = '-';
+    }
+
+    return '$sign${String.fromCharCodes(integer)}$fractional';
+  }
 
   /// Formats given [amount] per current ranking format.
   ///
@@ -79,40 +124,11 @@ enum RankFormat implements AmountFormatterInteface<String> {
       case none:
         return amount;
       case space:
-        final indexOfPoint = amount.indexOf('.');
-        final hasMinusSign = amount.startsWith('-');
-        final integer = amount
-            .substring(
-              hasMinusSign ? 1 : 0,
-              indexOfPoint == -1 ? null : indexOfPoint,
-            )
-            .runes
-            .toList();
-
-        if (integer.length <= 3) {
-          return amount;
-        }
-
-        final integerLength = integer.length;
-        for (var i = 3, counter = 0; i < integerLength; i++) {
-          if (i % 3 == 0) {
-            integer.insert(
-              integer.length - i - counter,
-              ' '.codeUnits.single,
-            );
-            counter++;
-          }
-        }
-        var fractional = '';
-        if (amount.contains('.')) {
-          fractional = amount.substring(indexOfPoint);
-        }
-        var sign = '';
-        if (hasMinusSign) {
-          sign = '-';
-        }
-
-        return '$sign${String.fromCharCodes(integer)}$fractional';
+        return _formatWithSeparator(amount, ' ');
+      case comma:
+        return _formatWithSeparator(amount, ',');
+      case point:
+        return _formatWithSeparator(amount, '.');
     }
   }
 }

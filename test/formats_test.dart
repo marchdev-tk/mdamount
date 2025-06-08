@@ -324,6 +324,180 @@ void main() {
         });
       });
     });
+
+    group('Comma >', () {
+      group('Integer >', () {
+        test('1', () {
+          final actual = RankFormat.comma.format('1');
+          const expected = '1';
+          expect(actual, expected);
+        });
+        test('-12', () {
+          final actual = RankFormat.comma.format('-12');
+          const expected = '-12';
+          expect(actual, expected);
+        });
+        test('123', () {
+          final actual = RankFormat.comma.format('123');
+          const expected = '123';
+          expect(actual, expected);
+        });
+        test('1234', () {
+          final actual = RankFormat.comma.format('1234');
+          const expected = '1,234';
+          expect(actual, expected);
+        });
+        test('12345', () {
+          final actual = RankFormat.comma.format('12345');
+          const expected = '12,345';
+          expect(actual, expected);
+        });
+        test('123456', () {
+          final actual = RankFormat.comma.format('123456');
+          const expected = '123,456';
+          expect(actual, expected);
+        });
+        test('1234567', () {
+          final actual = RankFormat.comma.format('1234567');
+          const expected = '1,234,567';
+          expect(actual, expected);
+        });
+        test('12345678', () {
+          final actual = RankFormat.comma.format('12345678');
+          const expected = '12,345,678';
+          expect(actual, expected);
+        });
+        test('123456789', () {
+          final actual = RankFormat.comma.format('123456789');
+          const expected = '123,456,789';
+          expect(actual, expected);
+        });
+      });
+      group('Integer with fractionals >', () {
+        test('1.1', () {
+          final actual = RankFormat.comma.format('1.1');
+          const expected = '1.1';
+          expect(actual, expected);
+        });
+        test('1234.1', () {
+          final actual = RankFormat.comma.format('1234.1');
+          const expected = '1,234.1';
+          expect(actual, expected);
+        });
+        test('12345678.1', () {
+          final actual = RankFormat.comma.format('12345678.1');
+          const expected = '12,345,678.1';
+          expect(actual, expected);
+        });
+        test('1.85', () {
+          final actual = RankFormat.comma.format('1.85');
+          const expected = '1.85';
+          expect(actual, expected);
+        });
+        test('1234.85', () {
+          final actual = RankFormat.comma.format('1234.85');
+          const expected = '1,234.85';
+          expect(actual, expected);
+        });
+        test('12345678.85', () {
+          final actual = RankFormat.comma.format('12345678.85');
+          const expected = '12,345,678.85';
+          expect(actual, expected);
+        });
+        test('1234.857562', () {
+          final actual = RankFormat.comma.format('1234.857562');
+          const expected = '1,234.857562';
+          expect(actual, expected);
+        });
+      });
+    });
+
+    group('Point >', () {
+      group('Integer >', () {
+        test('1', () {
+          final actual = RankFormat.point.format('1');
+          const expected = '1';
+          expect(actual, expected);
+        });
+        test('-12', () {
+          final actual = RankFormat.point.format('-12');
+          const expected = '-12';
+          expect(actual, expected);
+        });
+        test('123', () {
+          final actual = RankFormat.point.format('123');
+          const expected = '123';
+          expect(actual, expected);
+        });
+        test('1234', () {
+          final actual = RankFormat.point.format('1234');
+          const expected = '1.234';
+          expect(actual, expected);
+        });
+        test('12345', () {
+          final actual = RankFormat.point.format('12345');
+          const expected = '12.345';
+          expect(actual, expected);
+        });
+        test('123456', () {
+          final actual = RankFormat.point.format('123456');
+          const expected = '123.456';
+          expect(actual, expected);
+        });
+        test('1234567', () {
+          final actual = RankFormat.point.format('1234567');
+          const expected = '1.234.567';
+          expect(actual, expected);
+        });
+        test('12345678', () {
+          final actual = RankFormat.point.format('12345678');
+          const expected = '12.345.678';
+          expect(actual, expected);
+        });
+        test('123456789', () {
+          final actual = RankFormat.point.format('123456789');
+          const expected = '123.456.789';
+          expect(actual, expected);
+        });
+      });
+      group('Integer with fractionals >', () {
+        test('1.1', () {
+          final actual = RankFormat.point.format('1.1');
+          const expected = '1.1';
+          expect(actual, expected);
+        });
+        test('1234.1', () {
+          final actual = RankFormat.point.format('1234.1');
+          const expected = '1.234.1';
+          expect(actual, expected);
+        });
+        test('12345678.1', () {
+          final actual = RankFormat.point.format('12345678.1');
+          const expected = '12.345.678.1';
+          expect(actual, expected);
+        });
+        test('1.85', () {
+          final actual = RankFormat.point.format('1.85');
+          const expected = '1.85';
+          expect(actual, expected);
+        });
+        test('1234.85', () {
+          final actual = RankFormat.point.format('1234.85');
+          const expected = '1.234.85';
+          expect(actual, expected);
+        });
+        test('12345678.85', () {
+          final actual = RankFormat.point.format('12345678.85');
+          const expected = '12.345.678.85';
+          expect(actual, expected);
+        });
+        test('1234.857562', () {
+          final actual = RankFormat.point.format('1234.857562');
+          const expected = '1.234.857562';
+          expect(actual, expected);
+        });
+      });
+    });
   });
 
   group('AmountFormat >', () {

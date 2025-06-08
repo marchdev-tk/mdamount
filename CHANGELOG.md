@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.11
+
+* Added to `RankFormat` `RankFormat.comma` and `RankFormat.point` rank options.
+
 ## 1.0.10
 
 * Fixed `Decimal` related issue with multiplication and division.
